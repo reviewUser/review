@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.dao.UserDao">
+
+	<resultMap type="sysUser" id="userMap">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="sex" property="sex"/>
+		<result column="mail" property="mail"/>
+		<result column="phone" property="phone"/>
+		<result column="title" property="title"/>
+		<result column="role_id" property="roleId"/>
+	</resultMap>
+	<insert id="register" parameterType="sysUser">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO sys_user(id,username,password,sex,mail,phone,title,role_id)
+		VALUES(#{id},#{username},#{password},#{sex},#{mail},#{phone},#{title},#{roleId})
+	</insert>
+
+	<select id="login" resultMap="userMap">
+		SELECT * FROM sys_user WHERE username = #{username} AND password = #{password}
+	</select>
+	
+	<select id="getUserById" resultMap="userMap" parameterType="long">
+		SELECT * FROM sys_user WHERE id = #{id}
+	</select>
+	
+	<update id="update" parameterType="sysUser">
+		UPDATE sys_user
+		<set>
+			<if test="username != null">
+	            username = #{username},
+	        </if>
+	        <if test="sex != null">
+	            sex = #{sex},
+	        </if>
+	        <if test="mail != null">
+	            mail = #{mail},
+	        </if>
+	        <if test="mail != null">
+	            phone = #{phone},
+	        </if>
+	        <if test="title != null">
+	            title = #{title},
+	        </if>
+		</set>
+		WHERE id  = #{id}
+	</update>
+	
+	<select id="getUserByUserName" resultMap="userMap">
+		SELECT * FROM sys_user WHERE username LIKE CONCAT('%',#{username},'%')
+	</select>
+	
+	<select id="listUsersByNameAndRole" resultMap="userMap">
+		SELECT * FROM sys_user
+		<where>
+			<if test="username != null and username != ''">
+				AND username LIKE CONCAT('%',#{username},'%')
+			</if>
+			<if test="roleId != null">
+				AND role_id = #{roleId}
+			</if>
+		</where>
+		LIMIT #{offset},#{limit}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM sys_user
+		<where>
+			<if test="username != null and username != ''">
+				AND username LIKE CONCAT('%',#{username},'%')
+			</if>
+			<if test="roleId != null">
+				AND role_id = #{roleId}
+			</if>
+		</where>
+	</select>
+	
+	<sql id="insql">
+	     <foreach collection="list" item="item" separator="," open="(" close=")">
+	         #{item}
+	     </foreach>
+    </sql>
+	
+	<select id="listExpertByIds" resultMap="userMap">
+		SELECT * FROM sys_user WHERE role_id = 2
+		 <if test="list!=null and list.size()>0">
+			 and id in <include refid="insql"/>
+		 </if>
+	</select>
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM sys_user WHERE id = #{id}
+	</delete>
+</mapper>

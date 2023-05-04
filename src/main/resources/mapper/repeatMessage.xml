@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.dao.RepeatMessageDao">
+
+    <resultMap type="RepeatMessageInfo" id="RepeatMessageInfoMap">
+        <id column="id" property="id"/>
+        <result column="phone" property="phone"/>
+        <result column="time" property="time"/>
+        <result column="repeats" property="repeats"/>
+    </resultMap>
+    <insert id="insert" parameterType="RepeatMessageInfo">
+        <selectKey resultType="java.lang.Long" keyProperty="id"
+                   order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        replace INTO repeat_message(id,phone, time, repeats)
+        VALUES (#{id}, #{phone}, #{time}, #{repeats})
+    </insert>
+
+    <update id="updateByPhone" parameterType="RepeatMessageInfo">
+        UPDATE repeat_message
+        <set>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="repeats != null">
+                repeats = #{repeats}
+            </if>
+        </set>
+        WHERE phone  = #{phone}
+    </update>
+</mapper>

@@ -1,0 +1,61 @@
+# application.yaml
+# Server settings (ServerProperties)
+server:
+  port: 8080
+  address: 127.0.0.1
+  sessionTimeout: 30
+
+# Tomcat specifics
+tomcat:
+  accessLogEnabled: false
+  protocolHeader: x-forwarded-proto
+  remoteIpHeader: x-forwarded-for
+  basedir:
+  backgroundProcessorDelay: 30 # secs
+
+#日志级别配置
+logging:
+ path: E:\\log
+ level:
+  root: info
+  org:
+   springframework:
+    web: debug
+
+#mybatis:
+#  configuration:
+#    map-underscore-to-camel-case: false
+
+spring:
+  #thymleaf配置
+  thymeleaf:
+    prefix: classpath:/templates/  
+    suffix: .html  
+    mode: HTML5  
+    encoding: UTF-8
+    cache: false
+  #上传文件大小配置
+  http:
+    multipart:
+      enable: false
+      maxFileSize: 20Mb
+    maxRequestSize: 200Mb
+  mail:
+    username: 285060193@qq.com
+    password: rccbmxbiqrxecbcc
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          auth: false
+
+aliyun:
+  sms:
+    access-key-id: LTAI5t7k9d1kdvy9mXaTND2q
+    access-key-secret: pOxcqfaacZseCyUQtZq21lOQ22qlZG
+    sign-name: 杨勇博客审核通知
+    template-code: SMS_276210229
+    queue-Name: Alicom-Queue-1763481093987402-SmsUp
+
+expert:
+  refuse-count: 5

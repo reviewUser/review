@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>评审任务管理</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}"/>
+    <link rel="stylesheet" href="../../static/css/allocate.css"
+          th:href="@{/css/allocate.css}"/>
+    <style type="text/css">
+        .layui-inline {
+            margin-top: 10px;
+        }
+
+        #tableInfo {
+            width: 1500px;
+            position: static;
+            left: 50px;
+        }
+
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">长庆石油专家任务评审系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item"><a href="javascript:;">
+                <span th:text="${session.user.username}">贤心</span></a></li>
+            <li class="layui-nav-item"><a href="" th:href="@{/user/logout}">注销</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree">
+                <!--					<li class="layui-nav-item layui-nav-itemed">-->
+                <!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
+                <!--					</li>-->
+                <li class="layui-nav-item layui-nav-itemed"><a class=""
+                                                               href="javascript:;"
+                                                               th:href="@{/project/allocateManagePage}"><strong>评审专家管理</strong></a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;"
+                                                               th:href="@{/project/managePage}"><strong>评审任务管理</strong></a>
+                </li>
+                <!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a class="" href="javascript:;" th:href="@{/project/userPage?role=1}">评审任务申请者管理</a>
+                    </dd>
+                    <dd>
+                        <a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
+                    </dd>
+                    <!--							<dd>-->
+                    <!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
+                    <!--							</dd>-->
+                </dl>
+                </li>
+                <!--						<li class="layui-nav-item layui-nav-itemed"><a class=""-->
+                <!--						href="javascript:;" th:href="@{/field/fieldPage}">领域标签管理</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+			<span class="layui-breadcrumb" lay-separator="/">
+			  <a href=""><cite>评审任务管理</cite></a>
+			</span>
+        <blockquote class="layui-elem-quote"><BIG>系统所有评审任务</BIG></blockquote>
+        <form class="layui-form" method="POST" style="margin-left:100px">
+            <div class="layui-form-item">
+                <table border="0" cellspacing="=" 0>
+                    <tr>
+                        <th>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">评审任务名</label>
+                                <div class="layui-input-inline">
+                                    <input align="center" id="projectName" type="text" name="projectName"
+                                           placeholder="根据评审任务名模糊搜索" autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">评审发起人</label>
+                                <div class="layui-input-inline">
+                                    <input id="username" type="text" name="username"
+                                           placeholder="" autocomplete="off"
+                                           class="layui-input"/>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
+                                <div class="layui-input-inline">
+                                    <select id="status" name="status">
+                                        <option value=""></option>
+                                        <option value="WAIT_REVIEW">工程</option>
+                                        <option value="IN_REVIEW">财务</option>
+                                        <option value="REVIEW_DONE">地质</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">评审状态</label>
+                                <div class="layui-input-inline">
+                                    <select id="status" name="status">
+                                        <option value=""></option>
+                                        <option value="WAIT_REVIEW">待评审</option>
+                                        <option value="IN_REVIEW">通知中</option>
+                                        <option value="REVIEW_DONE">通知完成</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="margin-right: 450px"></label>
+                <a id="select" class="layui-btn layui-btn-normal layui-btn-radius"><i style="padding-right: 4px"
+                                                                                      class="layui-icon">&#xe615;</i>查询</a>
+            </div>
+        </form>
+        <div class="layui-btn-container" style="margin-top:80px">
+            <label class="layui-form-label" style="width:20px"></label>
+            <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入
+            </button>
+            <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
+
+            <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出
+            </button>
+        </div>
+        <div id="tableInfo">
+            <label class="layui-form-label" style="width:20px"></label>
+            <table class="layui-hide" id="applyinfo" lay-filter="applyinfotable"></table>
+
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
+                        style="padding-right: 4px;" class="layui-icon">&#xe705;</i>发起评审</a>
+            </script>
+        </div>
+    </div>
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
+    </div>
+</div>
+<script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    //JavaScript代码区域
+    layui.use(['jquery', 'layer', 'form', 'table', 'laydate', 'element', 'upload'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.element,
+            table = layui.table,
+            laydate = layui.laydate,
+            element = layui.element,
+            upload = layui.upload;
+
+        //日期时间范围
+        laydate.render({
+            elem: '#createTime'
+            , type: 'datetime'
+            , range: '~'
+            , format: 'yyyy-MM-dd HH:mm:ss'
+        });
+
+        var params = {};
+        params.pageNum = 1;
+        params.pageSize = 10;
+        params.reviewName = $('#review_name').val();
+        params.reviewUser = $('#review_user').val();
+        params.reviewField = $('#review_field').val();
+        params.reviewStatus = $('#review_status').val();
+        var review = "";
+        var list = [];
+        //接口接入
+        $.ajax({
+            url: '/review/queryReviewInfo',
+            method: 'post',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(params),
+            success: function (res) {
+                renderTable(res.data);
+            }
+        });
+        var colsnew = [ //表头
+            {type: 'checkbox'}
+            , {field: 'id', title: '流水号', width: 100, sort: true}
+            , {field: 'reviewName', title: '评审任务名', width: 100, edit: true}
+            , {field: 'reviewRemark', title: '摘要', width: 150, edit: true}
+            , {field: 'reviewUser', title: '评审发起人', width: 120}
+            , {field: 'reviewDate', title: '评审计划日期', width: 150, sort: true}
+            , {field: 'reviewStartDate', title: '评审开始时间', width: 150, sort: true}
+            , {field: 'reviewEndDate', title: '评审结束时间', width: 150, sort: true}
+            , {field: 'reviewField', title: '评审所属专业领域', width: 100}
+            , {field: 'reviewExperts', title: '评审所需专家数量', width: 150}
+            , {field: 'reviewStatus', title: '评审状态', width: 100}
+            , {fixed: 'right', title: '操作', width: 100, align: 'center', toolbar: '#barDemo'}
+        ];
+        //执行一个 table 实例
+        var renderTable = function (data) {
+            var tableIns = table.render({
+                elem: '#applyinfo'
+                , width: '100%'
+                , data: data
+                , cols: [colsnew]
+                , where: {action: "List"}
+                , request: {
+                    pageName: 'pageNum', //页码的参数名称
+                    limitName: 'pageSize' //每页数据量的参数名
+                }
+                , done: function (res, curr, count) {
+                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                }
+
+                , page: {
+                    limit: params.pageSize,//指定每页显示的条数
+                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+                }
+            });
+            // 执行重载
+            table.render().reload('applyinfo', {cols: [colsnew]})
+            //查询
+            $('#select').click(function () {
+                tableIns.reload({
+                    where: { //设定异步数据接口的额外参数，任意设
+                        projectName: $('#projectName').val()
+                        , status: $('#status').val()
+                        , createTime: $('#createTime').val()
+                        , username: $('#username').val()
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            });
+
+            //监听工具条
+            table.on('tool(applyinfotable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'detail') {
+                    if (data.status != '评审完成') {
+                        layer.msg('目前评审状态为：' + data.status + ",请耐心等待");
+                    } else {
+                        var projectId = data.id;
+                        window.location.href = "/review/resultPage?id=" + projectId;
+                    }
+                } else if (layEvent === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del(); //删除对应行（tr）的DOM结构
+                        layer.close(index);
+                        //向服务端发送删除指令
+                        $.get("/project/delete", {id: data.id});
+                    });
+                } else if (layEvent === 'field') {
+                    $.ajax({
+                        type: "POST",
+                        url: "/entityField/relateField",
+                        data: {
+                            id: data.id,
+                            entityType: "PROJECT"
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            layer.open({
+                                type: 0,
+                                title: '评审任务所属领域',
+                                content: data.data //这里content是一个普通的String
+                            });
+                            // layer.msg(data.data);
+                        }
+                    });
+                }
+            });
+            //监听单元格编辑
+            table.on('edit(applyinfotable)', function (obj) {
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                /* layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ data.projectName); */
+                if (value == null || value == '') {
+                    layer.msg("字段[" + field + "]值不能为空！！！");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/project/update",
+                        data: {
+                            id: data.id,
+                            projectName: data.projectName,
+                            description: data.description
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            layer.msg(data.data);
+                        }
+                    });
+                }
+
+            });
+        }
+
+        //文件上传
+        upload.render({
+            elem: '#import'
+            , type: 'GET'
+            , url: '/review/importReviewExcel' //此处配置你自己的上传接口即可
+            , accept: 'file' //普通文件
+            , done: function (res) {
+                layer.msg('上传成功');
+                console.log(res);
+            }
+        });
+        //删除
+        	form.on('submit(delete)',function(data){
+            var checkStatus = table.checkStatus('id'); //idTest 即为基础参数 id 对应的值
+            console.log(checkStatus.data[0].personNo) //获取选中行的数据
+            console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+            console.log(checkStatus.isAll ) //表格是否全选
+                // var ids = [1,2];
+            $.ajax({
+                url:'/expert/delReview',
+                type:'POST',
+                data:{
+                    "id": checkStatus.data[0].personNo
+                },
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg("删除成功",function() {time:1000});
+                        parent.location.reload();
+                    }else{
+                        layer.msg("删除失败",function() {time:1000})
+                    }
+                }
+            })
+        })
+
+
+        //导出
+        layui.config({//配置并导入excel插件
+            base: '${base}/scripts/layui/layui_exts/'
+        }).use(['excel', 'layer'], function () {
+            var $ = layui.$;
+            var layer = layui.layer;
+            var excel = layui.excel;
+            $('#export').on('click', function () {
+                // 模拟从后端接口读取需要导出的数据
+                $.ajax({
+                    url: '/review/queryReviewInfo'
+                    , dataType: 'json'
+                    , success(res) {
+                        var data = res;
+                        console.log(res);
+                        // 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
+                        data = excel.filterExportData(data, [
+                            'id'
+                            , 'review_name'
+                            , 'review_remark'
+                            , 'review_user'
+                            , 'review_date'
+                            , 'review_start_date'
+                            , 'review_end_date'
+                            , 'review_field'
+                            , 'review_experts'
+                            , 'review_status'
+                        ]);
+                        // 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
+                        data.unshift({
+                            id: "流水号",
+                            review_name: "评审任务名",
+                            review_remark: '摘要',
+                            review_user: "评审发起人",
+                            review_date: '评审计划日期',
+                            review_start_date: "评审开始时间",
+                            review_end_date: '评审结束时间',
+                            review_field: "评审所属专业领域",
+                            review_experts: "评审专家数量",
+                            review_status: '评审状态'
+                        });
+
+                        var timestart = Date.now();
+                        excel.exportExcel(data, '评审任务表--' + '.xlsx', 'xlsx');
+
+                    }
+                    , error() {
+                        layer.alert('获取数据失败，请检查是否部署在本地服务器环境下');
+                    }
+                });
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>

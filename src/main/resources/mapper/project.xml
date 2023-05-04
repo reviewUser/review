@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.dao.ProjectDao">
+
+	<resultMap type="project" id="projectMap">
+		<id column="id" property="id" />
+		<result column="project_name" property="projectName" />
+		<result column="description" property="description" />
+		<result column="status" property="status" />
+		<result column="file_save_path" property="fileSavePath" />
+		<result column="create_time" property="createTime" />
+		<result column="last_update_time" property="lastUpdateTime" />
+		<result column="group_id" property="groupId" />
+		<result column="expert_id" property="expertId" />
+		<result column="review_count" property="reviewCount" />
+		<result column="create_user_id" property="createUserId" />
+		<association property="user" javaType="sysUser" column="create_user_id" select="getCreateUser"/>
+			
+	</resultMap>
+	
+	<sql id="insql">
+	     <foreach collection="param.list" item="item" separator="," open="(" close=")">
+	         #{item}
+	     </foreach>
+    </sql>
+	
+	<insert id="insert" parameterType="project">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO project(id,project_name,description,status,file_save_path,create_time,last_update_time,create_user_id,review_count)
+		VALUES(#{id},#{projectName},#{description},#{status},#{fileSavePath},#{createTime},#{lastUpdateTime},#{createUserId},0)
+	</insert>
+	
+	<select id="listProject" resultMap="projectMap">
+		SELECT * FROM project 
+		<where>
+			<if test="projectName != null">
+	            and project_name LIKE CONCAT('%',#{projectName},'%')
+	        </if>
+	        <if test="groupId != null">
+	            and group_id = #{groupId}
+	        </if>
+	        <if test="status != null">
+	            and status = #{status}
+	        </if>
+	        <if test="createUserIds != null and createUserIds.size() > 0">
+	            and create_user_id in 
+				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
+			        #{item}
+			    </foreach>
+	        </if>
+<!--	        <if test="groupIds != null and groupIds.size() > 0">-->
+<!--	            and group_id in -->
+<!--				<foreach collection="groupIds" item="item" separator="," open="(" close=")">-->
+<!--			        #{item}-->
+<!--			    </foreach>-->
+<!--			    and status in('IN_REVIEW','WAIT_REVIEW')-->
+<!--	        </if>-->
+	        <if test="startTime != null">
+	            and create_time &gt; #{startTime} 
+	        </if>
+	        <if test="endTime != null">
+	            and create_time &lt; #{endTime}
+	        </if>
+        </where>
+        LIMIT #{offset},#{limit}
+	</select>
+	<select id="listReivewdtProject" resultMap="projectMap">
+		SELECT * FROM project p, review r 
+		<where>
+			p.id = r.project_id
+			<if test="projectName != null">
+	            and p.project_name LIKE CONCAT('%',#{projectName},'%')
+	        </if>
+	        and p.status in('IN_REVIEW','REVIEW_DONE')
+	        <if test="createUserIds != null and createUserIds.size() > 0">
+	            and p.create_user_id in 
+				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
+			        #{item}
+			    </foreach>
+	        </if>
+	        <if test="startTime != null">
+	            and p.create_time &gt; #{startTime} 
+	        </if>
+	        <if test="endTime != null">
+	            and p.create_time &lt; #{endTime}
+	        </if>
+	        <if test="expertId != null">
+	            and r.expert_id = #{expertId}
+	        </if>
+        </where>
+        LIMIT #{offset},#{limit}
+	</select>
+	<select id="getCreateUser" resultType="sysUser" parameterType="long">
+		SELECT * FROM sys_user WHERE id = #{create_user_id}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM project 
+		<where>
+			<if test="projectName != null">
+	            and project_name LIKE CONCAT('%',#{projectName},'%')
+	        </if>
+<!--	        <if test="groupId != null">-->
+<!--	            and group_id = #{groupId}-->
+<!--	        </if>-->
+	        <if test="status != null">
+	            and status = #{status}
+	        </if>
+	        <if test="createUserIds != null and createUserIds.size() > 0">
+	            and create_user_id in 
+				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
+			        #{item}
+			    </foreach>
+	        </if>
+<!--	        <if test="groupIds != null and groupIds.size() > 0">-->
+<!--	            and group_id in -->
+<!--				<foreach collection="groupIds" item="item" separator="," open="(" close=")">-->
+<!--			        #{item}-->
+<!--			    </foreach>-->
+<!--			    and status in('IN_REVIEW','WAIT_REVIEW')-->
+<!--	        </if>-->
+	        <if test="startTime != null">
+	            and create_time &gt; #{startTime} 
+	        </if>
+	        <if test="endTime != null">
+	            and create_time &lt; #{endTime}
+	        </if>
+        </where>
+	</select>
+	<select id="getReivewdTotalCount" resultType="int">
+		SELECT count(*) FROM project p, review r 
+		<where>
+			p.id = r.project_id
+			<if test="projectName != null">
+	            and p.project_name LIKE CONCAT('%',#{projectName},'%')
+	        </if>
+	        and p.status in('IN_REVIEW','REVIEW_DONE')
+	        <if test="createUserIds != null and createUserIds.size() > 0">
+	            and p.create_user_id in 
+				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
+			        #{item}
+			    </foreach>
+	        </if>
+	        <if test="startTime != null">
+	            and p.create_time &gt; #{startTime} 
+	        </if>
+	        <if test="endTime != null">
+	            and p.create_time &lt; #{endTime}
+	        </if>
+	        <if test="expertId != null">
+	            and r.expert_id = #{expertId}
+	        </if>
+        </where>
+	</select>
+	<select id="getProjectById" resultMap="projectMap" parameterType="long">
+		SELECT * FROM project WHERE id = #{id}
+	</select>
+	<update id="update" parameterType="project">
+		UPDATE project
+		<set>
+			<if test="projectName != null">
+	            project_name = #{projectName},
+	        </if>
+	        <if test="description != null">
+	            description = #{description},
+	        </if>
+	        <if test="status != null">
+	            status = #{status},
+	        </if>
+	        <if test="fileSavePath != null">
+	            file_save_path = #{fileSavePath},
+	        </if>
+	        <if test="status != null">
+	            status = #{status},
+	        </if>
+	        <if test="createTime != null">
+	            create_time = #{createTime},
+	        </if>
+	        <if test="lastUpdateTime != null">
+	            last_update_time = #{lastUpdateTime},
+	        </if>
+	        <if test="groupId != null">
+	            group_id = #{groupId},
+	        </if>
+		</set>
+		WHERE id  = #{id}
+	</update>
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM project WHERE id = #{id}
+	</delete>
+	<select id="listByGroupId"  parameterType="long" resultMap="projectMap">
+		SELECT * FROM project WHERE group_id = #{groupId}
+	</select>
+	
+	<update id="updateStatusByIds">
+		UPDATE project SET status = #{status}, last_update_time = now()
+		WHERE id in 
+		<foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</update>
+	<update id="updateReviewCountById" parameterType="long">
+		UPDATE project SET review_count = review_count + 1 	WHERE id = #{id};
+	</update>
+</mapper>

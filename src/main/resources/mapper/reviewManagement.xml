@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.dao.ReviewManagementDao">
+
+    <resultMap type="ReviewManagement" id="reviewInfoMap">
+        <id column="id" property="id"/>
+        <result column="review_name" property="reviewName"/>
+        <result column="review_remark" property="reviewRemark"/>
+        <result column="review_user" property="reviewUser"/>
+        <result column="review_date" property="reviewDate"/>
+        <result column="review_start_date" property="reviewStartDate"/>
+        <result column="review_end_date" property="reviewEndDate"/>
+        <result column="review_field" property="reviewField"/>
+        <result column="review_experts" property="reviewExperts"/>
+        <result column="review_status" property="reviewStatus"/>
+    </resultMap>
+
+    <select id="queryReviewInfo" resultMap="reviewInfoMap">
+        SELECT distinct * FROM review_management
+        <where>
+            <if test="reviewName != null and reviewName != ''">
+                AND review_name LIKE CONCAT('%',#{reviewName},'%')
+            </if>
+            <if test="reviewUser != null and reviewUser != ''">
+                AND review_user LIKE CONCAT('%',#{reviewUser},'%')
+            </if>
+            <if test="reviewField != null and reviewField != ''">
+                AND review_field LIKE CONCAT('%',#{reviewField},'%')
+            </if>
+            <if test="reviewStatus != null and reviewStatus != ''">
+                AND review_status LIKE CONCAT('%',#{reviewStatus},'%')
+            </if>
+        </where>
+        LIMIT #{pageNum},#{pageSize}
+    </select>
+
+    <select id="getReviewTotalCount" resultType="int">
+        SELECT distinct count(*) FROM review_management
+        <where>
+            <if test="reviewName != null and reviewName != ''">
+                AND review_name LIKE CONCAT('%',#{reviewName},'%')
+            </if>
+            <if test="reviewUser != null and reviewUser != ''">
+                AND review_user LIKE CONCAT('%',#{reviewUser},'%')
+            </if>
+            <if test="reviewField != null and reviewField != ''">
+                AND review_field LIKE CONCAT('%',#{reviewField},'%')
+            </if>
+            <if test="reviewStatus != null and reviewStatus != ''">
+                AND review_status LIKE CONCAT('%',#{reviewStatus},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="batchInsertReviews" parameterType="java.util.List">
+        replace into review_management(id, review_name, review_remark, review_user, review_date,review_start_date, review_end_date,
+        review_field,review_experts,review_status) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.reviewName}, #{item.reviewRemark}, #{item.reviewUser}, #{item.reviewDate},#{item.reviewStartDate},
+            #{item.reviewEndDate}, #{item.reviewField},#{item.reviewExperts},#{item.reviewStatus})
+        </foreach>
+    </insert>
+
+    <delete id="batchDelReviews" parameterType="java.util.List">
+        DELETE FROM review_management WHERE
+        <foreach collection="list" item="key" index="index" separator="or">
+            id=#{key}
+        </foreach>
+    </delete>
+
+    <select id="queryReviewByIds" resultMap="reviewInfoMap">
+        SELECT * FROM review_management WHERE id in
+        <if test="ids!=null and ids.size()>0">
+            <foreach collection="ids" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+</mapper>
