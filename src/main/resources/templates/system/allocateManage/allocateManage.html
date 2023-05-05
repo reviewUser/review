@@ -14,7 +14,6 @@
 		  th:href="@{/css/allocate.css}" />
 	<style type="text/css">
 #tableInfo{
-	width:1500px;
 	position:static;
 	min-width:1000px;
 }
@@ -282,7 +281,7 @@
 		<div id="layerDemo" class="layui-btn-container" style="margin-top:100px">
 			<label class="layui-form-label" style="width: 20px"></label>
 			<button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
-			<button  data-method="offset" type="button" data-type="auto" class="layui-btn layui-btn-normal">手动添加</button>
+			<button  data-method="offset" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
 			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
 		</div>
@@ -518,12 +517,11 @@
       			var type = othis.data('type')
       			,text = othis.text();
       			layer.open({
-        		type: 1
-        		,title:'专家信息'
+        		title:'专家信息'
         		,area:'800px,600px'
         		,offset: 'auto'
-        		,id: 'layerDemo'+type //防止重复弹出
-        		,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="add_birthday" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
+        		,id: 'hand_add' //防止重复弹出
+        		,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
         		,btn: ['保存','取消']
         		,btnAlign: 'c'
         		,shade: 0 //不显示遮罩
@@ -539,7 +537,7 @@
 			};
   			$('#layerDemo .layui-btn').on('click', function(){
   				var add={};
-  				add.id=$('#add_id').val();
+  				add.id=$('#id').val();
 				add.workNumber =$('#add_id').val();
 				add.name =$('#add_name').val();
 				add.level =$('#add_level').val();
