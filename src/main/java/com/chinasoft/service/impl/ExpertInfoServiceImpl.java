@@ -9,6 +9,7 @@ import com.chinasoft.po.SysUser;
 import com.chinasoft.service.ExpertInfoService;
 import com.chinasoft.utils.ImportExcelUtils;
 import com.chinasoft.utils.Md5Utils;
+import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -162,30 +163,39 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     }
 
     @Override
-    public String delExperts(List<Long> ids) {
+    public Result delExperts(List<Long> ids) {
+        Result result = new Result();
         if (ids.size() == 0) {
-            return "参数异常！";
+            result.setCode("500");
+            result.setMsg("参数异常");
         }
         int i = expertInfoDao.batchDelExperts(ids);
         if (i > 0) {
-            return "删除成功！";
+            result.setCode("200");
+            result.setMsg("删除成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("删除失败");
         }
-        return "删除失败！";
+        return result;
     }
 
     @Override
-    public Map<String, Object> updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        Map<String, Object> map = new HashMap<>();
+    public Result updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Result result = new Result();
         if (pwdInfo == null) {
-            map.put("msg", "参数为空");
+            result.setCode("500");
+            result.setMsg("参数异常");
         }
         SysUser sysUser = expertInfoDao.queryUser(pwdInfo.getUsername());
         if (sysUser.getPassword().equals(Md5Utils.md5(pwdInfo.getOldPwd()))) {
             expertInfoDao.updatePwd(Md5Utils.md5(pwdInfo.getNewPwd()), pwdInfo.getUsername());
-            map.put("msg", "密码修改成功");
-        }else {
-            map.put("msg", "旧密码错误");
+            result.setCode("200");
+            result.setMsg("密码修改成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("旧密码错误");
         }
-        return map;
+        return result;
     }
 }

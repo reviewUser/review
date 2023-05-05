@@ -13,6 +13,7 @@ import com.chinasoft.po.RepeatMessageInfo;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
 import com.chinasoft.utils.ImportExcelUtils;
+import com.chinasoft.utils.Result;
 import com.chinasoft.utils.Sample;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,22 +136,29 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     }
 
     @Override
-    public String delReviews(List<Long> ids) {
+    public Result delReviews(List<Long> ids) {
+        Result result = new Result();
         if (ids.size() == 0) {
-            return "参数异常！";
+            result.setCode("500");
+            result.setMsg("参数异常");
         }
         int i = reviewManagementDao.batchDelReviews(ids);
         if (i > 0) {
-            return "删除成功！";
+            result.setCode("200");
+            result.setMsg("删除成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("删除失败");
         }
-        return "删除失败！";
+        return result;
     }
 
     @Override
-    public Map<String, Object> startReview(ReviewManagement reviewManagement) throws Exception {
-        Map<String, Object> resultMap = new HashMap<>();
+    public Result startReview(ReviewManagement reviewManagement) throws Exception {
+        Result result = new Result();
         if (StringUtils.isEmpty(reviewManagement.getReviewField())) {
-            resultMap.put("400", "评审所属专业领域不能为空");
+            result.setCode("500");
+            result.setMsg("评审所属专业领域不能为空");
         }
         List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
 
@@ -158,10 +166,15 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         List<String> list = GetRandomThreeInfoList(phones, 3);
         for (String str : list) {
             String msg = sendSms(reviewManagement.getId(), str);
-            resultMap.put("msg", msg);
+            if (msg.contains("短信发送成功")) {
+                result.setCode("200");
+            } else {
+                result.setCode("500");
+            }
+            result.setMsg(msg);
         }
         reviewManagementDao.updateStatus("通知中", reviewManagement.getId());
-        return resultMap;
+        return result;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.chinasoft.service;
 
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.ReviewManagement;
+import com.chinasoft.utils.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,14 +39,14 @@ public interface ReviewManagementService {
      */
     Map<String, Object> importReview(MultipartFile file);
 
-    String delReviews(List<Long> ids);
+    Result delReviews(List<Long> ids);
 
     /**
      * 发起评审
      *
      * @param reviewManagement
      */
-    Map<String, Object> startReview(ReviewManagement reviewManagement) throws Exception;
+    Result startReview(ReviewManagement reviewManagement) throws Exception;
 
     /**
      * 导出评审任务信息

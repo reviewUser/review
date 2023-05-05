@@ -3,6 +3,7 @@ package com.chinasoft.service;
 import com.chinasoft.param.ExpertParam;
 import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.PwdInfo;
+import com.chinasoft.utils.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -62,12 +63,12 @@ public interface ExpertInfoService {
      *
      * @param ids
      */
-    String delExperts(List<Long> ids);
+    Result delExperts(List<Long> ids);
 
     /**
      * 修改密码
      *
      * @param pwdInfo
      */
-    Map<String, Object> updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+    Result updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 }

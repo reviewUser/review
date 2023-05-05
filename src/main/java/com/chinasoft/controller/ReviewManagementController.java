@@ -4,6 +4,7 @@ import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
+import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,12 +71,9 @@ public class ReviewManagementController {
     }
 
     @PostMapping(value = "/delReview")
-    public Map<String, Object> delExpert(@RequestBody List<Long> ids) throws IOException {
+    public Result delExpert(@RequestBody List<Long> ids) throws IOException {
         try {
-            String s = reviewManagementService.delReviews(ids);
-            Map<String, Object> map = new HashMap<>();
-            map.put("msg", s);
-            return map;
+            return reviewManagementService.delReviews(ids);
         } catch (RuntimeException e) {
             e.getMessage();
         }
@@ -83,7 +81,7 @@ public class ReviewManagementController {
     }
 
     @PostMapping(value = "/startReview")
-    public Map<String, Object> startReview(@RequestBody ReviewManagement reviewManagement) throws IOException {
+    public Result startReview(@RequestBody ReviewManagement reviewManagement) throws IOException {
         try {
             return reviewManagementService.startReview(reviewManagement);
         } catch (Exception e) {
@@ -100,7 +98,7 @@ public class ReviewManagementController {
      * @throws IOException
      */
     @PostMapping(value = "/exportReviewExcel")
-    public void exportReviewExcel(@RequestBody List<Long> ids, HttpServletResponse response){
+    public void exportReviewExcel(@RequestBody List<Long> ids, HttpServletResponse response) {
         try {
             reviewManagementService.exportReview(ids, response);
         } catch (RuntimeException e) {

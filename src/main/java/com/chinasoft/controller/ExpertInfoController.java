@@ -4,6 +4,7 @@ import com.chinasoft.param.ExpertParam;
 import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.PwdInfo;
 import com.chinasoft.service.ExpertInfoService;
+import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,12 +96,9 @@ public class ExpertInfoController {
     }
 
     @PostMapping(value = "/delExpert")
-    public Map<String, Object> delExpert(@RequestBody List<Long> ids) throws IOException {
+    public Result delExpert(@RequestBody List<Long> ids) throws IOException {
         try {
-            String s = expertInfoService.delExperts(ids);
-            Map<String, Object> map = new HashMap<>();
-            map.put("msg", s);
-            return map;
+            return expertInfoService.delExperts(ids);
         } catch (RuntimeException e) {
             e.getMessage();
         }
@@ -114,7 +112,7 @@ public class ExpertInfoController {
      * @return
      */
     @PostMapping(value = "/updatePwd")
-    public Map<String, Object> updatePwd(@RequestBody PwdInfo pwdInfo) {
+    public Result updatePwd(@RequestBody PwdInfo pwdInfo) {
         try {
             return expertInfoService.updatePwd(pwdInfo);
         } catch (RuntimeException e) {
