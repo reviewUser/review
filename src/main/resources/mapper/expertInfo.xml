@@ -33,7 +33,7 @@
             <if test="name != null and name != ''">
                 AND name LIKE CONCAT('%',#{name},'%')
             </if>
-            <if test="workNumber != null">
+            <if test="workNumber != null and workNumber != ''">
                 AND work_number = #{workNumber}
             </if>
             <if test="level != null and level != ''">
@@ -45,13 +45,13 @@
             <if test="fieldName != null and fieldName != ''">
                 AND field_name LIKE CONCAT('%',#{fieldName},'%')
             </if>
-            <if test="phone != null">
+            <if test="phone != null and phone != ''">
                 AND phone = #{phone}
             </if>
-            <if test="integral != null">
+            <if test="integral != null and integral != ''">
                 AND integral = #{integral}
             </if>
-            <if test="refuseCount != null">
+            <if test="refuseCount != null and refuseCount != ''">
                 AND refuse_count = #{refuseCount}
             </if>
             <if test="expertStatus != null and expertStatus != ''">
@@ -67,7 +67,7 @@
             <if test="name != null and name != ''">
                 AND name LIKE CONCAT('%',#{name},'%')
             </if>
-            <if test="workNumber != null">
+            <if test="workNumber != null and workNumber != ''">
                 AND work_number = #{workNumber}
             </if>
             <if test="level != null and level != ''">
@@ -79,13 +79,13 @@
             <if test="fieldName != null and fieldName != ''">
                 AND field_name LIKE CONCAT('%',#{fieldName},'%')
             </if>
-            <if test="phone != null">
+            <if test="phone != null and phone != ''">
                 AND phone = #{phone}
             </if>
-            <if test="integral != null">
+            <if test="integral != null and integral != ''">
                 AND integral = #{integral}
             </if>
-            <if test="refuseCount != null">
+            <if test="refuseCount != null and refuseCount != ''">
                 AND refuse_count = #{refuseCount}
             </if>
             <if test="expertStatus != null and expertStatus != ''">
