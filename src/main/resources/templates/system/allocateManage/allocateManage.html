@@ -173,7 +173,7 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">工号</label>
 								<div class="layui-input-inline">
-									<input id="id" type="text" name="ID"
+									<input id="work_number" type="text" name="work_number"
 										   placeholder="" autocomplete="off"
 										   class="layui-input"/>
 								</div>
@@ -193,13 +193,13 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">职称</label>
 								<div class="layui-input-inline">
-									<select id="status" name="status">
+									<select id="expert_level" name="expert_level">
 										<option value=""></option>
-										<option value="WAIT_REVIEW">科员</option>
-										<option value="IN_REVIEW">副科</option>
-										<option value="REVIEW_DONE">正科</option>
-										<option value="IN_REVIEW">副处</option>
-										<option value="REVIEW_DONE">正处</option>
+										<option value="科员">科员</option>
+										<option value="副科">副科</option>
+										<option value="正科">正科</option>
+										<option value="副处">副处</option>
+										<option value="正处">正处</option>
 									</select>
 								</div>
 							</div>
@@ -208,11 +208,11 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">技术职级</label>
 								<div class="layui-input-inline">
-									<select id="level" name="status">
+									<select id="technology_level" name="technology_level">
 										<option value=""></option>
-										<option value="WAIT_REVIEW">高级工程师</option>
-										<option value="IN_REVIEW">中级工程师</option>
-										<option value="REVIEW_DONE">初级工程师</option>
+										<option value="高级工程师">高级工程师</option>
+										<option value="中级工程师">中级工程师</option>
+										<option value="R初级工程师">初级工程师</option>
 									</select>
 								</div>
 							</div>
@@ -223,11 +223,11 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">擅长专业领域</label>
 								<div class="layui-input-inline">
-									<select id="profession" name="status">
+									<select id="field_name" name="field_name">
 										<option value=""></option>
-										<option value="WAIT_REVIEW">财务</option>
-										<option value="IN_REVIEW">工程</option>
-										<option value="REVIEW_DONE">地质</option>
+										<option value="财务">财务</option>
+										<option value="工程">工程</option>
+										<option value="地质">地质</option>
 									</select>
 								</div>
 							</div>
@@ -236,7 +236,7 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">手机号码</label>
 								<div class="layui-input-inline">
-									<input tnum="telephone" type="text" name="tnum"
+									<input id="phone" type="text" name="phone"
 										   placeholder="" autocomplete="off"
 										   class="layui-input"/>
 								</div>
@@ -246,7 +246,7 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">参与评审积分</label>
 								<div class="layui-input-inline">
-									<input tnum="innum" type="text" name="tnum"
+									<input id="integral" type="text" name="integral"
 										   placeholder="" autocomplete="off"
 										   class="layui-input"/>
 								</div>
@@ -256,7 +256,7 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">拒绝评审次数</label>
 								<div class="layui-input-inline">
-									<input tnum="refuse" type="text" name="tnum"
+									<input id="refuse_count" type="text" name="refuse_count"
 										   placeholder="" autocomplete="off"
 										   class="layui-input"/>
 								</div>
@@ -268,10 +268,10 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width:150px">状态</label>
 								<div class="layui-input-inline">
-									<select id="state" name="status">
+									<select id="expert_status" name="expert_status">
 										<option value=""></option>
-										<option value="WAIT_REVIEW">正常</option>
-										<option value="IN_REVIEW">封禁</option>
+										<option value="正常">正常</option>
+										<option value="封禁">封禁</option>
 									</select>
 								</div>
 							</div>
@@ -293,7 +293,7 @@
 		</div>
 		<div id="tableInfo">
 			<label class="layui-form-label" style="width:20px"></label>
-			<table class="layui-hide" id="groupinfo" lay-data="{id:'groupinfo'}" lay-filter="groupinfotable" style="overflow-y:auto;overflow-x:auto">
+			<table class="layui-hide" id="groupinfo" lay-data="{id:'groupinfo'}" lay-filter="groupinfo" style="overflow-y:auto;overflow-x:auto">
 					</table>
 			<script id="barDemo" type="text/html">
 				<a class="layui-btn layui-btn-xs" lay-event="allocate"><i style="padding-right: 4px;" class="layui-icon">&#xe609;</i>选择专家</a>
@@ -317,9 +317,8 @@
 			table = layui.table,
 			laydate = layui.laydate,
 			element = layui.element,
-			upload = layui.upload,
-			dropdown=layui.dropdown,
-			until=layui.until;
+			upload = layui.upload
+
 
 			var params = {};
 			params.pageNum = 1;
@@ -383,12 +382,117 @@
 				  });
 				  //重载
             		table.render().reload('groupinfo', { cols: [colsnew] })
+            		//查询
+					$("#select").click(function Search() {
+            		 	var search={};
+            		 	search.pageNum = 1;
+						search.pageSize = 10;
+						search.workNumber=$("#work_number").val();
+						search.name=$("#username").val();
+						search.level =$('#expert_level').val();
+						search.technologyLevel =$('#technology_level').val();
+						search.fieldName =$('#field_name').val();
+						search.phone =$('#phone').val();
+						search.birthday =$('#birthday').val();
+						search.age =$('#age').val();
+						search.integral =$('#integral').val();
+						search.refuseCount =$('#refuse_count').val();
+						search.expertStatus =$('#expert_status').val();
+						$.ajax({
+							url:"/expert/queryExpertInfo",
+							method:"post",
+
+							data:JSON.stringify(search),
+							contentType:'application/json;charset=utf-8',
+							success:function (res) {
+									if(res.data){
+										renderTable(res.data);
+									}else{
+											alert("暂无此人")
+									}
+    							}
+
+						})
+					});
+				//删除
+  				form.on('submit(delete)',function(data){
+            	var checkStatus = table.checkStatus('id'); //idTest 即为基础参数 id 对应的值
+            	console.log(checkStatus.data[0]) //获取选中行的数据
+            	console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+            	console.log(checkStatus.isAll ) //表格是否全选
+
+            	$.ajax({
+                	url:'/expert/delExpert',
+                	method:'post',
+					data:JSON.stringify(["89"]),
+					contentType:'application/json;charset=utf-8',
+                	success:function(data){
+                    	if(data.code==200){
+                        	layer.msg("删除成功",function() {time:1000});
+                        	parent.location.reload();
+                    	}else{
+                        	layer.msg("删除失败",function() {time:1000})
+                    	}
+                	}
+            	})
+        	})
+        //导出
+        /*
+        layui.config({//配置并导入excel插件
+    					base: '${base}/scripts/layui/layui_exts/'
+    				}).use([ 'excel', 'layer'], function() {
+    			var $ = layui.$;
+    			var layer = layui.layer;
+    			var excel = layui.excel;
+    			*/
+    			$('#export').on('click', function(){
+    					// 模拟从后端接口读取需要导出的数据
+    					var queryParams = ["90","91"];
+
+						var url = "/expert/exportExpertExcel";
+						$.ajax({
+						 method : "POST", //提交方式
+						 url : url,//路径
+						 contentType: "application/json",
+						 data:JSON.stringify(queryParams),
+						 beforeSend: function (request) {
+						  request.setRequestHeader("Authorization", "xxx");
+						 },
+						success : function(result) {
+						  var xhr = new XMLHttpRequest();
+						xhr.responseType = "arraybuffer";
+						xhr.open("POST", url, true);
+						xhr.onload = function () {
+						 const blob = new Blob([this.response], {type:"application/vnd.ms-excel"});
+						 if(blob.size < 1) {
+						  alert('导出失败，导出的内容为空！');
+						  return;
+						 }
+						 if(window.navigator.msSaveOrOpenBlob) {
+						  navigator.msSaveOrOpenBlob(blob, '专家信息表.xlsx')
+						 } else {
+						  const aLink = document.createElement('a');
+						  aLink.style.display = 'none';
+						  aLink.href = window.URL.createObjectURL(blob);
+						  aLink.download = '专家信息表';
+						  document.body.appendChild(aLink);
+						  aLink.click();
+						  document.body.removeChild(aLink);
+						  return;
+						 }
+						}
+						xhr.setRequestHeader("Authorization", "xxx");
+						xhr.setRequestHeader("Content-Type", "application/json");
+						xhr.send(JSON.stringify(queryParams));
+						 }
+						});
+    				});
 
 
 				}
 
 				//监听工具条
-			  table.on('tool(groupinfotable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			  table.on('tool(groupinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 			     var data = obj.data //获得当前行数据
 			    ,layEvent = obj.event; //获得 lay-event 对应的值
 			    if(layEvent === 'detail'){
@@ -401,67 +505,8 @@
 			    	}
 			    }
 			  });
-			   //查询
-           		 $("#select").click(function Search() {
-            		 	var search={};
-						workNumber=$("#work_number").val();
-						name=$("#username").val();
-						level =$('#expert_level').val();
-						technologyLevel =$('#technology_level').val();
-						fieldName =$('#field_name').val();
-						phone =$('#phone').val();
-						birthday =$('#birthday').val();
-						age =$('#age').val();
-						integral =$('#integral').val();
-						refuseCount =$('#refuse_count').val();
-						expertStatus =$('#expert_status').val();
-						$.ajax({
-							url:"/expert/queryExpertInfo",
-							method:"post",
-
-							data:JSON.stringify(params),
-							contentType:'application/json;charset=utf-8',
-							success:function (res) {
-									if(res.data){
-										table.render({
-										elem: '#groupinfo'
-										,id:'groupinfo'
-										,width: '100%'
-										,data:res.data
-										,cols: [colsnew]
-										,where: { //设定异步数据接口的额外参数，任意设
-										    workNumber:$("#work_number").val(),
-											name:$("#username").val(),
-											level :$('#expert_level').val(),
-											technologyLevel :$('#technology_level').val(),
-											fieldName :$('#field_name').val(),
-											phone :$('#phone').val(),
-											integral :$('#integral').val(),
-											refuseCount :$('#refuse_count').val(),
-											expertStatus :$('#expert_status').val(),
-										}
-										,request: {
-													pageName: 'pageNum', //页码的参数名称
-													limitName: 'pageSize' //每页数据量的参数名
-											 }
-											,done: function (res, curr, count) {
-												this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-											}
-										   ,page:{
-												limit: params.pageSize ,//指定每页显示的条数
-												limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-											 }
 
 
-									    })
-									}else{
-											alert("暂无此人")
-									}
-    							}
-
-						})
-						table.render().reload('groupinfo', { cols: [colsnew] })
-					});
 			//文件上传
 			upload.render({
 			  elem: '#import'
@@ -488,7 +533,9 @@
         		,btnAlign: 'c'
         		,shade: 0 //不显示遮罩
         		,yes: function(){
-          				$(that).click();
+          				$('#layerDemo .layui-btn').on('click', function(){
+          					layer.closeAll();
+          				})
         			}
         			,btn2: function(){
         				layer.closeAll();
@@ -498,144 +545,19 @@
 
 			};
   			$('#layerDemo .layui-btn').on('click', function(){
-  				var othis = $(this), method = othis.data('method');
-  				active[method] ? active[method].call(this, othis) : '';
-				/*
-            	var popupWindow = new Vue({
-					elem: '#add_table',
-					data: {
-						type: '',
-						sql: '',
-					},
-					updated: function () {
-						layui.use('form', function () {
-							layui.form.render('select');
-						})
-					},
-					methods: {
-						sql_submit() {
-							if (!this.sql) {
-								$.message({message: "sql语句不能为空！", type: 'warning'})
-								return
-							} else if (!this.type) {
-								$.message({message: "类别不能为空！", type: 'warning'})
-								return
-							}
-							//发送请求给后台
-							fetch("url", {
-								url:'/expert/addExpert',
-								method: 'post',
-								headers: {
-									'Content-Type': 'application/json'
-								},
-								body: JSON.stringify({sqlType: this.type, sql: this.sql})
-							})
-								.then(res => res.json())
-								.then(res => {  //res就是后台返回的结果
-										console.log(res)
-										if (res.data != null) {  //判断请求是否成功
-											if (res.type === '查询') {
-												$.message({message: "查询成功！", type: 'success'})
-												setTimeout(() => {
-													returnData(res)
-												}, 1000)
-											}
-											if (res.type === '新增') {
-												$.message({message: "新增成功！", type: 'success'})
-												setTimeout(() => {
-													exitWindow()
-												}, 1000)
-											}
-											if (res.type === '修改') {
-												$.message({message: "修改成功！", type: 'success'})
-												setTimeout(() => {
-													exitWindow()
-												}, 1000)
-											}
-											if (res.type === '删除') {
-												$.message({message: "删除成功！", type: 'success'})
-												setTimeout(() => {
-													exitWindow()
-												}, 1000)
-											}
-										} else {
-											$.message({message: "操作失败！", type: 'error'})
-										}
-									}
-								)
-						},
-					}
+  			/*
+  				var addParams={};
+  				addParams.workNumber=
+  				$.ajax({
+						 method : "POST", //提交方式
+						 url : "/expert/addExpert",//路径
+						 contentType: "application/json",
+						 data:JSON.stringify(addParams),
+						success : function(result) {
+						}
 				})
 				*/
   			});
-  			//删除
-  			form.on('submit(delete)',function(data){
-            	var checkStatus = table.checkStatus('id'); //idTest 即为基础参数 id 对应的值
-            	console.log(checkStatus.data[0]) //获取选中行的数据
-            	console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-            	console.log(checkStatus.isAll ) //表格是否全选
-
-            	$.ajax({
-                	url:'/expert/delExpert',
-                	method:'post',
-                	data:{
-                    	"id": checkStatus.data[0]
-                	},
-                	success:function(data){
-                    	if(data.code==1){
-                        	layer.msg("删除成功",function() {time:1000});
-                        	parent.location.reload();
-                    	}else{
-                        	layer.msg("删除失败",function() {time:1000})
-                    	}
-                	}
-            	})
-        	})
-        //导出
-        /*
-        layui.config({//配置并导入excel插件
-    					base: '${base}/scripts/layui/layui_exts/'
-    				}).use([ 'excel', 'layer'], function() {
-    			var $ = layui.$;
-    			var layer = layui.layer;
-    			var excel = layui.excel;
-    			*/
-    			$('#export').on('click', function(){
-    					// 模拟从后端接口读取需要导出的数据
-    					$.ajax({
-    						url: '/expert/exportExpertExcel'
-    						,method:'post'
-
-    						,dataType:'JSON'
-    						,success(res) {
-    							var send_data = res;
-    							console.log(res);
-    							// 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
-    							send_data = excel.filterExportData(send_data, [
-    								'id'
-    								,'workNumber'
-    								,'name'
-    								,'expertLevel'
-    								,'technologyLevel'
-    								,'fieldName'
-    								,'phone'
-    								,'birthday'
-    								,'age'
-    								,'integral'
-    								,'refuseCount'
-    								,'expertStatus'
-    							]);
-    							// 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
-    							send_data.unshift({id:"序号",workNumber:"工号",name:"姓名",expertLevel:"职称",technologyLevel:"技术职级",fieldName:"擅长专业领域",phone:"电话号码",birthday:"生日",age:"年龄",integral:"参与评审积分",refuseCount:"拒绝评审次数",expertStatus:"专家状态"});
-
-    							excel.exportExcel(send_data, '专家信息表--'+'.xlsx', 'xlsx');
-    						}
-    						,error() {
-    							layer.alert('获取数据失败，请检查是否部署在本地服务器环境下');
-    						}
-    					});
-    				});
-
 		});
 		/* ]]> */
 	</script>

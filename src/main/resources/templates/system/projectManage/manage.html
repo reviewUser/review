@@ -36,6 +36,48 @@
             <li class="layui-nav-item"><a href="javascript:;" onclick="xiugai('${user[0]}')">修改密码</a></li>
         </ul>
     </div>
+    <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}">
+    layui.use([ 'jquery'], function() {
+			var $ = layui.jquery
+
+            function xiugai(uid)
+                {
+                    $("input[name='uiid']").val(uid);
+                    $("tanchukuang").show();
+                }
+                $("#close").click(function(){
+                    $("tanchukuang").hide();
+                })
+                $("#gb").click(function(){
+                    $("tanchukuang").hide();
+                })
+                $(function(){
+                        $(".queding").click(function(){
+                            var p1=$("#StorePassword").val();
+                            var p2=$("#newStorePassword").val();
+                            if(!p1){
+                                alert("密码不能为空");
+                            }
+                            else if(p1!=p2)
+                            {
+                                window.alert("请确定两次密码输入是否一致");
+                                return;
+                            }
+                            else
+                            {
+                                var data={
+                                    "uid":$("input[name='uiid']").val(),"password":p1,
+                                }
+                                $.post('/expert/updatePwd',data,function(data){
+                                })
+                                alert("修改成功");
+                                $("#tanchukuang").hide();
+                            }
+                        })
+                })
+    })
+
+    </script>
     <div class="modal changepassesModal" id="tanchukuang">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -136,7 +178,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">评审任务名</label>
                                 <div class="layui-input-inline">
-                                    <input align="center" id="projectName" type="text" name="projectName"
+                                    <input align="center" id="review_name" type="text" name="review_name"
                                            placeholder="根据评审任务名模糊搜索" autocomplete="off"
                                            class="layui-input"/>
                                 </div>
@@ -146,7 +188,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">评审发起人</label>
                                 <div class="layui-input-inline">
-                                    <input id="username" type="text" name="username"
+                                    <input id="review_user" type="text" name="review_user"
                                            placeholder="" autocomplete="off"
                                            class="layui-input"/>
                                 </div>
@@ -156,11 +198,11 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
                                 <div class="layui-input-inline">
-                                    <select id="status" name="status">
+                                    <select id="review_field" name="review_field">
                                         <option value=""></option>
-                                        <option value="WAIT_REVIEW">工程</option>
-                                        <option value="IN_REVIEW">财务</option>
-                                        <option value="REVIEW_DONE">地质</option>
+                                        <option value="工程">工程</option>
+                                        <option value="财务">财务</option>
+                                        <option value="地质">地质</option>
                                     </select>
                                 </div>
                             </div>
@@ -169,11 +211,11 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">评审状态</label>
                                 <div class="layui-input-inline">
-                                    <select id="status" name="status">
+                                    <select id="review_status" name="review_status">
                                         <option value=""></option>
-                                        <option value="WAIT_REVIEW">待评审</option>
-                                        <option value="IN_REVIEW">通知中</option>
-                                        <option value="REVIEW_DONE">通知完成</option>
+                                        <option value="待评审">待评审</option>
+                                        <option value="通知中">通知中</option>
+                                        <option value="通知完成">通知完成</option>
                                     </select>
                                 </div>
                             </div>
@@ -183,7 +225,7 @@
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" style="margin-right: 450px"></label>
-                <a id="select" class="layui-btn layui-btn-normal layui-btn-radius"><i style="padding-right: 4px"
+                <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
                                                                                       class="layui-icon">&#xe615;</i>查询</a>
             </div>
         </form>
@@ -228,41 +270,6 @@
 			    ,range: '~'
 			    ,format: 'yyyy-MM-dd HH:mm:ss'
 			  });
-			  function xiugai(uid)
-                {
-                    $("input[name='uiid']").val(uid);
-                    $("tanchukuang").show();
-                }
-                $("#close").click(function(){
-                    $("tanchukuang").hide();
-                })
-                $("#gb").click(function(){
-                    $("tanchukuang").hide();
-                })
-                $(function(){
-                        $(".queding").click(function(){
-                            var p1=$("#StorePassword").val();
-                            var p2=$("#newStorePassword").val();
-                            if(!p1){
-                                alert("密码不能为空");
-                            }
-                            else if(p1!=p2)
-                            {
-                                window.alert("请确定两次密码输入是否一致");
-                                return;
-                            }
-                            else
-                            {
-                                var data={
-                                    "uid":$("input[name='uiid']").val(),"password":p1,
-                                }
-                                $.post('/expert/updatePwd',data,function(data){
-                                })
-                                alert("修改成功");
-                                $("#tanchukuang").hide();
-                            }
-                        })
-                })
 
 			  var params = {};
 			  params.pageNum = 1;
@@ -320,42 +327,12 @@
 				  });
            // 执行重载
               table.render().reload('applyinfo', { cols: [colsnew] })
-			  //查询
-			  $('#select').click(function(){
-			      var s={};
-                  s.reviewName =$('#review_name').val();
-                  s.reviewUser =$('#review_user').val();
-                  s.reviewField =$('#review_field').val();
-                  s.reviewStatus =$('#review_status').val();
-			    $.ajax({
-							url:"/review/queryReviewInfo",
-							method:"post",
-							contentType:'application/json;charset=utf-8',
-				  			data:JSON.stringify(params),
-							success:function (res) {
-									if(res.data){
-                                       tableIns.reload({
-                                       where: { //设定异步数据接口的额外参数，任意设
-                                          reviewName :$('#review_name').val()
-                                          ,reviewUser :$('#review_user').val()
-                                          ,reviewField :$('#review_field').val()
-                                          ,reviewStatus:$('#review_status').val()
-                                       }
-                                       ,page: {
-                                         curr: 1 //重新从第 1 页开始
-                                       }
-                                        })
-                                    }
-                            }
-              })
-			});
-
-			//监听工具条
+              //监听工具条
 			  table.on('tool(applyinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 			    var data = obj.data //获得当前行数据
 			    ,layEvent = obj.event; //获得 lay-event 对应的值
 			    if(layEvent === 'detail'){
-			    	if (data.status != '评审完成'){
+			    	if (data.reviewStatus != '通知完成'){
 			    		layer.msg('目前评审状态为：'+ data.status + ",请耐心等待");
 			    	} else {
 			    		var projectId = data.id;
@@ -370,8 +347,8 @@
 			      });
 			    }else if(layEvent === 'field'){
 			    	$.ajax({
-			             type: "POST",
-			             url: "/entityField/relateField",
+			             method: "post",
+			             url: "/review/startReview",
 			             data: {
 			            	 id:data.id,
 			            	 entityType:"PROJECT"
@@ -398,8 +375,8 @@
 			    	layer.msg("字段[" + field + "]值不能为空！！！");
 			    } else {
 			    	$.ajax({
-			             type: "POST",
-			             url: "/project/update",
+			             method: "post",
+			             url: "/review/startReview",
 			             data: {
 			            	 id:data.id,
 			            	 projectName:data.projectName,
@@ -413,12 +390,79 @@
 			    }
 
 			  });
-			}
+			  //查询
+			  $('#select').click(function(){
+			      var s={
+			      pageNum:1,
+                  pageSize:10};
+                  s.reviewName =$('#review_name').val();
+                  s.reviewUser =$('#review_user').val();
+                  s.reviewField =$('#review_field').val();
+                  s.reviewStatus =$('#review_status').val();
+			    $.ajax({
+                                url:"/review/queryReviewInfo",
+							method:"post",
+							contentType:'application/json;charset=utf-8',
+				  			data:JSON.stringify(s),
+							success:function (res) {
+                                    if(res.data){
+									 renderTable(res.data);
+									 }
+									 else
+									 {
+									    alert("无符合任务");
+									 }
+                            }
+              })
+			});
+			//导出
+                $('#export').on('click', function(){
+    				// 模拟从后端接口读取需要导出的数据
+    				var queryParams = ["65","66"];
 
-			 //文件上传
+					var url = "/review/exportReviewExcel";
+					$.ajax({
+					method : "POST", //提交方式
+					url : url,//路径
+					contentType: "application/json",
+					data:JSON.stringify(queryParams),
+					beforeSend: function (request) {
+					request.setRequestHeader("Authorization", "xxx");
+					},
+					success : function(result) {
+						var xhr = new XMLHttpRequest();
+                        xhr.responseType = "arraybuffer";
+                        xhr.open("POST", url, true);
+                        xhr.onload = function () {
+                        const blob = new Blob([this.response], {type:"application/vnd.ms-excel"});
+                        if(blob.size < 1) {
+                              alert('导出失败，导出的内容为空！');
+                              return;
+                        }
+                        if(window.navigator.msSaveOrOpenBlob) {
+                              navigator.msSaveOrOpenBlob(blob, '评审任务表.xlsx')
+                        } else {
+                            const aLink = document.createElement('a');
+                              aLink.style.display = 'none';
+                              aLink.href = window.URL.createObjectURL(blob);
+                              aLink.download = '评审任务表';
+                              document.body.appendChild(aLink);
+                              aLink.click();
+                              document.body.removeChild(aLink);
+                              return;
+                          }
+                        }
+                        xhr.setRequestHeader("Authorization", "xxx");
+                        xhr.setRequestHeader("Content-Type", "application/json");
+                        xhr.send(JSON.stringify(queryParams));
+					}
+				});
+
+    	});
+    	//文件上传
 			upload.render({
 			  elem: '#import'
-			  ,type: 'GET'
+			  ,method: 'post'
     		  ,url: '/review/importReviewExcel' //此处配置你自己的上传接口即可
     		  ,accept: 'file' //普通文件
     		  ,done: function(res){
@@ -426,73 +470,38 @@
     		    console.log(res);
     		}
     		});
-    		//删除
-  			$('#delete').click(function(data){
-                var checkStatus = table.checkStatus('id'); //idTest 即为基础参数 id 对应的值
-                console.log(checkStatus.data[0]) //获取选中行的数据
-                console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-                console.log(checkStatus.isAll ) //表格是否全选
-
-                $.ajax({
-                    url:'/expert/delExpert',
-                    method:'post',
-                    data:{
-                        "id": checkStatus.data[0]
-                    },
-                    success:function(data){
-                        if(data.code==1){
-                            layer.msg("删除成功",function() {time:1000});
-                            parent.location.reload();
+			//删除
+    		$('#delete').on('click', function(){
+					//创建存放复选框的数组
+					var list = [];
+					//获取复选框的值并存入数组
+					$("input[name='oneCheck']:checked").each(function(){
+		                    list.push($(this).val());
+		                });
+					//判断是否有勾选复选框
+					if(list.length!=0){
+					$.ajax({
+						method:"post",//提交方式
+						url:"/review/delReview",//控制层的路径
+						data:"oneCheck="+list,
+						success:function(){
+							//当删除成功后刷新页面
+							setTimeout("location.reload()",100);
+						}
+						});
                         }else{
-                            layer.msg("删除失败",function() {time:1000})
-                        }
-                    }
-                })
+                            alert("请勾选您所需要删除的信息！");
+                        };
+				    });
+				}
             })
-        //导出
-                /*layui.config({//配置并导入excel插件
-    					base: '${base}/scripts/layui/layui_exts/'
-    				}).use([ 'excel', 'layer'], function() {
-    			var $ = layui.$;
-    			var layer = layui.layer;
-    			var excel = layui.excel;
-    			*/
-    			$('#export').on('click', function(){
-    					// 模拟从后端接口读取需要导出的数据
-    					$.ajax({
-    						url: '/review/exportReviewExcel'
-    						,method:'post'
-    						,dataType: 'json'
-    						,success(res) {
-    							var data = res;
-    							console.log(res);
-    							// 重点！！！如果后端给的数据顺序和映射关系不对，请执行梳理函数后导出
-    							data = excel.filterExportData(data, [
-    								'id'
-    								,'review_name'
-    								,'review_remark'
-    								,'review_user'
-    								,'review_date'
-    								,'review_start_date'
-    								,'review_end_date'
-    								,'review_field'
-    								,'review_experts'
-    								,'review_status'
-    							]);
-    							// 重点2！！！一般都需要加一个表头，表头的键名顺序需要与最终导出的数据一致
-    							data.unshift({ id: "流水号", review_name: "评审任务名",review_remark: '摘要', review_user: "评审发起人",review_date:'评审计划日期',review_start_date: "评审开始时间",review_end_date: '评审结束时间',review_field: "评审所属专业领域",review_experts: "评审专家数量",review_status: '评审状态'});
 
-    							var timestart = Date.now();
-    							excel.exportExcel(data, '评审任务表--'+'.xlsx', 'xlsx');
 
-    						}
-    						,error() {
-    							layer.alert('获取数据失败，请检查是否部署在本地服务器环境下');
-    						}
-    					});
 
-    				});
-	});
+
+
+
+
 
 </script>
 
