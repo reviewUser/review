@@ -20,52 +20,48 @@
 }
 </style>
 </head>
-<script type="text/javascript" src="../../static/layui/layui.js" th:src="@{/layui/layui.js}">
-	layui.use([jquery]){
-        var $ = layui.jquery
-        let change=document.getElementById('changePasswd');
-        element.addEventListener('click', xiugai);
-
-		function xiugai(uid)
-		{
-			$("input[name='uiid']").val(uid);
-			$("tanchukuang").show();
-		})
-		$("#close").click(function(){
-			$("tanchukuang").hide();
-		}
-		$("#gb").click(function(){
-			$("tanchukuang").hide();
-		})
-		$(function(){
-				$(".queding").click(function(){
-					var p1=$("#StorePassword").val();
-					var p2=$("#newStorePassword").val();
-					if(!p1){
-						alert("密码不能为空");
-					}
-					else if(p1!=p2)
-					{
-						window.alert("请确定两次密码输入是否一致");
-						return;
-					}
-					else
-					{
-						var data={
-							"username":$("input[name='uiid']").val(),"newPwd":p1,
-						}
-						$.post('/expert/updatePwd',data,function(data){
-						})
-						alert("修改成功");
-						$("#tanchukuang").hide();
-					}
-				})
-		})
-
-    })
-    }
-</script>
 <body class="layui-layout-body">
+<script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}">
+	layui.use([ 'jquery'], function() {
+			var $ = layui.jquery
+
+            function xiugai(uid)
+                {
+                    $("input[name='uiid']").val(uid);
+                    $("#tanchukuang").show();
+                }
+                $("#close").click(function(){
+                    $("#tanchukuang").hide();
+                })
+                $("#gb").click(function(){
+                    $("#tanchukuang").hide();
+                })
+                $(function(){
+                        $(".queding").click(function(){
+                            var p1=$("#StorePassword").val();
+                            var p2=$("#newStorePassword").val();
+                            if(!p1){
+                                alert("密码不能为空");
+                            }
+                            else if(p1!=p2)
+                            {
+                                window.alert("请确定两次密码输入是否一致");
+                                return;
+                            }
+                            else
+                            {
+                                var data={
+                                    "uid":$("input[name='uiid']").val(),"password":p1,
+                                }
+                                $.post('/expert/updatePwd',data,function(data){
+                                })
+                                alert("修改成功");
+                                $("#tanchukuang").hide();
+                            }
+                        })
+                })
+    })
+</script>
 <div class="layui-layout layui-layout-admin">
 	<div class="layui-header">
 		<div class="layui-logo">长庆石油专家任务评审系统</div>
@@ -74,8 +70,35 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item"><a href="javascript:;"> <span th:text="${session.user.username}">贤心</span></a></li>
 			<li class="layui-nav-item"><a href="" th:href="@{/user/logout}">注销</a></li>
-			<li class="layui-nav-item"><a href="javascript:;" id="changePasswd" >修改密码</a></li>
+			<li class="layui-nav-item"><a id="changePasswd">修改密码</a></li>
 		</ul>
+	</div>
+	<div class="layui-side layui-bg-black">
+		<div class="layui-side-scroll">
+			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+			<ul class="layui-nav layui-nav-tree">
+				<!--					<li class="layui-nav-item layui-nav-itemed">-->
+				<!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
+				<!--					</li>-->
+				<li class="layui-nav-item layui-nav-itemed"><a class=""
+															   href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>评审专家管理</STRONG></a></li>
+				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
+				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
+				<dl class="layui-nav-child">
+					<dd>
+						<a class="" href="javascript:;" th:href="@{/project/userPage?role=1}">评审任务管理</a>
+					</dd>
+					<dd>
+						<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
+					</dd>
+					<!--							<dd>-->
+					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
+					<!--							</dd>-->
+				</dl></li>
+				<!--						<li class="layui-nav-item layui-nav-itemed"><a class=""-->
+				<!--						href="javascript:;" th:href="@{/field/fieldPage}">领域标签管理</a></li>-->
+			</ul>
+		</div>
 	</div>
 	<div class="modal changepassesModal" id="tanchukuang">
 		<div class="modal-dialog">
@@ -129,34 +152,6 @@
 
 				<!-- END FORM-->
 			</div>
-		</div>
-	</div>
-
-	<div class="layui-side layui-bg-black">
-		<div class="layui-side-scroll">
-			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-			<ul class="layui-nav layui-nav-tree">
-				<!--					<li class="layui-nav-item layui-nav-itemed">-->
-				<!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
-				<!--					</li>-->
-				<li class="layui-nav-item layui-nav-itemed"><a class=""
-															   href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>评审专家管理</STRONG></a></li>
-				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
-				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
-				<dl class="layui-nav-child">
-					<dd>
-						<a class="" href="javascript:;" th:href="@{/project/userPage?role=1}">评审任务管理</a>
-					</dd>
-					<dd>
-						<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
-					</dd>
-					<!--							<dd>-->
-					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
-					<!--							</dd>-->
-				</dl></li>
-				<!--						<li class="layui-nav-item layui-nav-itemed"><a class=""-->
-				<!--						href="javascript:;" th:href="@{/field/fieldPage}">领域标签管理</a></li>-->
-			</ul>
 		</div>
 	</div>
 
@@ -528,14 +523,12 @@
         		,area:'800px,600px'
         		,offset: 'auto'
         		,id: 'layerDemo'+type //防止重复弹出
-        		,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="username" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="status" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="username" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input tnum="telephone" type="text" name="tnum" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input tnum="innum" type="text" name="tnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input tnum="refuse" type="text" name="tnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr></table></form>'
+        		,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="add_birthday" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
         		,btn: ['保存','取消']
         		,btnAlign: 'c'
         		,shade: 0 //不显示遮罩
         		,yes: function(){
-          				$('#layerDemo .layui-btn').on('click', function(){
-          					layer.closeAll();
-          				})
+          				$(that).click();
         			}
         			,btn2: function(){
         				layer.closeAll();
@@ -545,18 +538,32 @@
 
 			};
   			$('#layerDemo .layui-btn').on('click', function(){
-  			/*
-  				var addParams={};
-  				addParams.workNumber=
+  				var add={};
+  				add.id=$('#add_id').val();
+				add.workNumber =$('#add_id').val();
+				add.name =$('#add_name').val();
+				add.level =$('#add_level').val();
+				add.technologyLevel =$('#add_technology').val();
+				add.fieldName =$('#add_field').val();
+				add.phone =$('#add_phone').val();
+				add.birthday =$('#add_birthday').val();
+				add.age =$('#add_age').val();
+				add.integral =$('#add_integral').val();
+				add.refuseCount =$('#add_refuseCount').val();
+				add.expertStatus =$('#add_status').val();
   				$.ajax({
-						 method : "POST", //提交方式
+						 method : "post", //提交方式
 						 url : "/expert/addExpert",//路径
 						 contentType: "application/json",
-						 data:JSON.stringify(addParams),
-						success : function(result) {
-						}
+						 data:JSON.stringify(add),
+						 success:function (res) {
+									if(res.data){
+										alert("添加成功");
+									}else{
+										alert("添加失败");
+									}
+    					}
 				})
-				*/
   			});
 		});
 		/* ]]> */
