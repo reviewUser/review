@@ -62,7 +62,7 @@ public interface ExpertInfoService {
      *
      * @param ids
      */
-    void delExperts(List<Long> ids);
+    String delExperts(List<Long> ids);
 
     /**
      * 修改密码

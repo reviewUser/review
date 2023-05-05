@@ -162,8 +162,15 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     }
 
     @Override
-    public void delExperts(List<Long> ids) {
-        expertInfoDao.batchDelExperts(ids);
+    public String delExperts(List<Long> ids) {
+        if (ids.size() == 0) {
+            return "参数异常！";
+        }
+        int i = expertInfoDao.batchDelExperts(ids);
+        if (i > 0) {
+            return "删除成功！";
+        }
+        return "删除失败！";
     }
 
     @Override

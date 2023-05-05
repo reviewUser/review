@@ -136,6 +136,9 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
     @Override
     public String delReviews(List<Long> ids) {
+        if (ids.size() == 0) {
+            return "参数异常！";
+        }
         int i = reviewManagementDao.batchDelReviews(ids);
         if (i > 0) {
             return "删除成功！";

@@ -97,7 +97,10 @@ public class ExpertInfoController {
     @PostMapping(value = "/delExpert")
     public Map<String, Object> delExpert(@RequestBody List<Long> ids) throws IOException {
         try {
-            expertInfoService.delExperts(ids);
+            String s = expertInfoService.delExperts(ids);
+            Map<String, Object> map = new HashMap<>();
+            map.put("msg", s);
+            return map;
         } catch (RuntimeException e) {
             e.getMessage();
         }
@@ -111,7 +114,7 @@ public class ExpertInfoController {
      * @return
      */
     @PostMapping(value = "/updatePwd")
-    public Map<String, Object> updatePwd(@RequestBody PwdInfo pwdInfo){
+    public Map<String, Object> updatePwd(@RequestBody PwdInfo pwdInfo) {
         try {
             return expertInfoService.updatePwd(pwdInfo);
         } catch (RuntimeException e) {
