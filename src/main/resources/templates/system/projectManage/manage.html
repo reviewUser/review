@@ -232,12 +232,12 @@
         <div id="layerDemo" class="layui-btn-container" style="margin-top:80px">
             <label class="layui-form-label" style="width:20px"></label>
             <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
-            <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete" id="delete">删除</button>
+            <button type="button" id="delete" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
             <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
         </div>
         <div id="tableInfo">
             <label class="layui-form-label" style="width:20px"></label>
-            <table class="layui-hide" id="applyinfo" lay-filter="applyinfo" style="overflow-y:auto;overflow-x:auto"></table>
+            <table class="layui-hide" id="applyinfo" lay-data="{id:'applyinfo'}" lay-filter="applyinfo" style="overflow-y:auto;overflow-x:auto"></table>
 
             <script type="text/html" id="barDemo">
                 <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
@@ -278,8 +278,7 @@
 			  params.reviewUser =$('#review_user').val();
 			  params.reviewField =$('#review_field').val();
 			  params.reviewStatus =$('#review_status').val();
-			  var review="";
-			  var list=[];
+
 			  //接口接入
 			  $.ajax({
       			  url: '/review/queryReviewInfo',
@@ -325,71 +324,38 @@
                         limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
             		 }
 				  });
-           // 执行重载
-              table.render().reload('applyinfo', { cols: [colsnew] })
-              //监听工具条
-			  table.on('tool(applyinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-			    var data = obj.data //获得当前行数据
-			    ,layEvent = obj.event; //获得 lay-event 对应的值
-			    if(layEvent === 'detail'){
-			    	if (data.reviewStatus != '通知完成'){
-			    		layer.msg('目前评审状态为：'+ data.status + ",请耐心等待");
-			    	} else {
-			    		var projectId = data.id;
-				    	window.location.href="/review/resultPage?id="+projectId;
-			    	}
-			    } else if(layEvent === 'del'){
-			      layer.confirm('真的删除行么', function(index){
-			        obj.del(); //删除对应行（tr）的DOM结构
-			        layer.close(index);
-			        //向服务端发送删除指令
-			        $.get("/project/delete", { id: data.id} );
-			      });
-			    }else if(layEvent === 'field'){
-			    	$.ajax({
-			             method: "post",
-			             url: "/review/startReview",
-			             data: {
-			            	 id:data.id,
-			            	 entityType:"PROJECT"
-			             },
-			             dataType: "json",
-			             success: function(data){
-			            	 layer.open({
-			            		  type: 0,
-			            		  title: '评审任务所属领域',
-			            		  content: data.data //这里content是一个普通的String
-			            		});
-			                // layer.msg(data.data);
-			             }
-			         });
-			  }
-			  });
-			//监听单元格编辑
-			  table.on('edit(applyinfo)', function(obj){
-			    var value = obj.value //得到修改后的值
-			    ,data = obj.data //得到所在行所有键值
-			    ,field = obj.field; //得到字段
-			    /* layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ data.projectName); */
-			    if (value == null || value == ''){
-			    	layer.msg("字段[" + field + "]值不能为空！！！");
-			    } else {
-			    	$.ajax({
-			             method: "post",
-			             url: "/review/startReview",
-			             data: {
-			            	 id:data.id,
-			            	 projectName:data.projectName,
-			            	 description:data.description
-			             },
-			             dataType: "json",
-			             success: function(data){
-			                     layer.msg(data.data);
-			             }
-			         });
-			    }
+                  // 执行重载
+                  table.render().reload('applyinfo', { cols: [colsnew] })
+                  //监听工具条
+                  table.on('tool(applyinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                    var data = obj.data //获得当前行数据
+                    ,layEvent = obj.event; //获得 lay-event 对应的值
+                    if(layEvent === 'detail'){
+                        if (data.reviewStatus != '通知完成'){
+                            layer.msg('目前评审状态为：'+ data.reviewStatus + ",请耐心等待");
+                        } else {
+                            var projectId = data.id;
+                            $.ajax({
+                             method: "post",
+                             url: "/review/startReview",
+                             data: {
+                                 id:data.id,
+                                 entityType:"PROJECT"
+                             },
+                             dataType: "json",
+                             success: function(data){
+                                 layer.open({
+                                      type: 0,
+                                      title: '评审任务所属领域',
+                                      content: data.data //这里content是一个普通的String
+                                    });
+                                // layer.msg(data.data);
+                             }
+                         });
+                        }
+                    }
+                  });
 
-			  });
 			  //查询
 			  $('#select').click(function(){
 			      var s={
@@ -415,17 +381,55 @@
                             }
               })
 			});
+			//删除
+                $("#delete").click(function(data){
+                    var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
+                    console.log(checkStatus.data[0]) //获取选中行的数据
+                    console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+                    console.log(checkStatus.isAll ) //表格是否全选
+                    var deleteEp=[];
+                    for(var i=0;i<checkStatus.data.length;i++)
+                    {
+                            deleteEp.push(checkStatus.data[i].id);
+
+                    }
+                    console.log(deleteEp);
+                    $.ajax({
+                        url:'/review/delReview',
+                        method:'post',
+                        data:JSON.stringify(deleteEp),
+                        contentType:'application/json;charset=utf-8',
+                        success:function(data){
+                            if(data.code==200){
+                                layer.msg("删除成功",function() {time:1000});
+                                parent.location.reload();
+                            }else{
+                                layer.msg("删除失败",function() {time:1000})
+                            }
+                        }
+                    })
+                })
 			//导出
                 $('#export').on('click', function(){
     				// 模拟从后端接口读取需要导出的数据
-    				var queryParams = ["65","66"];
+    				var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
+                    console.log(checkStatus.data[0]) //获取选中行的数据
+                    console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+                    console.log(checkStatus.isAll ) //表格是否全选
+                    var RvEp=[];
+                    for(var i=0;i<checkStatus.data.length;i++)
+                    {
+                            RvEp.push(checkStatus.data[i].id);
+
+                    }
+                    console.log(RvEp);
 
 					var url = "/review/exportReviewExcel";
 					$.ajax({
 					method : "POST", //提交方式
 					url : url,//路径
 					contentType: "application/json",
-					data:JSON.stringify(queryParams),
+					data:JSON.stringify(RvEp),
 					beforeSend: function (request) {
 					request.setRequestHeader("Authorization", "xxx");
 					},
@@ -454,11 +458,12 @@
                         }
                         xhr.setRequestHeader("Authorization", "xxx");
                         xhr.setRequestHeader("Content-Type", "application/json");
-                        xhr.send(JSON.stringify(queryParams));
+                        xhr.send(JSON.stringify(RvEp));
 					}
 				});
 
-    	});
+    	    });
+    	}
     	//文件上传
 			upload.render({
 			  elem: '#import'
@@ -470,34 +475,9 @@
     		    console.log(res);
     		}
     		});
-			//删除
-    		$('#delete').on('click', function(){
-					//创建存放复选框的数组
-					var list = [];
-					//获取复选框的值并存入数组
-					$("input[name='oneCheck']:checked").each(function(){
-		                    list.push($(this).val());
-		                });
-					//判断是否有勾选复选框
-					if(list.length!=0){
-					$.ajax({
-						method:"post",//提交方式
-						url:"/review/delReview",//控制层的路径
-						data:"oneCheck="+list,
-						success:function(){
-							//当删除成功后刷新页面
-							setTimeout("location.reload()",100);
-						}
-						});
-                        }else{
-                            alert("请勾选您所需要删除的信息！");
-                        };
-				    });
-				}
-            })
 
 
-
+})
 
 
 
