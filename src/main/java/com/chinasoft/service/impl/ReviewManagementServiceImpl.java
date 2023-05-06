@@ -159,6 +159,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         if (StringUtils.isEmpty(reviewManagement.getReviewField())) {
             result.setCode("500");
             result.setMsg("评审所属专业领域不能为空");
+            return result;
         }
         List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
 
