@@ -73,12 +73,11 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
         try {
             //验证文件类型
             if (!file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).equals(".xls") && !file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).equals(".xlsx")) {
-                resultMap.put("mete", "文件类型有误！请上传Excle文件");
+                resultMap.put("msg", "文件类型有误！请上传Excle文件");
                 throw new Exception("文件类型有误！请上传Excle文件");
             }
             //获取数据
             List<List<Object>> olist = ImportExcelUtils.getListByExcel(file.getInputStream(), file.getOriginalFilename());
-            resultMap.put("导入成功", 200);
             //封装数据
             for (int i = 0; i < olist.size(); i++) {
                 List<Object> list = olist.get(i);
@@ -128,9 +127,9 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
             }
             int i = expertInfoDao.batchInsertExperts(expertInfos);
             if (i != 0) {
-                resultMap.put("status", 200);
+                resultMap.put("导入成功", 200);
             } else {
-                resultMap.put("mete", "文档内无数据，请重新导入");
+                resultMap.put("msg", "文档内无数据，请重新导入");
                 resultMap.put("status", 500);
             }
 
@@ -168,6 +167,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
         if (ids.size() == 0) {
             result.setCode("500");
             result.setMsg("参数异常");
+            return result;
         }
         int i = expertInfoDao.batchDelExperts(ids);
         if (i > 0) {
@@ -186,6 +186,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
         if (pwdInfo == null) {
             result.setCode("500");
             result.setMsg("参数异常");
+            return result;
         }
         SysUser sysUser = expertInfoDao.queryUser(pwdInfo.getUsername());
         if (sysUser.getPassword().equals(Md5Utils.md5(pwdInfo.getOldPwd()))) {
