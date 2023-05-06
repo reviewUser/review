@@ -20,47 +20,6 @@
 </style>
 </head>
 <body class="layui-layout-body">
-<script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}">
-	layui.use([ 'jquery'], function() {
-			var $ = layui.jquery
-
-            function xiugai(uid)
-                {
-                    $("input[name='uiid']").val(uid);
-                    $("#tanchukuang").show();
-                }
-                $("#close").click(function(){
-                    $("#tanchukuang").hide();
-                })
-                $("#gb").click(function(){
-                    $("#tanchukuang").hide();
-                })
-                $(function(){
-                        $(".queding").click(function(){
-                            var p1=$("#StorePassword").val();
-                            var p2=$("#newStorePassword").val();
-                            if(!p1){
-                                alert("密码不能为空");
-                            }
-                            else if(p1!=p2)
-                            {
-                                window.alert("请确定两次密码输入是否一致");
-                                return;
-                            }
-                            else
-                            {
-                                var data={
-                                    "uid":$("input[name='uiid']").val(),"password":p1,
-                                }
-                                $.post('/expert/updatePwd',data,function(data){
-                                })
-                                alert("修改成功");
-                                $("#tanchukuang").hide();
-                            }
-                        })
-                })
-    })
-</script>
 <div class="layui-layout layui-layout-admin">
 	<div class="layui-header">
 		<div class="layui-logo">长庆石油专家任务评审系统</div>
@@ -479,7 +438,7 @@
 					 var type = othis.data('type')
 					 ,text = othis.text();
 					 layer.open({
-					  type:2
+					  type:1
 					  ,title:'专家信息'
 					  ,area:'800px,600px'
 					  ,offset: 'auto'
