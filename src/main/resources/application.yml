@@ -2,7 +2,7 @@
 # Server settings (ServerProperties)
 server:
   port: 8080
-  address: 10.100.133.112
+  address: 10.100.133.113
   sessionTimeout: 30
 
 # Tomcat specifics
@@ -48,7 +48,14 @@ spring:
       mail:
         smtp:
           auth: false
-
+  config:
+#    name: application
+#    location: classpath:/,file:./config/
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT
+    username: root
+    password: 123456
 aliyun:
   sms:
     access-key-id: LTAI5t7k9d1kdvy9mXaTND2q
@@ -56,6 +63,5 @@ aliyun:
     sign-name: 杨勇博客审核通知
     template-code: SMS_276210229
     queue-Name: Alicom-Queue-1763481093987402-SmsUp
-
 expert:
   refuse-count: 5
