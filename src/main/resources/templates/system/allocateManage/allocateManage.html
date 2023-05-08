@@ -433,69 +433,70 @@
     			}
     		 });
     		//弹窗
-			var active = {
-				  offset: function(othis){
-					 var type = othis.data('type')
-					 ,text = othis.text();
-					 layer.open({
-					  type:1
-					  ,title:'专家信息'
-					  ,area:'800px,600px'
-					  ,offset: 'auto'
-					  ,id: 'LayerDemo'+type //防止重复弹出
-					  ,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
-					  ,btn: ['保存','取消']
-					  ,btnAlign: 'c'
-					  ,shade: 0 //不显示遮罩
-					  ,yes:function(index,layero){
-
-							var bodys = layer.getChildFrame("body", index);
-							  var datas = bodys.find(".layui-input").serializeArray();
-							  console.log(datas);
-
-
+				var active = {
+					  offset: function(othis){
+						 var type = othis.data('type');
+						 var that=this;
+						 layer.open({
+						  type:1
+						  ,title:'专家信息'
+						  ,area:'800px,600px'
+						  ,offset: 'auto'
+						  ,id: 'layerDemo'+type //防止重复弹出
+						  ,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
+						  ,btn: ['保存','取消']
+						  ,btnAlign: 'c'
+						  ,shade: 0 //不显示遮罩
+						  ,yes:function(){
+						  $(that).click();
+						  }
+						  ,btn2: function(){
+							 layer.closeAll();
+						  }
+						  });
 					  }
-					  ,btn2: function(){
-						 layer.closeAll();
-					  }
+
+				};
+					  $('#layerDemo .layui-btn').on('click', function(){
+					  othis = $(this), method = othis.data('method');
+    				  active[method] ? active[method].call(this, othis) : '';
+    				   laydate.render({
+							elem: '#add_birhday'
+							,type: 'datetime'
+							,range: '~'
+							,format: 'yyyy-MM-dd HH:mm:ss'
+						  });
+    				  			var add={};
+    				  			add.id=$('#ib').val();
+						  		 add.workNumber =$('#add_id').val();
+								 add.name =$('#add_name').val();
+								 add.level =$('#add_level').val();
+								 add.technologyLevel =$('#add_technology').val();
+								 add.fieldName =$('#add_field').val();
+								 add.phone =$('#add_phone').val();
+								 add.birthday =$('#add_birthday').val();
+								 add.age =$('#add_age').val();
+								 add.integral =$('#add_integral').val();
+								 add.refuseCount =$('#add_refuseCount').val();
+								 add.expertStatus =$('#add_status').val();
+								 if(add.workNumber)
+								 {
+								  $.ajax({
+									  method : "post", //提交方式
+									  url : "/expert/addExpert",//路径
+									  contentType: "application/json",
+									  data:JSON.stringify(add),
+									  success:function (res) {
+											  if(res.data){
+												 alert("添加成功");
+											  }else{
+												 alert("添加失败");
+											  }
+										   }
+								  })
+								 }
 					  });
-				  }
 
-			};
-				  $('#layerDemo .layui-btn').on('click', function(){
-
-				var othis = $(this), method = othis.data('method');
-				active[method] ? active[method].call(this, othis) : '';
-				  /*
-					 var add={};
-					 add.id=$('#id').val();
-			   add.workNumber =$('#add_id').val();
-			   add.name =$('#add_name').val();
-			   add.level =$('#add_level').val();
-			   add.technologyLevel =$('#add_technology').val();
-			   add.fieldName =$('#add_field').val();
-			   add.phone =$('#add_phone').val();
-			   add.birthday =$('#add_birthday').val();
-			   add.age =$('#add_age').val();
-			   add.integral =$('#add_integral').val();
-			   add.refuseCount =$('#add_refuseCount').val();
-			   add.expertStatus =$('#add_status').val();
-					 $.ajax({
-					  method : "post", //提交方式
-					  url : "/expert/addExpert",//路径
-					  contentType: "application/json",
-					  data:JSON.stringify(add),
-					  success:function (res) {
-							  if(res.data){
-								 alert("添加成功");
-							  }else{
-								 alert("添加失败");
-							  }
-						   }
-			   })
-				  });
-				  */
-				  })
 		});
 		/* ]]> */
 	</script>
