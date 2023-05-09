@@ -33,7 +33,6 @@
             <li class="layui-nav-item"><a href="javascript:;">
                 <span th:text="${session.user.username}">贤心</span></a></li>
             <li class="layui-nav-item"><a href="" th:href="@{/user/logout}">注销</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" onclick="xiugai('${user[0]}')">修改密码</a></li>
         </ul>
     </div>
 
@@ -51,6 +50,7 @@
                 <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;"
                                                                th:href="@{/project/managePage}"><strong>评审任务管理</strong></a>
                 </li>
+                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>账户管理</STRONG></a></li>
                 <!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
                 <dl class="layui-nav-child">
                     <dd>
@@ -58,6 +58,9 @@
                     </dd>
                     <dd>
                         <a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
+                    </dd>
+                    <dd>
+                        <a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">账户管理</a>
                     </dd>
                     <!--							<dd>-->
                     <!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
@@ -236,25 +239,25 @@
                     var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'detail'){
-                        if (data.reviewStatus != '通知完成'){
-                            layer.msg('目前评审状态为：'+ data.reviewStatus + ",请耐心等待");
+                        if (data.reviewStatus == '通知完成'){
+                            var btn = document.getElementsByClassName('barDemo');
+                            btn.className="layui-btn layui-btn-radius layui-btn-xs";
                         } else {
-                            var projectId = data.id;
+                            var reviewStart = {};
+                            reviewStart.id=data.id;
+                            reviewStart.reviewField=data.reviewField;
                             $.ajax({
                              method: "post",
                              url: "/review/startReview",
-                             data: {
-                                 id:data.id,
-                                 entityType:"PROJECT"
-                             },
+                             data: JSON.stringify(reviewStart),
                              dataType: "json",
                              success: function(data){
                                  layer.open({
-                                      type: 0,
+                                      type: 1,
                                       title: '评审任务所属领域',
                                       content: data.data //这里content是一个普通的String
                                     });
-                                // layer.msg(data.data);
+                                layer.msg('目前评审状态为：'+ data.reviewStatus + ",请耐心等待");
                              }
                          });
                         }
@@ -368,6 +371,7 @@
 				});
 
     	    });
+
     	}
     	//文件上传
 			upload.render({
@@ -380,7 +384,6 @@
     		    console.log(res);
     		}
     		});
-
 
 })
 

@@ -24,12 +24,13 @@
 	<div class="layui-header">
 		<div class="layui-logo">长庆石油专家任务评审系统</div>
 		<!-- 头部区域（可配合layui已有的水平导航） -->
-
+		<div id="main" class="layui-btn-container">
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item"><a href="javascript:;"> <span th:text="${session.user.username}">贤心</span></a></li>
 			<li class="layui-nav-item"><a href="" th:href="@{/user/logout}">注销</a></li>
-			<li class="layui-nav-item"><a id="changePasswd">修改密码</a></li>
+			<li class="layui-nav-item"><a href="" th:href="@{/allocateManage/change_passwd}">修改密码</a></li>
 		</ul>
+		</div>
 	</div>
 	<div class="layui-side layui-bg-black">
 		<div class="layui-side-scroll">
@@ -41,6 +42,7 @@
 				<li class="layui-nav-item layui-nav-itemed"><a class=""
 															   href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>评审专家管理</STRONG></a></li>
 				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
+				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>账户管理</STRONG></a></li>
 				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
 				<dl class="layui-nav-child">
 					<dd>
@@ -48,6 +50,9 @@
 					</dd>
 					<dd>
 						<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
+					</dd>
+					<dd>
+						<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">账户管理</a>
 					</dd>
 					<!--							<dd>-->
 					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
@@ -185,7 +190,7 @@
 		<div id="layerDemo" class="layui-btn-container" style="margin-top:100px">
 			<label class="layui-form-label" style="width: 20px"></label>
 			<button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
-			<button  data-method="offset" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
+			<button  data-method="offSet" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
 			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
 		</div>
@@ -434,7 +439,7 @@
     		 });
     		//弹窗
 				var active = {
-					  offset: function(othis){
+					offSet: function(othis){
 						 var type = othis.data('type');
 						 var that=this;
 						 layer.open({
@@ -443,12 +448,12 @@
 						  ,area:'800px,600px'
 						  ,offset: 'auto'
 						  ,id: 'layerDemo'+type //防止重复弹出
-						  ,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
+						  ,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">参与评审积分</label><div class="layui-input-inline"><input id="add_integral" type="text" name="num" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">拒绝评审次数</label><div class="layui-input-inline"><input id="add_refuseCount" type="text" name="rnum" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">状态</label><div class="layui-input-inline"><input id="add_status" type="text" name="status" autocomplete="off"class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="date" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">年龄</label><div class="layui-input-inline"><input id="add_age" type="text" name="add_age" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
 						  ,btn: ['保存','取消']
 						  ,btnAlign: 'c'
 						  ,shade: 0 //不显示遮罩
 						  ,yes:function(){
-						  $(that).click();
+						  	$(that).click();
 						  }
 						  ,btn2: function(){
 							 layer.closeAll();
@@ -457,15 +462,33 @@
 					  }
 
 				};
-					  $('#layerDemo .layui-btn').on('click', function(){
+<!--				$('#main .layui-btn').on('click', function(){-->
+<!--					othis = $(this), method = othis.data('method');-->
+<!--    				active[method] ? active[method].call(this, othis) : '';-->
+<!--					var change={};-->
+<!--					change.username=$('#change_name').val();-->
+<!--					change.oldPwd=$('#change_old').val();-->
+<!--					change.oldPwd=$('#change_newe').val();-->
+<!--					$.ajax({-->
+<!--						method : "post", //提交方式-->
+<!--						url : "/expert/updatePwd",//路径-->
+<!--						contentType: "application/json",-->
+<!--						data:JSON.stringify(change),-->
+<!--						success:function (res) {-->
+<!--							if(res.data){-->
+<!--								alert("修改成功");-->
+<!--								layer.closeAll();-->
+<!--							}else{-->
+<!--								alert(“账户或密码错误,请重新输入”);-->
+<!--								layer.closeAll();-->
+<!--							}-->
+<!--						}-->
+<!--					})-->
+<!--				});-->
+				$('#layerDemo .layui-btn').on('click', function(){
 					  othis = $(this), method = othis.data('method');
     				  active[method] ? active[method].call(this, othis) : '';
-    				   laydate.render({
-							elem: '#add_birhday'
-							,type: 'datetime'
-							,range: '~'
-							,format: 'yyyy-MM-dd HH:mm:ss'
-						  });
+
     				  			var add={};
     				  			add.id=$('#ib').val();
 						  		 add.workNumber =$('#add_id').val();
@@ -479,23 +502,27 @@
 								 add.integral =$('#add_integral').val();
 								 add.refuseCount =$('#add_refuseCount').val();
 								 add.expertStatus =$('#add_status').val();
-								 if(add.workNumber)
-								 {
 								  $.ajax({
 									  method : "post", //提交方式
 									  url : "/expert/addExpert",//路径
 									  contentType: "application/json",
 									  data:JSON.stringify(add),
 									  success:function (res) {
-											  if(res.data){
+
+											  if(res){
 												 alert("添加成功");
+												 layer.closeAll();
 											  }else{
-												 alert("添加失败");
+											  	alert("添加失败");
+												 layer.closeAll();
 											  }
 										   }
 								  })
-								 }
+
 					  });
+
+
+
 
 		});
 		/* ]]> */
