@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasoft.dao.CheckReviewDao">
 
-    <resultMap type="CheckReview" id="CheckReviewMap">
+    <resultMap type="checkReview" id="CheckReviewMap">
         <id column="id" property="id"/>
         <result column="review" property="review"/>
         <result column="phone" property="phone"/>
         <result column="status" property="status"/>
     </resultMap>
 
-    <insert id="insert" parameterType="CheckReview">
+    <insert id="insert" parameterType="checkReview">
         <selectKey resultType="java.lang.Long" keyProperty="id"
                    order="AFTER">
             SELECT LAST_INSERT_ID()
