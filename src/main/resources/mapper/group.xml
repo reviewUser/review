@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasoft.dao.GroupDao">
 
-	<resultMap type="group" id="groupMap">
+	<resultMap type="com.chinasoft.po.Group" id="groupMap">
 		<id column="id" property="id" />
 		<result column="group_name" property="groupName" />
 		<result column="create_time" property="createTime" />
 		<result column="last_update_time" property="lastUpdateTime"/>
 		<result column="status" property="status"/>
 		<result column="create_user_id" property="createUserId" />
-		<association property="user" javaType="sysUser" column="create_user_id" select="getCreateUser"/>
+		<association property="user" javaType="com.chinasoft.po.SysUser" column="create_user_id" select="getCreateUser"/>
 	</resultMap>
-	<insert id="insert" parameterType="group">
+	<insert id="insert" parameterType="com.chinasoft.po.Group">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -44,7 +44,7 @@
         </where>
         LIMIT #{offset},#{limit}
 	</select>
-	<select id="getCreateUser" resultType="sysUser" parameterType="long">
+	<select id="getCreateUser" resultType="com.chinasoft.po.SysUser" parameterType="long">
 		SELECT * FROM sys_user WHERE id = #{create_user_id}
 	</select>
 	<select id="getTotalCount" resultType="int">
@@ -67,7 +67,7 @@
 	<select id="getById" resultMap="groupMap">
 		SELECT * FROM project_group where id = #{id}
 	</select>
-	<update id="update" parameterType="group">
+	<update id="update" parameterType="com.chinasoft.po.Group">
 		UPDATE project_group
 		<set>
 			<if test="groupName != null">
