@@ -22,7 +22,9 @@ logging:
    springframework:
     web: debug
 
-#mybatis:
+mybatis:
+  type-aliases-package: com.chinasofti.po
+  mapper-locations: classpath*:mapper/*.xml
 #  configuration:
 #    map-underscore-to-camel-case: false
 
@@ -49,8 +51,8 @@ spring:
         smtp:
           auth: false
   config:
-#    name: application
-#    location: classpath:/,file:./config/
+    name: application
+    location: classpath:/,file:./config/
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT
