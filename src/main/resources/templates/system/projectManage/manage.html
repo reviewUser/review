@@ -250,14 +250,14 @@
                              method: "post",
                              url: "/review/startReview",
                              data: JSON.stringify(reviewStart),
-                             dataType: "json",
+                             contentType: "application/json",
                              success: function(data){
                                  layer.open({
                                       type: 1,
                                       title: '评审任务所属领域',
-                                      content: data.data //这里content是一个普通的String
+                                      content: JSON.stringify(reviewStart.reviewField) //这里content是一个普通的String
                                     });
-                                layer.msg('目前评审状态为：'+ data.reviewStatus + ",请耐心等待");
+                                layer.msg(data.msg);
                              }
                          });
                         }
