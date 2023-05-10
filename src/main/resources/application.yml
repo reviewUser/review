@@ -42,17 +42,7 @@ spring:
       enable: false
       maxFileSize: 20Mb
     maxRequestSize: 200Mb
-  mail:
-    username: 285060193@qq.com
-    password: rccbmxbiqrxecbcc
-    host: smtp.qq.com
-    properties:
-      mail:
-        smtp:
-          auth: false
-  config:
-    name: application
-    location: classpath:/,file:./config/
+
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT
