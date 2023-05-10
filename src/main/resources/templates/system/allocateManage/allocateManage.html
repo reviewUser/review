@@ -286,37 +286,7 @@
 				  //重载
             		table.render().reload('groupinfo', { cols: [colsnew] })
             		//查询
-					$("#select").click(function Search() {
-            		 	var search={};
-            		 	search.pageNum = 1;
-						search.pageSize = 10;
-						search.workNumber=$("#work_number").val();
-						search.name=$("#username").val();
-						search.level =$('#expert_level').val();
-						search.technologyLevel =$('#technology_level').val();
-						search.fieldName =$('#field_name').val();
-						search.phone =$('#phone').val();
-						search.birthday =$('#birthday').val();
-						search.age =$('#age').val();
-						search.integral =$('#integral').val();
-						search.refuseCount =$('#refuse_count').val();
-						search.expertStatus =$('#expert_status').val();
-						$.ajax({
-							url:"/expert/queryExpertInfo",
-							method:"post",
 
-							data:JSON.stringify(search),
-							contentType:'application/json;charset=utf-8',
-							success:function (res) {
-									if(res.data){
-										renderTable(res.data);
-									}else{
-											alert("暂无此人")
-									}
-    							}
-
-						})
-					});
 				//删除
   				form.on('submit(delete)',function(data){
             	var checkStatus = table.checkStatus('groupinfo'); //idTest 即为基础参数 id 对应的值
@@ -426,7 +396,37 @@
 			    }
 			  });
 
+$("#select").click(function Search() {
+            		 	var search={};
+            		 	search.pageNum = 1;
+						search.pageSize = 10;
+						search.workNumber=$("#work_number").val();
+						search.name=$("#username").val();
+						search.level =$('#expert_level').val();
+						search.technologyLevel =$('#technology_level').val();
+						search.fieldName =$('#field_name').val();
+						search.phone =$('#phone').val();
+						search.birthday =$('#birthday').val();
+						search.age =$('#age').val();
+						search.integral =$('#integral').val();
+						search.refuseCount =$('#refuse_count').val();
+						search.expertStatus =$('#expert_status').val();
+						$.ajax({
+							url:"/expert/queryExpertInfo",
+							method:"post",
 
+							data:JSON.stringify(search),
+							contentType:'application/json;charset=utf-8',
+							success:function (res) {
+									if(res.data){
+										renderTable(res.data);
+									}else{
+											alert("暂无此人")
+									}
+    							}
+
+						})
+					});
 			//文件上传
 			upload.render({
 			  elem: '#import'

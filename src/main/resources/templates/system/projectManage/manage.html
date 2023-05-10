@@ -132,7 +132,7 @@
                 </table>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" style="margin-right: 450px"></label>
+                <label class="layui-form-label" style="margin-right: 400px"></label>
                 <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
                                                                                       class="layui-icon">&#xe615;</i>查询</a>
             </div>
@@ -148,7 +148,7 @@
             <table class="layui-hide" id="applyinfo" lay-data="{id:'applyinfo'}" lay-filter="applyinfo" style="overflow-y:auto;overflow-x:auto"></table>
 
             <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
+                <a id="reviewButton" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
                         style="padding-right: 4px;" class="layui-icon">&#xe705;</i>发起评审</a>
             </script>
         </div>
@@ -240,8 +240,8 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'detail'){
                         if (data.reviewStatus == '通知完成'){
-                            var btn = document.getElementsByClassName('barDemo');
-                            btn.className="layui-btn layui-btn-radius layui-btn-xs";
+                            var btn = document.getElementsByClassName('reviewButton');
+                            btn.class="layui-btn layui-btn-radius layui-btn-xs";
                         } else {
                             var reviewStart = {};
                             reviewStart.id=data.id;
@@ -264,31 +264,7 @@
                     }
                   });
 
-			  //查询
-			  $('#select').click(function(){
-			      var s={
-			      pageNum:1,
-                  pageSize:10};
-                  s.reviewName =$('#review_name').val();
-                  s.reviewUser =$('#review_user').val();
-                  s.reviewField =$('#review_field').val();
-                  s.reviewStatus =$('#review_status').val();
-			    $.ajax({
-                                url:"/review/queryReviewInfo",
-							method:"post",
-							contentType:'application/json;charset=utf-8',
-				  			data:JSON.stringify(s),
-							success:function (res) {
-                                    if(res.data){
-									 renderTable(res.data);
-									 }
-									 else
-									 {
-									    alert("无符合任务");
-									 }
-                            }
-              })
-			});
+
 			//删除
                 $("#delete").click(function(data){
                     var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
@@ -373,6 +349,31 @@
     	    });
 
     	}
+    	//查询
+			  $('#select').click(function(){
+			      var s={
+			      pageNum:1,
+                  pageSize:10};
+                  s.reviewName =$('#review_name').val();
+                  s.reviewUser =$('#review_user').val();
+                  s.reviewField =$('#review_field').val();
+                  s.reviewStatus =$('#review_status').val();
+			    $.ajax({
+                                url:"/review/queryReviewInfo",
+							method:"post",
+							contentType:'application/json;charset=utf-8',
+				  			data:JSON.stringify(s),
+							success:function (res) {
+                                    if(res.data){
+									 renderTable(res.data);
+									 }
+									 else
+									 {
+									    alert("无符合任务");
+									 }
+                            }
+              })
+			});
     	//文件上传
 			upload.render({
 			  elem: '#import'
