@@ -68,7 +68,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 if (collect.contains("0")) {
                     reviewManagementDao.updateStatus("通知中", p.getId());
                 } else if (collect.stream().allMatch("1"::equals)) {
-                    reviewManagementDao.updateStatus("评审通过", p.getId());
+                    reviewManagementDao.updateStatus("通知完成", p.getId());
                 }
             }
         });
