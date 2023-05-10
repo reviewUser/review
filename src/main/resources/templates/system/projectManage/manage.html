@@ -123,7 +123,7 @@
                                         <option value=""></option>
                                         <option value="待评审">待评审</option>
                                         <option value="通知中">通知中</option>
-                                        <option value="通知完成">通知完成</option>
+                                        <option value="通知完成">评审通过</option>
                                     </select>
                                 </div>
                             </div>
@@ -239,7 +239,7 @@
                     var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'detail'){
-                        if (data.reviewStatus == '通知完成'){
+                        if (data.reviewStatus == '评审通过'){
                             var btn = document.getElementsByClassName('barDemo');
                             btn.className="layui-btn layui-btn-radius layui-btn-xs";
                         } else {
