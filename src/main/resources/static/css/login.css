@@ -29,8 +29,13 @@ h1 i{
     color: #393D49;
 }
 .login{
+    background-image:url(../img/登录框.png);
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    position:fixed;
 	width:425px;
-	height:400px;
+	height:350px;
 	border-radius: 4px; 
 	margin: 50px 0 0 0;
 	padding-top:100px;
