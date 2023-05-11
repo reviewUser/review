@@ -24,8 +24,15 @@
 	</div>
 	<div class="layui-col-md4">
 		<div id="login-wrap">
-			<div class="login" style="bottom:15%;left:70%">
+			<div class="login" style="top:25%;left:70%">
 				<form class="layui-form" action="" method="POST" th:action="@{/user/login}">
+					<div  class="layui-form-item" style="margin-left:40%">
+						<div class="layui-col-md8">
+							<h2 style="color:white"><strong>用户登录 </strong>
+								<!-- <span th:text="${#httpServletRequest.getContextPath()}"></span> -->
+							</h2>
+						</div>
+					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">用户名</label>
 						<div class="layui-input-inline">
