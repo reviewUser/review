@@ -136,8 +136,13 @@
             <table class="layui-hide" id="applyinfo" lay-data="{id:'applyinfo'}" lay-filter="applyinfo" style="overflow-y:auto;overflow-x:auto"></table>
             <label class="layui-form-label" style="width:20px"></label>
 
-            <script type="text/html" id="barDemo">
+            <script type="text/html" id="check">
                 <a id="reviewButton" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
+                        style="padding-right: 4px;" class="layui-icon">&#xe705;</i>详细</a>
+            </script>
+
+            <script type="text/html" id="barDemo">
+                <a id="reviewButton" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right"><i
                         style="padding-right: 4px;" class="layui-icon">&#xe705;</i>发起评审</a>
             </script>
         </div>
@@ -198,6 +203,7 @@
 					  ,{field: 'reviewField', title: '评审所属专业领域', width:100}
 					  ,{field: 'reviewExperts', title: '评审所需专家数量', width:150}
 					  ,{field: 'reviewStatus', title: '评审状态', width:100}
+					  ,{field: 'detail', title:'详细', width: 100, align:'center', toolbar: '#check'}
 					  ,{fixed: 'right', title:'操作', width: 100, align:'center', toolbar: '#barDemo'}
 					];
 			 //执行一个 table 实例
@@ -227,7 +233,7 @@
                   table.on('tool(applyinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
                     var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
-                    if(layEvent === 'detail'){
+                    if(layEvent === 'right'){
                         if (data.reviewStatus == '通知完成'){
                             var btn = document.getElementsByClassName('reviewButton');
                             btn.class="layui-btn layui-btn-radius layui-btn-xs";
