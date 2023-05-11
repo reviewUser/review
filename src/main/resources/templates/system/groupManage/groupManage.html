@@ -35,7 +35,7 @@
 				<li class="layui-nav-item layui-nav-itemed"><a class=""
 															   href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>评审专家管理</STRONG></a></li>
 				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
-				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>账户管理</STRONG></a></li>
+				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>密码修改</STRONG></a></li>
 				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
 				<dl class="layui-nav-child">
 					<dd>
@@ -45,7 +45,7 @@
 						<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
 					</dd>
 					<dd>
-						<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">账户管理</a>
+						<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">密码修改</a>
 					</dd>
 					<!--							<dd>-->
 					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
@@ -60,7 +60,7 @@
 			<span class="layui-breadcrumb" lay-separator="/">
 			  <a href=""><cite>账户信息</cite></a>
 			</span>
-		<blockquote class="layui-elem-quote"><BIG>账户信息管理</BIG></blockquote>
+		<blockquote class="layui-elem-quote"><BIG>密码更改</BIG></blockquote>
 		<form style="height:300px">
 			<table border="0" cellspacing="0" style="margin-right:30px" id="change_table">
 				<tr>
@@ -120,8 +120,8 @@
 
 							data:JSON.stringify(change),
 							contentType:'application/json;charset=utf-8',
-							success:function (res) {
-									if(res){
+							success:function (data) {
+									if(data.code==200){
 										alert("修改成功");
 									}else{
 											alert("账户或密码错误,请重新输入");

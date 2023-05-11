@@ -15,7 +15,8 @@
 	<style type="text/css">
 #tableInfo{
 	position:static;
-	min-width:1000px;
+	width:100%;
+	height:400px;
 }
 </style>
 </head>
@@ -41,7 +42,7 @@
 				<li class="layui-nav-item layui-nav-itemed"><a class=""
 															   href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>评审专家管理</STRONG></a></li>
 				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
-				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>账户管理</STRONG></a></li>
+				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>密码修改</STRONG></a></li>
 				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
 				<dl class="layui-nav-child">
 					<dd>
@@ -51,7 +52,7 @@
 						<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
 					</dd>
 					<dd>
-						<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">账户管理</a>
+						<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">密码修改</a>
 					</dd>
 					<!--							<dd>-->
 					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
@@ -69,10 +70,7 @@
 		<blockquote class="layui-elem-quote"><BIG>系统内相关专家信息</BIG></blockquote>
 		<form class="layui-form" id="select-form">
 			<div class="layui-form-item">
-				<table border="0" cellspacing="0" style="margin-right:20px;style="min-width=1200px"">
-					<tr>
-						<td>
-							<div class="layui-inline">
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">工号</label>
 								<div class="layui-input-inline">
 									<input id="work_number" type="text" name="work_number"
@@ -80,9 +78,7 @@
 										   class="layui-input"/>
 								</div>
 							</div>
-						</td>
-						<td>
-							<div class="layui-inline">
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">姓名</label>
 								<div class="layui-input-inline">
 									<input id="username" type="text" name="username"
@@ -90,9 +86,7 @@
 										   class="layui-input"/>
 								</div>
 							</div>
-						</td>
-						<td>
-							<div class="layui-inline">
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">职称</label>
 								<div class="layui-input-inline">
 									<select id="expert_level" name="expert_level">
@@ -105,11 +99,8 @@
 									</select>
 								</div>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="layui-inline">
+
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">技术职级</label>
 								<div class="layui-input-inline">
 									<select id="technology_level" name="technology_level">
@@ -120,9 +111,8 @@
 									</select>
 								</div>
 							</div>
-						</td>
-						<td>
-							<div class="layui-inline">
+
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">擅长专业领域</label>
 								<div class="layui-input-inline">
 									<select id="field_name" name="field_name">
@@ -133,9 +123,8 @@
 									</select>
 								</div>
 							</div>
-						</td>
-						<td>
-							<div class="layui-inline">
+
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">手机号码</label>
 								<div class="layui-input-inline">
 									<input id="phone" type="text" name="phone"
@@ -143,11 +132,8 @@
 										   class="layui-input"/>
 								</div>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="layui-inline">
+
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">参与评审积分</label>
 								<div class="layui-input-inline">
 									<input id="integral" type="text" name="integral"
@@ -155,9 +141,8 @@
 										   class="layui-input"/>
 								</div>
 							</div>
-						</td>
-						<td>
-							<div class="layui-inline">
+
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">拒绝评审次数</label>
 								<div class="layui-input-inline">
 									<input id="refuse_count" type="text" name="refuse_count"
@@ -165,10 +150,8 @@
 										   class="layui-input"/>
 								</div>
 							</div>
-						</td>
 
-						<td>
-							<div class="layui-inline">
+							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width:150px">状态</label>
 								<div class="layui-input-inline">
 									<select id="expert_status" name="expert_status">
@@ -178,15 +161,11 @@
 									</select>
 								</div>
 							</div>
-						</td>
-					</tr>
-				</table>
-				<div class="layui-inline" style="align='center'">
-					<label class="layui-form-label" style="margin-right: 350px"></label>
-					<a id="select" class="layui-btn layui-btn-normal layui-btn-radius"><i style="padding-right: 4px;" class="layui-icon">&#xe615;</i>查询</a>
-				</div>
 			</div>
 		</form>
+		<div class="layui-inline" style="margin-left:40%">
+			<a id="select" class="layui-btn layui-btn-normal layui-btn-radius"><i style="padding-right: 4px;" class="layui-icon">&#xe615;</i>查询</a>
+		</div>
 		<div id="layerDemo" class="layui-btn-container" style="margin-top:100px">
 			<label class="layui-form-label" style="width: 20px"></label>
 			<button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
@@ -198,6 +177,7 @@
 			<label class="layui-form-label" style="width:20px"></label>
 			<table class="layui-hide" id="groupinfo" lay-data="{id:'groupinfo'}" lay-filter="groupinfo" style="overflow-y:auto;overflow-x:auto">
 					</table>
+			<label class="layui-form-label" style="width:20px"></label>
 			<script id="barDemo" type="text/html">
 				<a class="layui-btn layui-btn-xs" lay-event="allocate"><i style="padding-right: 4px;" class="layui-icon">&#xe609;</i>选择专家</a>
 			</script>
