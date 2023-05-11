@@ -16,7 +16,7 @@
 	margin-top: 10px;
 }
 #tableInfo{
-	width:100%;
+	width:90%;
 	height:400px;
 	position: static;
 	left:50px;
@@ -45,13 +45,9 @@
                 <!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
                 <!--					</li>-->
                 <li class="layui-nav-item layui-nav-itemed"><a class=""
-                                                               href="javascript:;"
-                                                               th:href="@{/project/allocateManagePage}"><strong>评审专家管理</strong></a>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;"
-                                                               th:href="@{/project/managePage}"><strong>评审任务管理</strong></a>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>密码修改</STRONG></a></li>
+                                                               href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>评审专家管理</STRONG></a></li>
+                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
+                <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>密码修改</STRONG></a></li>
                 <!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
                 <dl class="layui-nav-child">
                     <dd>
@@ -79,11 +75,10 @@
 			  <a href=""><cite>评审任务管理</cite></a>
 			</span>
         <blockquote class="layui-elem-quote"><BIG>系统所有评审任务</BIG></blockquote>
-        <form class="layui-form" method="POST" style="margin-left:100px">
+        <form class="layui-form" method="POST" style="margin-left:50px">
             <div class="layui-form-item">
-                <table border="0" cellspacing="=" 0>
-                        <th>
-                            <div class="layui-inline">
+
+                            <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label">评审任务名</label>
                                 <div class="layui-input-inline">
                                     <input align="center" id="review_name" type="text" name="review_name"
@@ -91,9 +86,8 @@
                                            class="layui-input"/>
                                 </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="layui-inline">
+
+                            <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label">评审发起人</label>
                                 <div class="layui-input-inline">
                                     <input id="review_user" type="text" name="review_user"
@@ -101,9 +95,8 @@
                                            class="layui-input"/>
                                 </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="layui-inline">
+
+                            <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
                                 <div class="layui-input-inline">
                                     <select id="review_field" name="review_field">
@@ -114,9 +107,8 @@
                                     </select>
                                 </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="layui-inline">
+
+                            <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label">评审状态</label>
                                 <div class="layui-input-inline">
                                     <select id="review_status" name="review_status">
@@ -127,8 +119,6 @@
                                     </select>
                                 </div>
                             </div>
-                        </th>
-                </table>
             </div>
             <div class="layui-inline" style="margin-left:38%">
                 <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
