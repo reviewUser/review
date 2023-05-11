@@ -137,7 +137,7 @@
             <label class="layui-form-label" style="width:20px"></label>
 
             <script type="text/html" id="check">
-                <a id="reviewButton" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
+                <a id="reviewDetail" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
                         style="padding-right: 4px;" class="layui-icon">&#xe705;</i>详细</a>
             </script>
 
@@ -235,8 +235,7 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'right'){
                         if (data.reviewStatus == '通知完成'){
-                            var btn = document.getElementsByClassName('reviewButton');
-                            btn.class="layui-btn layui-btn-radius layui-btn-xs";
+                            document.getElementById("reviewButton").setAttribute("class","layui-btn layui-btn-radius layui-btn-xs");
                         } else {
                             var reviewStart = {};
                             reviewStart.id=data.id;
