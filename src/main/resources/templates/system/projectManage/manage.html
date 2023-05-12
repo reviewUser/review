@@ -243,7 +243,7 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'right'){
                         if (data.reviewStatus == '通知完成'){
-                          $(this).css("background","gray");
+                          console.log("任务已完成");
                         } else {
                             var reviewStart = {};
                             reviewStart.id=data.id;
