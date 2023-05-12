@@ -137,13 +137,21 @@
             <label class="layui-form-label" style="width:20px"></label>
 
             <script type="text/html" id="check">
-                <a id="reviewDetail" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"><i
-                        style="padding-right: 4px;" class="layui-icon">&#xe705;</i>详细</a>
+                <a id="reviewDetail" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail">查看详细</a>
             </script>
 
             <script type="text/html" id="barDemo">
-                <a id="reviewButton" class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right"><i
-                        style="padding-right: 4px;" class="layui-icon">&#xe705;</i>发起评审</a>
+                {{#  if(d.reviewStatus== "通知完成"){ }}
+                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "待评审"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
+                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "通知中"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
+                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                {{#  } }}
             </script>
         </div>
     </div>
@@ -235,7 +243,7 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'right'){
                         if (data.reviewStatus == '通知完成'){
-                            document.getElementById("reviewButton").setAttribute("class","layui-btn layui-btn-radius layui-btn-xs");
+                          $(this).css("background","gray");
                         } else {
                             var reviewStart = {};
                             reviewStart.id=data.id;
@@ -255,6 +263,25 @@
                              }
                          });
                         }
+                    }
+                    else if(layEvent === 'detail')
+                    {
+                        var checkDetail={};
+
+                        $.ajax({
+                             method: "post",
+                             url: "/review/startReview",
+                             data: JSON.stringify(checkDetail),
+                             contentType: "application/json",
+                             success: function(data){
+                                 layer.open({
+                                      type: 1,
+                                      title: '评审任务所属领域',
+                                      content: JSON.stringify(data) //这里content是一个普通的String
+                                    });
+                                layer.msg(data.msg);
+                             }
+                        })
                     }
                   });
 
@@ -379,6 +406,7 @@
     		    console.log(res);
     		}
     		});
+
 
 })
 
