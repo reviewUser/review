@@ -253,6 +253,13 @@
             <version>3.2.15.Final</version>
         </dependency>
 
+        <!-- License -->
+        <dependency>
+            <groupId>de.schlichtherle.truelicense</groupId>
+            <artifactId>truelicense-core</artifactId>
+            <version>1.33</version>
+        </dependency>
+
         <dependency>
             <groupId>com.aliyun.alicom</groupId>
             <artifactId>aliyun-mns-receive-sdk</artifactId>

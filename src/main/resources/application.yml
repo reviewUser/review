@@ -57,3 +57,10 @@ aliyun:
     queue-Name: Alicom-Queue-1763481093987402-SmsUp
 expert:
   refuse-count: 5
+#License相关配置
+license:
+  subject: review
+  publicAlias: publicCert
+  storePass: public_777
+  licensePath: E:\works\test\review\src\main\resources\license\license.lic
+  publicKeysStorePath: E:\works\test\review\src\main\resources\license\publicCerts.keystore
