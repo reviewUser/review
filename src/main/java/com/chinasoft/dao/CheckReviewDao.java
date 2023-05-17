@@ -12,8 +12,11 @@ public interface CheckReviewDao {
 
     void insert(CheckReview checkReview);
 
-    @Select("UPDATE check_review_status SET status = '1'  where phone = #{phone}")
-    void updateStatus(@Param("phone") String phone);
+//    @Select("UPDATE check_review_status SET status = '1'  where phone = #{phone}")
+//    void updateStatus(@Param("phone") String phone);
+
+
+    void updateStatus(CheckReview checkReview);
 
     @Select("SELECT * FROM check_review_status WHERE review = #{reviewId}")
     List<CheckReview> queryStatusByReviewId(@Param("reviewId") long reviewId);

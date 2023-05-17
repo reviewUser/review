@@ -199,6 +199,15 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         }
     }
 
+    @Override
+    public List<CheckReview> queryRepeatMsg(Long id) {
+        List<CheckReview> repeatMessageInfos = new ArrayList<>();
+        if (id != null) {
+            repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
+        }
+        return repeatMessageInfos;
+    }
+
 
     /**
      * 随机抽取3个手机号
@@ -236,6 +245,8 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         RepeatMessageInfo repeatMessageInfo = new RepeatMessageInfo();
         repeatMessageInfo.setTime(Timestamp.valueOf(time));
         repeatMessageInfo.setPhone(phone);
+        repeatMessageInfo.setReview(reviewId);
+
         CheckReview checkReview = new CheckReview();
         checkReview.setReview(reviewId);
         checkReview.setPhone(phone);

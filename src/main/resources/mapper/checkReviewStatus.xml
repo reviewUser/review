@@ -7,6 +7,7 @@
         <result column="review" property="review"/>
         <result column="phone" property="phone"/>
         <result column="status" property="status"/>
+        <result column="repeats" property="repeats"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.chinasoft.po.CheckReview">
@@ -14,7 +15,23 @@
                    order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert INTO check_review_status(id,review, phone, status)
-        VALUES (#{id}, #{review}, #{phone}, #{status})
+        insert INTO check_review_status(id,review, phone, status,repeats)
+        VALUES (#{id}, #{review}, #{phone}, #{status},#{repeats})
     </insert>
+
+    <update id="updateStatus" parameterType="com.chinasoft.po.CheckReview">
+        UPDATE check_review_status
+        <set>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="repeats != null">
+                repeats = #{repeats}
+            </if>
+        </set>
+        WHERE phone  = #{phone} and review = #{review}
+    </update>
 </mapper>

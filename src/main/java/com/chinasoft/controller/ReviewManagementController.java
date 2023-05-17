@@ -2,14 +2,12 @@ package com.chinasoft.controller;
 
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.param.ReviewParam;
+import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
 import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -104,5 +102,22 @@ public class ReviewManagementController {
         } catch (RuntimeException e) {
             e.getMessage();
         }
+    }
+
+    /**
+     * 查询评审任务短信回复详情
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @GetMapping(value = "/queryRepeatMsg")
+    public List<CheckReview> queryRepeatMsg(@RequestParam Long id) {
+        try {
+            return reviewManagementService.queryRepeatMsg(id);
+        } catch (RuntimeException e) {
+            e.getMessage();
+        }
+        return null;
     }
 }

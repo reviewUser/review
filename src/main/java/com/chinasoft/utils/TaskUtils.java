@@ -3,6 +3,7 @@ package com.chinasoft.utils;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.ExpertInfoDao;
 import com.chinasoft.dao.RepeatMessageDao;
+import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.RepeatMessageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -51,17 +52,26 @@ public class TaskUtils {
         long from = format.parse(fromDate).getTime();
         long to = format.parse(nowTime).getTime();
         int hours = (int) ((to - from) / (1000 * 60 * 60));
+        CheckReview checkReview = new CheckReview();
+        checkReview.setPhone(phone);
         if (StringUtils.isNotBlank(msgInfo.getRepeats()) && msgInfo.getRepeats().contains("1")) {
             expertInfo.setIntegral(info.getIntegral() + 1);
             expertInfoDao.updateExpertByPhone(expertInfo);
+            checkReview.setReview(msgInfo.getReview());
+            checkReview.setStatus("1");
+            checkReview.setRepeats("同意");
+            checkReviewDao.updateStatus(checkReview);
+            System.out.println("11111111111");
             repeatMessageDao.delMsgByPhone(phone);
-            checkReviewDao.updateStatus(phone);
         } else if (hours >= 12 && StringUtils.isBlank(msgInfo.getRepeats()) ||
                 StringUtils.isNotBlank(msgInfo.getRepeats()) && !msgInfo.getRepeats().contains("1")) {
             expertInfo.setRefuseCount(info.getRefuseCount() + 1);
             expertInfoDao.updateExpertByPhone(expertInfo);
+            checkReview.setReview(msgInfo.getReview());
+            checkReview.setStatus("1");
+            checkReview.setRepeats("不同意");
+            checkReviewDao.updateStatus(checkReview);
             repeatMessageDao.delMsgByPhone(phone);
-            checkReviewDao.updateStatus(phone);
         }
     }
 }

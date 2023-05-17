@@ -10,4 +10,5 @@ public class RepeatMessageInfo {
     private String phone;
     private Date time;
     private String repeats;
+    private long review;
 }

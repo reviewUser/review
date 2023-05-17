@@ -76,6 +76,7 @@ public class ReceiveApplyMsgController {
                     repeatMessageInfo.setPhone(phoneNumber);
                     repeatMessageInfo.setRepeats(content);
                     staticRepeatMessageDao.updateByPhone(repeatMessageInfo);
+                    System.out.println("保存短信回复成功");
                 }
                 System.out.println("==============接收短信回复结束====================");
                 return true;

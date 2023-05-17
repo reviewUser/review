@@ -1,6 +1,7 @@
 package com.chinasoft.service;
 
 import com.chinasoft.param.ReviewParam;
+import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.utils.Result;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,4 +56,6 @@ public interface ReviewManagementService {
      * @return
      */
     void  exportReview(List<Long> ids, HttpServletResponse response);
+
+    List<CheckReview> queryRepeatMsg(Long id);
 }

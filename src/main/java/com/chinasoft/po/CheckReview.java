@@ -8,4 +8,5 @@ public class CheckReview {
     private long review;
     private String phone;
     private String status;
+    private String repeats;
 }
