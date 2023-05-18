@@ -21,4 +21,6 @@ public interface CheckReviewDao {
     @Select("SELECT * FROM check_review_status WHERE review = #{reviewId}")
     List<CheckReview> queryStatusByReviewId(@Param("reviewId") long reviewId);
 
+    @Select("SELECT * FROM check_review_status WHERE review = #{reviewId} AND phone = #{phone}}")
+    CheckReview queryByReviewIdAndPhone(@Param("reviewId") long reviewId, @Param("phone") String phone);
 }

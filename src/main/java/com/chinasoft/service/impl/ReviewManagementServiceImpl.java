@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.RepeatMessageDao;
 import com.chinasoft.dao.ReviewManagementDao;
@@ -252,9 +253,13 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         checkReview.setReview(reviewId);
         checkReview.setPhone(phone);
         checkReview.setStatus("0");
+        CheckReview review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
+
         if ("ok".equalsIgnoreCase(response.getBody().getMessage())) {
             repeatMessageDao.insert(repeatMessageInfo);
-            checkReviewDao.insert(checkReview);
+            if (review == null) {
+                checkReviewDao.insert(checkReview);
+            }
             return "短信发送成功！";
         }
         return "短信发送失败！";
