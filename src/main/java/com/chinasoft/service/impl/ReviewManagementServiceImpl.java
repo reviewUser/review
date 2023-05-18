@@ -1,16 +1,14 @@
 package com.chinasoft.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.RepeatMessageDao;
 import com.chinasoft.dao.ReviewManagementDao;
 import com.chinasoft.param.ReviewParam;
-import com.chinasoft.po.CheckReview;
-import com.chinasoft.po.ExpertInfo;
-import com.chinasoft.po.RepeatMessageInfo;
-import com.chinasoft.po.ReviewManagement;
+import com.chinasoft.po.*;
 import com.chinasoft.service.ReviewManagementService;
 import com.chinasoft.utils.ImportExcelUtils;
 import com.chinasoft.utils.Result;
@@ -51,6 +49,9 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     @Value("${aliyun.sms.template-code}")
     private String templateCode;
 
+    @Value("${aliyun.sms.param}")
+    private String param;
+
     @Autowired
     private RepeatMessageDao repeatMessageDao;
 
@@ -64,11 +65,13 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         infos.forEach(p -> {
             List<CheckReview> checkReviews = checkReviewDao.queryStatusByReviewId(p.getId());
             if (checkReviews.size() > 0) {
-                List<String> collect = checkReviews.stream().map(CheckReview::getStatus).collect(Collectors.toList());
-                if (collect.contains("0")) {
-                    reviewManagementDao.updateStatus("通知中", p.getId());
-                } else if (collect.stream().allMatch("1"::equals)) {
-                    reviewManagementDao.updateStatus("通知完成", p.getId());
+                List<String> collect = checkReviews.stream().map(CheckReview::getRepeats).collect(Collectors.toList());
+                if (collect.stream().allMatch("同意"::equals)) {
+                    reviewManagementDao.updateStatus("全部通知完成", p.getId());
+                } else if (collect.stream().allMatch("拒绝"::equals)) {
+                    reviewManagementDao.updateStatus("通知失败", p.getId());
+                } else {
+                    reviewManagementDao.updateStatus("“部分通知完成”", p.getId());
                 }
             }
         });
@@ -238,9 +241,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 .setTemplateCode(templateCode);
         // 复制代码运行请自行打印 API 的返回值
         SendSmsResponse response = client.sendSms(sendSmsRequest);
-
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
         //同步插入记录短信回复
         RepeatMessageInfo repeatMessageInfo = new RepeatMessageInfo();
         repeatMessageInfo.setTime(Timestamp.valueOf(time));
@@ -257,5 +258,16 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             return "短信发送成功！";
         }
         return "短信发送失败！";
+    }
+
+    private String setTemplateParam() {
+        //短信通知参数json格式
+        SmsParam smsParamVo = new SmsParam();
+        //设置短信通知模板里面的变量值
+        smsParamVo.setHour(param);
+        String smsParam = JSONObject.toJSONString(smsParamVo);
+        System.out.println("新版本短信通知参数smsParam:" + smsParam);
+        //模板中的变量替换JSON串,如模板内容为"亲爱的${hour},您的验证码为${code}"时,此处的值为
+        return smsParam;
     }
 }
