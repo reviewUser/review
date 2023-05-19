@@ -35,14 +35,34 @@
 	<div class="layui-side layui-bg-black">
 		<div class="layui-side-scroll">
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-			<ul class="layui-nav layui-nav-tree">
+			<ul class="layui-nav layui-nav-tree" >
 				<!--					<li class="layui-nav-item layui-nav-itemed">-->
 				<!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
 				<!--					</li>-->
-				<li class="layui-nav-item layui-nav-itemed"><a class=""
-															   href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>评审专家管理</STRONG></a></li>
-				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}"><STRONG>评审任务管理</STRONG></a></li>
-				<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/allocateManagePage}"><STRONG>密码修改</STRONG></a></li>
+				<li class="layui-nav-item">
+					<a class="" href="javascript:;" ><STRONG>评审专家管理</STRONG></a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审专家管理</a>
+						</dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;"><STRONG>评审任务管理</STRONG></a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="" href="javascript:;"th:href="@{/project/managePage}">评审任务管理</a>
+						</dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;"><STRONG>密码修改</STRONG></a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/project/allocateManagePage}">密码修改</a>
+						</dd>
+					</dl>
+				</li>
 				<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
 				<dl class="layui-nav-child">
 					<dd>
@@ -57,7 +77,7 @@
 					<!--							<dd>-->
 					<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
 					<!--							</dd>-->
-				</dl></li>
+				</dl>
 				<!--						<li class="layui-nav-item layui-nav-itemed"><a class=""-->
 				<!--						href="javascript:;" th:href="@{/field/fieldPage}">领域标签管理</a></li>-->
 			</ul>
@@ -376,7 +396,7 @@
 			    }
 			  });
 
-$("#select").click(function Search() {
+			 $("#select").click(function Search() {
             		 	var search={};
             		 	search.pageNum = 1;
 						search.pageSize = 10;
@@ -401,7 +421,7 @@ $("#select").click(function Search() {
 									if(res.data){
 										renderTable(res.data);
 									}else{
-											alert("暂无此人")
+											alert("暂无此人");
 									}
     							}
 
@@ -442,29 +462,6 @@ $("#select").click(function Search() {
 					  }
 
 				};
-<!--				$('#main .layui-btn').on('click', function(){-->
-<!--					othis = $(this), method = othis.data('method');-->
-<!--    				active[method] ? active[method].call(this, othis) : '';-->
-<!--					var change={};-->
-<!--					change.username=$('#change_name').val();-->
-<!--					change.oldPwd=$('#change_old').val();-->
-<!--					change.oldPwd=$('#change_newe').val();-->
-<!--					$.ajax({-->
-<!--						method : "post", //提交方式-->
-<!--						url : "/expert/updatePwd",//路径-->
-<!--						contentType: "application/json",-->
-<!--						data:JSON.stringify(change),-->
-<!--						success:function (res) {-->
-<!--							if(res.data){-->
-<!--								alert("修改成功");-->
-<!--								layer.closeAll();-->
-<!--							}else{-->
-<!--								alert(“账户或密码错误,请重新输入”);-->
-<!--								layer.closeAll();-->
-<!--							}-->
-<!--						}-->
-<!--					})-->
-<!--				});-->
 				$('#layerDemo .layui-btn').on('click', function(){
 					  othis = $(this), method = othis.data('method');
     				  active[method] ? active[method].call(this, othis) : '';
