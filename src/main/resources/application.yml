@@ -44,8 +44,8 @@ spring:
     maxRequestSize: 200Mb
 
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://121.41.170.49:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT&autoReconnect=true
     username: root
     password: 123456
 aliyun:
@@ -63,5 +63,5 @@ license:
   subject: review
   publicAlias: publicCert
   storePass: public_777
-  licensePath: E:\works\review\review\src\main\resources\license\license.lic
-  publicKeysStorePath: E:\works\review\review\src\main\resources\license\publicCerts.keystore
+  licensePath: /usr/local/review/config/license.lic
+  publicKeysStorePath: /usr/local/review/config/publicCerts.keystore
