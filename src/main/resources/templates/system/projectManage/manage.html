@@ -162,7 +162,7 @@
             </script>
 
             <script type="text/html" id="barDemo">
-                {{#  if(d.reviewStatus== "通知完成"){ }}
+                {{#  if(d.reviewStatus== "全部通知完成"){ }}
                 <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "待评审"){ }}
@@ -170,6 +170,14 @@
                     <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知中"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
+                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "部分通知完成"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
+                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "通知失败"){ }}
                 <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
                     <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
                 {{#  } }}
@@ -285,7 +293,7 @@
                                     var Title="无对应";
                                     var message="领域专家,";
                                     var filed=JSON.stringify(reviewStart.reviewField);
-                                    var error=",发送失败";
+                                    var error="发送失败";
                                     layer.open({
                                           type: 1
                                           ,title: '报错信息'
