@@ -189,6 +189,9 @@
         <p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
     </div>
 </div>
+<div id="detailtable">
+    <table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="overflow-y:auto;overflow-x:auto"></table>
+</div>
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 
 <script th:inline="javascript">
@@ -293,10 +296,11 @@
                                     var Title="无对应";
                                     var message="领域专家,";
                                     var filed=JSON.stringify(reviewStart.reviewField);
-                                    var error="发送失败";
+                                    var error="发送失败!";
                                     layer.open({
                                           type: 1
                                           ,title: '报错信息'
+                                          ,area:['20%','20%']
                                           ,content: Title+filed+message+error //这里content是一个普通的String
                                           ,btn: '确认'
                                           ,btnAlign: 'c'
@@ -320,21 +324,55 @@
                              data: JSON.stringify(checkDetail),
                              contentType: "application/json",
                              success: function(res){
-                                var that=this;
+                                var D_param=res;
+                                var Dcols = [ //表头
+                                           {field: 'id', title: '序号', width:100}
+                                          ,{field: 'review', title: '评审任务id', width:100}
+                                          ,{field: 'phone', title: '电话号码',width:100}
+                                          ,{field: 'repeats', title: '回复内容',width:100}
+                                          ,{field: 'status', title: '回复状态', width:100}
+                                        ];
+                                          var renderTable2 = function(D_param) {
+
+                                            var tableIns2 = table.render({
+                                                id: 'detailinfo'
+                                                ,elem: '#detailinfo'
+                                                ,width: '100%'
+                                                ,data:D_param
+                                                ,cols: [Dcols]
+                                                ,where: { action: "List" }
+                                                ,done: function (res, curr, count) {
+                                                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                                                }
+                                                ,request: {
+                                                    pageName: 'pageNum', //页码的参数名称
+                                                    limitName: 'pageSize' //每页数据量的参数名
+                                                 }
+                                               ,page: {
+                                                    limit: 10 ,//指定每页显示的条数
+                                                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+                                                 }
+
+                                          });
+                                          // 执行重载
+                                          table.render().reload('detailinfo', { cols: [Dcols] })
+                                      }
+<!--                                var that=this;-->
                                  layer.open({
                                       type: 1
                                       ,title: '评审任务对应专家回复详情'
-                                      ,area:'800px,600px'
+                                      ,area:['25%', '50%']
 <!--                                      ,content:JSON.stringify(res)-->
-                                      ,content: '<table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="overflow-y:auto;overflow-x:auto"></table>'
-                                      ,btn: ['查询','关闭']
+                                      ,content: $('#detailinfo')
+<!--                                      ,btn: ['查询','关闭']-->
+                                      ,btn: '确定'
                                       ,btnAlign: 'c'
                                       ,shade: 0 //不显示遮罩
                                       ,yes:function(){
-                                        var D_param=res; //这里content是一个普通的String
-                                        $(that).click(D_param);
-                                      }
-                                      ,btn2: function(){
+<!--                                        $(that).click(D_param);-->
+<!--                                      -->
+<!--                                      }-->
+<!--                                      ,btn2: function(){-->
                                          layer.closeAll();
                                       }
                                     });
@@ -342,35 +380,8 @@
                         })
                     }
                   });
-                  $('#finddetail .layui-btn').on('click', function(D_param){
-					    var Dcols = [ //表头
-					           {field: 'id', title: '序号', width:100}
-                              ,{field: 'review', title: '评审任务id', width:100}
-                              ,{field: 'phone', title: '电话号码',width:100}
-                              ,{field: 'repeats', title: '回复内容',width:100}
-                              ,{field: 'status', title: '回复状态', width:100}
-                            ];
-			          var renderTable = function(D_param) {
+                  $('#applyinfo .layer-btn').on('click', function(D_param){
 
-					    var tableIns = table.render({
-                            elem: '#detailinfo'
-                            ,width: '100%'
-                            ,data:D_param
-                            ,cols: [Dcols]
-					        ,where: { action: "List" }
-                            ,done: function (res, curr, count) {
-                                this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-                            }
-
-                           ,page: {
-                                limit: 10 ,//指定每页显示的条数
-                                limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-                             }
-
-                      });
-                      // 执行重载
-                      table.render().reload('detailinfo', { cols: [Dcols] })
-                  }
 					  });
 
 			//删除
