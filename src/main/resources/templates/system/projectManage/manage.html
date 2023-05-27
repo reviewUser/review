@@ -40,28 +40,22 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree">
+            <ul class="layui-nav layui-nav-tree site-demo-nav">
                 <!--					<li class="layui-nav-item layui-nav-itemed">-->
                 <!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
                 <!--					</li>-->
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;" ><STRONG>评审专家管理</STRONG></a>
-                    <dl class="layui-nav-child" >
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;" ><STRONG>评审管理</STRONG></a>
+                    <dl class="layui-nav-child">
                         <dd>
                             <a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审专家管理</a>
                         </dd>
                     </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><STRONG>评审任务管理</STRONG></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a class="" href="javascript:;"th:href="@{/project/managePage}">评审任务管理</a>
+                            <a class="" href="javascript:;">评审任务管理</a>
                         </dd>
                     </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><STRONG>密码修改</STRONG></a>
                     <dl class="layui-nav-child">
                         <dd>
                             <a class="" href="javascript:;" th:href="@{/project/allocateManagePage}">密码修改</a>
@@ -170,16 +164,13 @@
                     <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知中"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
-                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "部分通知完成"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
-                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知失败"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
-                    <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
+                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
             </script>
         </div>
@@ -188,9 +179,6 @@
         <!-- 底部固定区域 -->
         <p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
     </div>
-</div>
-<div id="detailtable">
-    <table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="overflow-y:auto;overflow-x:auto"></table>
 </div>
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 
@@ -274,10 +262,8 @@
                     var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'right'){
-                        if (data.reviewStatus == '全部通知完成'){
-                          console.log("任务已完成");
-                        } else {
-                            var reviewStart = {};
+                        if (data.reviewStatus == '待评审'){
+                          var reviewStart = {};
                             reviewStart.id=data.id;
                             reviewStart.reviewField=data.reviewField;
                             $.ajax({
@@ -312,11 +298,14 @@
                                  }
                              }
                          });
+                        } else {
+                            console.log("不可操作");
                         }
                     }
                     else if(layEvent === 'detail')
                     {
                         var checkDetail=data.id;
+                        var result;
 
                         $.ajax({
                              method: "get",
@@ -324,21 +313,33 @@
                              data: JSON.stringify(checkDetail),
                              contentType: "application/json",
                              success: function(res){
-                                var D_param=res;
-                                var Dcols = [ //表头
+                                result=res;
+                             }
+                        })
+                                 layer.open({
+                                      type: 1
+                                      ,id:'detailInfo'
+                                      ,title: '评审任务对应专家回复详情'
+                                      ,area:['50%', '50%']
+<!--                                      ,content:JSON.stringify(res)-->
+                                      ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form>></div>'
+                                      ,btn: ['查询','关闭']
+<!--                                      ,btn: '确定'-->
+                                      ,btnAlign: 'c'
+                                      ,shade: 0 //不显示遮罩
+                                      ,success:function(){
+                                        var Dcols = [ //表头
                                            {field: 'id', title: '序号', width:100}
                                           ,{field: 'review', title: '评审任务id', width:100}
                                           ,{field: 'phone', title: '电话号码',width:100}
                                           ,{field: 'repeats', title: '回复内容',width:100}
                                           ,{field: 'status', title: '回复状态', width:100}
                                         ];
-                                          var renderTable2 = function(D_param) {
-
                                             var tableIns2 = table.render({
                                                 id: 'detailinfo'
                                                 ,elem: '#detailinfo'
                                                 ,width: '100%'
-                                                ,data:D_param
+                                                ,data:result
                                                 ,cols: [Dcols]
                                                 ,where: { action: "List" }
                                                 ,done: function (res, curr, count) {
@@ -357,32 +358,46 @@
                                           // 执行重载
                                           table.render().reload('detailinfo', { cols: [Dcols] })
                                       }
-<!--                                var that=this;-->
-                                 layer.open({
-                                      type: 1
-                                      ,title: '评审任务对应专家回复详情'
-                                      ,area:['25%', '50%']
-<!--                                      ,content:JSON.stringify(res)-->
-                                      ,content: $('#detailinfo')
-<!--                                      ,btn: ['查询','关闭']-->
-                                      ,btn: '确定'
-                                      ,btnAlign: 'c'
-                                      ,shade: 0 //不显示遮罩
                                       ,yes:function(){
-<!--                                        $(that).click(D_param);-->
-<!--                                      -->
-<!--                                      }-->
-<!--                                      ,btn2: function(){-->
+                                        var Dcols = [ //表头
+                                           {field: 'id', title: '序号', width:100}
+                                          ,{field: 'review', title: '评审任务id', width:100}
+                                          ,{field: 'phone', title: '电话号码',width:100}
+                                          ,{field: 'repeats', title: '回复内容',width:100}
+                                          ,{field: 'status', title: '回复状态', width:100}
+                                        ];
+                                            var tableIns2 = table.render({
+                                                id: 'detailinfo'
+                                                ,elem: '#detailinfo'
+                                                ,width: '100%'
+                                                ,data:result
+                                                ,cols: [Dcols]
+                                                ,where: { action: "List" }
+                                                ,done: function (res, curr, count) {
+                                                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                                                }
+                                                ,request: {
+                                                    pageName: 'pageNum', //页码的参数名称
+                                                    limitName: 'pageSize' //每页数据量的参数名
+                                                 }
+                                               ,page: {
+                                                    limit: 10 ,//指定每页显示的条数
+                                                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+                                                 }
+
+                                          });
+                                          // 执行重载
+                                          table.render().reload('detailinfo', { cols: [Dcols] })
+                                      }
+                                      ,btn2: function(){
                                          layer.closeAll();
                                       }
                                     });
-                             }
-                        })
+
+
                     }
                   });
-                  $('#applyinfo .layer-btn').on('click', function(D_param){
 
-					  });
 
 			//删除
                 $("#delete").click(function(data){
