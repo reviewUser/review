@@ -45,15 +45,16 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.41.170.49:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT&autoReconnect=true
+#    url: jdbc:mysql://121.41.170.49:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/review?characterEncoding=UTF-8&useSSL=false&serverTimezone=CTT&autoReconnect=true
     username: root
     password: 123456
 aliyun:
   sms:
     access-key-id: LTAI5t7k9d1kdvy9mXaTND2q
     access-key-secret: pOxcqfaacZseCyUQtZq21lOQ22qlZG
-    sign-name: 杨勇博客审核通知
-    template-code: SMS_276210229
+    sign-name: 长庆石油评审任务通知
+    template-code: SMS_460955205
     queue-Name: Alicom-Queue-1763481093987402-SmsUp
     param: 12
 expert:
@@ -63,5 +64,7 @@ license:
   subject: review
   publicAlias: publicCert
   storePass: public_777
-  licensePath: /usr/local/review/config/license.lic
-  publicKeysStorePath: /usr/local/review/config/publicCerts.keystore
+#  licensePath: /usr/local/Tomcat8.5/webapps/review/ROOT/WEB-INF/classes/license/license.lic
+#  publicKeysStorePath: /usr/local/Tomcat8.5/webapps/review/ROOT/WEB-INF/classes/license/publicCerts.keystore
+  licensePath: D:\work\gittest\review\src\main\resources\license\license.lic
+  publicKeysStorePath: D:\work\gittest\review\src\main\resources\license\publicCerts.keystore
