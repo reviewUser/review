@@ -3,6 +3,7 @@ package com.chinasoft.controller;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.CheckReview;
+import com.chinasoft.po.QueryDescVo;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
 import com.chinasoft.utils.Result;
@@ -112,7 +113,7 @@ public class ReviewManagementController {
      * @throws IOException
      */
     @GetMapping(value = "/queryRepeatMsg")
-    public List<CheckReview> queryRepeatMsg(@RequestParam Long id) {
+    public List<QueryDescVo> queryRepeatMsg(@RequestParam Long id) {
         try {
             return reviewManagementService.queryRepeatMsg(id);
         } catch (RuntimeException e) {

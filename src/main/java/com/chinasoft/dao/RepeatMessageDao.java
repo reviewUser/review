@@ -1,6 +1,7 @@
 package com.chinasoft.dao;
 
 import com.chinasoft.po.CheckReview;
+import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.RepeatMessageInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -43,4 +44,7 @@ public interface RepeatMessageDao {
 
     @Select("SELECT * FROM check_review_status WHERE review = #{id}")
     List<CheckReview> queryRepeatByReviewId(@Param("id") long id);
+
+    @Select("SELECT * FROM expert_info WHERE phone = #{phone}")
+    ExpertInfo queryName(@Param("phone") String phone);
 }

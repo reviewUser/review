@@ -266,6 +266,7 @@
                           var reviewStart = {};
                             reviewStart.id=data.id;
                             reviewStart.reviewField=data.reviewField;
+                            reviewStart.reviewExperts=data.reviewExperts;
                             $.ajax({
                              method: "post",
                              url: "/review/startReview",
@@ -279,10 +280,10 @@
                                  else
                                  {
                                     alert("信息发送失败");
-                                    var Title="无对应";
+                                    var Title="专家实际数量小于评审所需数量需添加";
                                     var message="领域专家,";
                                     var filed=JSON.stringify(reviewStart.reviewField);
-                                    var error="发送失败!";
+                                    var error="或修改评审任务专家需求数!";
                                     layer.open({
                                           type: 1
                                           ,title: '报错信息'
@@ -360,10 +361,9 @@
                                       }
                                       ,yes:function(){
                                         var Dcols = [ //表头
-                                           {field: 'id', title: '序号', width:100}
-                                          ,{field: 'review', title: '评审任务id', width:100}
+                                           {field: 'workNum', title: '工号', width:100}
+                                          ,{field: 'name', title: '姓名', width:100}
                                           ,{field: 'phone', title: '电话号码',width:100}
-                                          ,{field: 'repeats', title: '回复内容',width:100}
                                           ,{field: 'status', title: '回复状态', width:100}
                                         ];
                                             var tableIns2 = table.render({

@@ -165,8 +165,13 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             result.setMsg("评审所属专业领域不能为空");
             return result;
         }
-        List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
 
+        List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
+        if (expertInfos.size() < Long.parseLong(reviewManagement.getReviewExperts())) {
+            result.setCode("500");
+            result.setMsg("评审所需专家数量不足");
+            return result;
+        }
         List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
         List<String> list = GetRandomThreeInfoList(phones, 3);
         for (String str : list) {
@@ -204,12 +209,22 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     }
 
     @Override
-    public List<CheckReview> queryRepeatMsg(Long id) {
-        List<CheckReview> repeatMessageInfos = new ArrayList<>();
+    public List<QueryDescVo> queryRepeatMsg(Long id) {
+        List<QueryDescVo> queryDescVos = new ArrayList<>();
         if (id != null) {
-            repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
+            List<CheckReview> repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
+            for (CheckReview checkReview : repeatMessageInfos) {
+                QueryDescVo queryDescVo = new QueryDescVo();
+                queryDescVo.setStatus(checkReview.getRepeats());
+                queryDescVo.setPhone(checkReview.getPhone());
+                ExpertInfo expertInfo = repeatMessageDao.queryName(checkReview.getPhone());
+                queryDescVo.setName(expertInfo.getName());
+                queryDescVo.setWorkNum(expertInfo.getWorkNumber());
+                queryDescVos.add(queryDescVo);
+            }
+
         }
-        return repeatMessageInfos;
+        return queryDescVos;
     }
 
 
