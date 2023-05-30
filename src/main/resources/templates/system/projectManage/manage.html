@@ -307,10 +307,11 @@
                     {
                         var checkDetail=data.id;
                         var result;
+                        var url1="id="+checkDetail;
 
                         $.ajax({
                              method: "get",
-                             url: "/review/queryRepeatMsg?id=55",
+                             url: "/review/queryRepeatMsg?"+url1,
                              data: JSON.stringify(checkDetail),
                              contentType: "application/json",
                              success: function(res){
@@ -323,7 +324,7 @@
                                       ,title: '评审任务对应专家回复详情'
                                       ,area:['50%', '50%']
 <!--                                      ,content:JSON.stringify(res)-->
-                                      ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form>></div>'
+                                      ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form></div>'
                                       ,btn: ['查询','关闭']
 <!--                                      ,btn: '确定'-->
                                       ,btnAlign: 'c'
