@@ -14,8 +14,13 @@
  Date: 17/05/2023 11:10:09
 */
 
+DROP DATABASE IF EXISTS `review`;
+CREATE DATABASE IF NOT EXISTS `review` ;
+USE `review`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
 
 -- ----------------------------
 -- Table structure for allocate
