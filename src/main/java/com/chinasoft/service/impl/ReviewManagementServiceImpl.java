@@ -120,7 +120,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 reviewManagement.setReviewEndDate(sdf.parse(String.valueOf(list.get(5))));
                 reviewManagement.setReviewField(String.valueOf(list.get(6)));
                 reviewManagement.setReviewExperts(String.valueOf(list.get(7)));
-                reviewManagement.setReviewStatus(String.valueOf(list.get(8)));
+                reviewManagement.setReviewStatus("待评审");
                 reviewManagements.add(reviewManagement);
             }
             int i = reviewManagementDao.batchInsertReviews(reviewManagements);
@@ -268,6 +268,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         checkReview.setReview(reviewId);
         checkReview.setPhone(phone);
         checkReview.setStatus("0");
+        checkReview.setRepeats("暂未回复");
         CheckReview review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
 
         if ("ok".equalsIgnoreCase(response.getBody().getMessage())) {

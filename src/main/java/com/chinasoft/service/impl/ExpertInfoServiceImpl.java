@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -119,10 +120,12 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                 }
                 expertInfo.setPhone(String.valueOf(list.get(5)));
                 expertInfo.setBirthday(String.valueOf(list.get(6)));
-                expertInfo.setAge(Long.parseLong(String.valueOf(list.get(7))));
-                expertInfo.setIntegral(Long.parseLong(String.valueOf(list.get(8))));
-                expertInfo.setRefuseCount(Long.parseLong(String.valueOf(list.get(9))));
-                expertInfo.setExpertStatus(String.valueOf(list.get(10)));
+                int age = age(convert(String.valueOf(list.get(6))));
+
+                expertInfo.setAge(age);
+                expertInfo.setIntegral(0);
+                expertInfo.setRefuseCount(0);
+                expertInfo.setExpertStatus("正常");
                 expertInfos.add(expertInfo);
             }
             int i = expertInfoDao.batchInsertExperts(expertInfos);
@@ -139,6 +142,51 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
             return resultMap;
         }
     }
+
+    public Date convert(String s) {
+        Date date = null;
+        //实现将字符串转成⽇期类型
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = dateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+
+    public static int age(Date birthDate) {
+        // 当前日历
+        Calendar nowCalendar = Calendar.getInstance();
+        // 生日大于当前日期
+        if (nowCalendar.before(birthDate)) {
+            throw new IllegalArgumentException("The birth date is before current time, it's unbelievable");
+        }
+        // 当前年月日
+        int yearNow = nowCalendar.get(Calendar.YEAR);
+        int monthNow = nowCalendar.get(Calendar.MONTH);
+        int dayNow = nowCalendar.get(Calendar.DAY_OF_MONTH);
+        // 出生日期年月日
+        Calendar birthCalendar = Calendar.getInstance();
+        birthCalendar.setTime(birthDate);
+        int yearBirth = birthCalendar.get(Calendar.YEAR);
+        int monthBirth = birthCalendar.get(Calendar.MONTH);
+        int dayBirth = birthCalendar.get(Calendar.DAY_OF_MONTH);
+        // 粗计算年龄
+        int age = yearNow - yearBirth;
+        // 当前月份小于出生月份年龄减一
+        if (monthNow < monthBirth) {
+            age--;
+        }
+        // 当前月份等于出生月份，日小于生日年龄减一
+        else if (monthNow == monthBirth && dayNow < dayBirth) {
+            age--;
+        }
+        // 返回年龄值
+        return age;
+    }
+
 
     @Override
     public void exportExpert(List<Long> ids, HttpServletResponse response) {

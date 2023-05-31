@@ -45,8 +45,6 @@ public class TaskUtils {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         RepeatMessageInfo msgInfo = repeatMessageDao.queryMsgByPhone(phone);
         ExpertInfo info = expertInfoDao.queryExpertByPhone(phone);
-        ExpertInfo expertInfo = new ExpertInfo();
-        expertInfo.setPhone(phone);
         String fromDate = format.format(msgInfo.getTime());
         String nowTime = format.format(new Date());
         long from = format.parse(fromDate).getTime();
@@ -55,18 +53,17 @@ public class TaskUtils {
         CheckReview checkReview = new CheckReview();
         checkReview.setPhone(phone);
         if (StringUtils.isNotBlank(msgInfo.getRepeats()) && msgInfo.getRepeats().contains("1")) {
-            expertInfo.setIntegral(info.getIntegral() + 1);
-            expertInfoDao.updateExpertByPhone(expertInfo);
+            info.setIntegral(info.getIntegral() + 1);
+            expertInfoDao.updateExpertByPhone(info);
             checkReview.setReview(msgInfo.getReview());
             checkReview.setStatus("1");
             checkReview.setRepeats("同意");
             checkReviewDao.updateStatus(checkReview);
-            System.out.println("11111111111");
             repeatMessageDao.delMsgByPhone(phone);
         } else if (hours >= 12 && StringUtils.isBlank(msgInfo.getRepeats()) ||
                 StringUtils.isNotBlank(msgInfo.getRepeats()) && !msgInfo.getRepeats().contains("1")) {
-            expertInfo.setRefuseCount(info.getRefuseCount() + 1);
-            expertInfoDao.updateExpertByPhone(expertInfo);
+            info.setRefuseCount(info.getRefuseCount() + 1);
+            expertInfoDao.updateExpertByPhone(info);
             checkReview.setReview(msgInfo.getReview());
             checkReview.setStatus("1");
             checkReview.setRepeats("拒绝");

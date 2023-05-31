@@ -66,5 +66,13 @@ license:
   storePass: public_777
 #  licensePath: /usr/local/Tomcat8.5/webapps/review/ROOT/WEB-INF/classes/license/license.lic
 #  publicKeysStorePath: /usr/local/Tomcat8.5/webapps/review/ROOT/WEB-INF/classes/license/publicCerts.keystore
-  licensePath: D:\work\gittest\review\src\main\resources\license\license.lic
-  publicKeysStorePath: D:\work\gittest\review\src\main\resources\license\publicCerts.keystore
+  licensePath: D:\workspace\review\src\main\resources\license\license.lic
+  publicKeysStorePath: D:\workspace\review\src\main\resources\license\publicCerts.keystore
+
+huawei:
+  sms:
+    url: https://rtcsms.cn-north-1.myhuaweicloud.com:10743/sms/batchSendSms/v1
+    appKey: jgbkagagag
+    appSecret: gsdgdsgsd
+    signature: ssss
+    templateId: sfknkfsg
