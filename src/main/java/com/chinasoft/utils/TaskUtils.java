@@ -69,7 +69,7 @@ public class TaskUtils {
             expertInfoDao.updateExpertByPhone(expertInfo);
             checkReview.setReview(msgInfo.getReview());
             checkReview.setStatus("1");
-            checkReview.setRepeats("不同意");
+            checkReview.setRepeats("拒绝");
             checkReviewDao.updateStatus(checkReview);
             repeatMessageDao.delMsgByPhone(phone);
         }
