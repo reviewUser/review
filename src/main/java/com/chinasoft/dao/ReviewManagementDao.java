@@ -58,4 +58,7 @@ public interface ReviewManagementDao {
 
     @Select("SELECT * FROM review_management")
     List<ReviewManagement> queryAllReviews();
+
+    @Select("SELECT * from review_management where review_name = #{reviewName}")
+    ReviewManagement selectByReviewName(@Param("reviewName") String reviewName);
 }

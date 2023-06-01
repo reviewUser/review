@@ -120,7 +120,14 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 reviewManagement.setReviewEndDate(sdf.parse(String.valueOf(list.get(5))));
                 reviewManagement.setReviewField(String.valueOf(list.get(6)));
                 reviewManagement.setReviewExperts(String.valueOf(list.get(7)));
-                reviewManagement.setReviewStatus("待评审");
+
+                ReviewManagement management = reviewManagementDao.selectByReviewName(reviewManagement.getReviewName());
+                if (management != null) {
+                    reviewManagement.setReviewStatus(management.getReviewStatus());
+                } else {
+                    reviewManagement.setReviewStatus("待评审");
+                }
+
                 reviewManagements.add(reviewManagement);
             }
             int i = reviewManagementDao.batchInsertReviews(reviewManagements);

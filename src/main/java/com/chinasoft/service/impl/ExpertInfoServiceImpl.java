@@ -123,9 +123,16 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                 int age = age(convert(String.valueOf(list.get(6))));
 
                 expertInfo.setAge(age);
-                expertInfo.setIntegral(0);
-                expertInfo.setRefuseCount(0);
-                expertInfo.setExpertStatus("正常");
+                ExpertInfo info = expertInfoDao.selectByWorkNum(expertInfo.getWorkNumber());
+                if (info != null) {
+                    expertInfo.setIntegral(info.getIntegral());
+                    expertInfo.setRefuseCount(info.getRefuseCount());
+                    expertInfo.setExpertStatus(info.getExpertStatus());
+                } else {
+                    expertInfo.setIntegral(0);
+                    expertInfo.setRefuseCount(0);
+                    expertInfo.setExpertStatus("正常");
+                }
                 expertInfos.add(expertInfo);
             }
             int i = expertInfoDao.batchInsertExperts(expertInfos);

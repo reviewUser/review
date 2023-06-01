@@ -2,6 +2,7 @@ package com.chinasoft.dao;
 
 import com.chinasoft.param.ExpertParam;
 import com.chinasoft.po.ExpertInfo;
+import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.po.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -86,4 +87,7 @@ public interface ExpertInfoDao {
 
     @Select("UPDATE sys_user SET password = #{password}  where username = #{username}")
     void updatePwd(@Param("password") String password, @Param("username") String username);
+
+    @Select("SELECT * from expert_info where work_number = #{workNumber}")
+    ExpertInfo selectByWorkNum(@Param("workNumber") String workNumber);
 }
