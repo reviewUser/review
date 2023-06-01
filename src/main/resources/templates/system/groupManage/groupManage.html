@@ -429,7 +429,15 @@
     		  ,accept: 'file' //普通文件
     		  ,done: function(res){
     		    layer.msg('上传成功');
-    		    console.log(res);
+				$.ajax({
+					url: '/expert/queryExpertInfo',
+					method: 'post',
+					contentType:'application/json;charset=utf-8',
+					data:JSON.stringify(params),
+					success: function(res) {
+						renderTable(res.data);
+					}
+				})
     			}
     		 });
     		//弹窗
