@@ -470,7 +470,6 @@
     				  active[method] ? active[method].call(this, othis) : '';
 
     				  			var add={};
-    				  			add.id=$('#ib').val();
 						  		 add.workNumber =$('#add_id').val();
 								 add.name =$('#add_name').val();
 								 add.level =$('#add_technology').val();
@@ -485,9 +484,7 @@
 									  contentType: "application/json",
 									  data:JSON.stringify(add),
 									  success:function (res) {
-
 											  if(res){
-												 layer.msg("添加成功");
 												  $.ajax({
 													  url: '/expert/queryExpertInfo',
 													  method: 'post',
@@ -497,6 +494,8 @@
 														  renderTable(res.data);
 													  }
 												  })
+												  layer.closeAll();
+												  layer.msg("添加成功");
 											  }else{
 											  	alert("添加失败");
 												 layer.closeAll();
