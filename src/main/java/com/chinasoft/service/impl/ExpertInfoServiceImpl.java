@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,9 +44,24 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
      * @param expertInfo
      */
     @Override
-    public void insert(ExpertInfo expertInfo) {
-        if (expertInfo != null)
+    public void insert(ExpertInfo expertInfo) throws ParseException {
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = fmt.parse(expertInfo.getBirthday());
+        if (expertInfo != null) {
+            int age = age(date);
+            expertInfo.setAge(age);
+            ExpertInfo info = expertInfoDao.selectByWorkNum(expertInfo.getWorkNumber());
+            if (info != null) {
+                expertInfo.setRefuseCount(info.getRefuseCount());
+                expertInfo.setIntegral(info.getIntegral());
+                expertInfo.setExpertStatus(info.getExpertStatus());
+            } else {
+                expertInfo.setIntegral(0);
+                expertInfo.setRefuseCount(0);
+                expertInfo.setExpertStatus("正常");
+            }
             expertInfoDao.insert(expertInfo);
+        }
     }
 
     @Override

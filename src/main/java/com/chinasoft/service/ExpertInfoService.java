@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public interface ExpertInfoService {
      *
      * @param expertInfo
      */
-    void insert(ExpertInfo expertInfo);
+    void insert(ExpertInfo expertInfo) throws ParseException;
 
     /**
      * 通过name和角色搜索用户
