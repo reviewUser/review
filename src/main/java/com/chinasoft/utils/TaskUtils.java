@@ -8,6 +8,7 @@ import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.RepeatMessageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,9 @@ public class TaskUtils {
 
     @Autowired
     private CheckReviewDao checkReviewDao;
+
+    @Value("${expert.hour}")
+    private int hour;
 
     // 添加定时任务
     @Scheduled(cron = "0/10 * * * * ?")
@@ -60,7 +64,7 @@ public class TaskUtils {
             checkReview.setRepeats("同意");
             checkReviewDao.updateStatus(checkReview);
             repeatMessageDao.delMsgByPhone(phone);
-        } else if (hours >= 12 && StringUtils.isBlank(msgInfo.getRepeats()) ||
+        } else if (hours >= hour && StringUtils.isBlank(msgInfo.getRepeats()) ||
                 StringUtils.isNotBlank(msgInfo.getRepeats()) && !msgInfo.getRepeats().contains("1")) {
             info.setRefuseCount(info.getRefuseCount() + 1);
             expertInfoDao.updateExpertByPhone(info);

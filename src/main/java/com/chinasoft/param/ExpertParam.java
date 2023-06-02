@@ -18,6 +18,9 @@ public class ExpertParam {
 	private String integral;
 	private String refuseCount;
 	private String expertStatus;
+	private String unMeeting;
+	private String address;
+	private String workUnit;
 
 	//分页
 	//分页

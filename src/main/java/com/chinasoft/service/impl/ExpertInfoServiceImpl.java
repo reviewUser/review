@@ -38,6 +38,9 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     @Value("${expert.refuse-count}")
     private Integer refuseCount;
 
+    @Value("${expert.un-meeting}")
+    private Integer unMeeting;
+
     /**
      * 新增专家信息
      *
@@ -68,7 +71,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     public List<ExpertInfo> queryExpertInfo(ExpertParam param) {
         List<ExpertInfo> infos = expertInfoDao.queryExpertInfo(param);
         infos.forEach(p -> {
-            if (p.getRefuseCount() > refuseCount) {
+            if (p.getRefuseCount() > refuseCount || p.getUnMeeting() > unMeeting) {
                 expertInfoDao.updateExpertStatus(p.getId());
             }
         });

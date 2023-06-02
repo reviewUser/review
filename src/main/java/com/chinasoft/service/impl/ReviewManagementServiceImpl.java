@@ -6,6 +6,7 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinasoft.dao.CheckReviewDao;
+import com.chinasoft.dao.ExpertInfoDao;
 import com.chinasoft.dao.RepeatMessageDao;
 import com.chinasoft.dao.ReviewManagementDao;
 import com.chinasoft.param.ReviewParam;
@@ -53,11 +54,17 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     @Value("${aliyun.sms.param}")
     private String param;
 
+    @Value("${expert.percent}")
+    private long percent;
+
     @Autowired
     private RepeatMessageDao repeatMessageDao;
 
     @Autowired
     private CheckReviewDao checkReviewDao;
+
+    @Autowired
+    private ExpertInfoDao expertInfoDao;
 
     @Override
     public List<ReviewManagement> queryReviewInfo(ReviewParam param) {
@@ -179,6 +186,8 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             result.setMsg("评审所需专家数量不足");
             return result;
         }
+
+
         List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
 
         List<String> list = GetRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));

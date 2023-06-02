@@ -13,6 +13,8 @@
         <result column="review_field" property="reviewField"/>
         <result column="review_experts" property="reviewExperts"/>
         <result column="review_status" property="reviewStatus"/>
+        <result column="fund_source" property="fundSource"/>
+        <result column="address" property="address"/>
     </resultMap>
 
     <select id="queryReviewInfo" resultMap="reviewInfoMap">
@@ -54,10 +56,10 @@
 
     <insert id="batchInsertReviews" parameterType="java.util.List">
         replace into review_management(id, review_name, review_remark, review_user, review_date,review_start_date, review_end_date,
-        review_field,review_experts,review_status) VALUES
+        review_field,review_experts,review_status,fund_source,address) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.reviewName}, #{item.reviewRemark}, #{item.reviewUser}, #{item.reviewDate},#{item.reviewStartDate},
-            #{item.reviewEndDate}, #{item.reviewField},#{item.reviewExperts},#{item.reviewStatus})
+            #{item.reviewEndDate}, #{item.reviewField},#{item.reviewExperts},#{item.reviewStatus},#{item.fundSource},#{item.address})
         </foreach>
     </insert>
 

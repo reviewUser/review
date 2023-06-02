@@ -27,4 +27,8 @@ public class ReviewManagement {
     private String reviewExperts;
     @ExcelProperty("评审状态")
     private String reviewStatus;
+    @ExcelProperty("项目资金来源")
+    private String fundSource;
+    @ExcelProperty("会议地点")
+    private String address;
 }

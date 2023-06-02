@@ -29,4 +29,13 @@ public class ExpertInfo {
     private long refuseCount;
     @ExcelProperty("专家状态")
     private String expertStatus;
+
+    @ExcelProperty("未参会次数")
+    private long unMeeting;
+
+    @ExcelProperty("工作单位")
+    private String workUnit;
+
+    @ExcelProperty("所在区域")
+    private String address;
 }

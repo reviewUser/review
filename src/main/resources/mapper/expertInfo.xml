@@ -15,6 +15,9 @@
         <result column="integral" property="integral"/>
         <result column="refuse_count" property="refuseCount"/>
         <result column="expert_status" property="expertStatus"/>
+        <result column="un_meeting" property="unMeeting"/>
+        <result column="work_unit" property="workUnit"/>
+        <result column="address" property="address"/>
     </resultMap>
     <insert id="insert" parameterType="com.chinasoft.po.ExpertInfo">
         <selectKey resultType="java.lang.Long" keyProperty="id"
@@ -22,9 +25,9 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         replace into expert_info(id, work_number, name, expert_level, technology_level,field_name, phone,
-        birthday,age,integral,refuse_count,expert_status)
+        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address)
         VALUES (#{id}, #{workNumber}, #{name}, #{level}, #{technologyLevel},#{fieldName}, #{phone}, #{birthday},#{age},
-        #{integral}, #{refuseCount}, #{expertStatus})
+        #{integral}, #{refuseCount}, #{expertStatus},#{unMeeting},#{workUnit},#{address})
     </insert>
 
     <select id="queryExpertInfo" resultMap="expertInfoMap">
@@ -56,6 +59,17 @@
             </if>
             <if test="expertStatus != null and expertStatus != ''">
                 AND expert_status LIKE CONCAT('%',#{expertStatus},'%')
+            </if>
+
+            <if test="unMeeting != null and unMeeting != ''">
+                AND un_meeting = #{unMeeting}
+            </if>
+            <if test="workUnit != null and workUnit != ''">
+                AND work_unit LIKE CONCAT('%',#{workUnit},'%')
+            </if>
+
+            <if test="address != null and address != ''">
+                AND address LIKE CONCAT('%',#{address},'%')
             </if>
         </where>
         LIMIT #{pageNum},#{pageSize}
@@ -91,16 +105,26 @@
             <if test="expertStatus != null and expertStatus != ''">
                 AND expert_status LIKE CONCAT('%',#{expertStatus},'%')
             </if>
+
+            <if test="unMeeting != null and unMeeting != ''">
+                AND un_meeting = #{unMeeting}
+            </if>
+            <if test="workUnit != null and workUnit != ''">
+                AND work_unit LIKE CONCAT('%',#{workUnit},'%')
+            </if>
+            <if test="address != null and address != ''">
+                AND address LIKE CONCAT('%',#{address},'%')
+            </if>
         </where>
     </select>
 
     <insert id="batchInsertExperts" parameterType="java.util.List">
         replace into expert_info(id, work_number, name, expert_level, technology_level,field_name, phone,
-        birthday,age,integral,refuse_count,expert_status) VALUES
+        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.workNumber}, #{item.name}, #{item.level}, #{item.technologyLevel},#{item.fieldName},
             #{item.phone}, #{item.birthday},#{item.age},
-            #{item.integral}, #{item.refuseCount}, #{item.expertStatus})
+            #{item.integral}, #{item.refuseCount}, #{item.expertStatus}),#{item.unMeeting}),#{item.workUnit},#{item.address})
         </foreach>
     </insert>
 
@@ -143,6 +167,15 @@
             </if>
             <if test="expertStatus != null">
                 expert_status = #{expertStatus},
+            </if>
+            <if test="unMeeting != null">
+                un_meeting = #{unMeeting},
+            </if>
+            <if test="workUnit != null">
+                work_unit = #{workUnit},
+            </if>
+            <if test="address != null">
+                address = #{address}
             </if>
         </set>
         WHERE phone = #{phone}

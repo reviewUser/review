@@ -59,6 +59,9 @@ aliyun:
     param: 12
 expert:
   refuse-count: 5
+  un-meeting: 3
+  percent: 50
+  hour: 24
 #License相关配置
 license:
   subject: review
