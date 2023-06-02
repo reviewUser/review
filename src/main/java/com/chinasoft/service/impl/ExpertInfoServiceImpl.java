@@ -133,13 +133,11 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                     throw new Exception("擅长专业领域不能为空");
                 }
                 expertInfo.setFieldName(String.valueOf(list.get(4)));
-                if (String.valueOf(list.get(5)) == null || String.valueOf(list.get(5)).equals("")) {
-                    resultMap.put("mete", "手机号不能为空");
-                    throw new Exception("手机号不能为空");
-                }
-                expertInfo.setPhone(String.valueOf(list.get(5)));
-                expertInfo.setBirthday(String.valueOf(list.get(6)));
-                int age = age(convert(String.valueOf(list.get(6))));
+                expertInfo.setAddress(String.valueOf(list.get(5)));
+                expertInfo.setWorkUnit(String.valueOf(list.get(6)));
+                expertInfo.setPhone(String.valueOf(list.get(7)));
+                expertInfo.setBirthday(String.valueOf(list.get(8)));
+                int age = age(convert(String.valueOf(list.get(8))));
 
                 expertInfo.setAge(age);
                 ExpertInfo info = expertInfoDao.selectByWorkNum(expertInfo.getWorkNumber());
@@ -152,6 +150,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                     expertInfo.setRefuseCount(0);
                     expertInfo.setExpertStatus("正常");
                 }
+                expertInfo.setUnMeeting(0);
                 expertInfos.add(expertInfo);
             }
             int i = expertInfoDao.batchInsertExperts(expertInfos);
