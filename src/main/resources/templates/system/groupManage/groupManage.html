@@ -18,6 +18,23 @@
 	width:90%;
 	height:400px;
 }
+
+.err {
+	display: none;
+	top: 95px;
+	width: 160px;
+	position: absolute;
+	margin-left: -100px;
+	left: 50%;
+	text-align: center;
+	padding: 15px 18px;
+	background: orange;
+	border-radius: 5px;
+	font-size: 13px;
+	font-weight: 600;
+	transition: top 1s;
+	z-index: -1;
+}
 </style>
 </head>
 <body class="layui-layout-body">
@@ -190,7 +207,7 @@
 		</div>
 		<div id="tableInfo">
 			<label class="layui-form-label" style="width:20px"></label>
-			<table class="layui-hide" id="groupinfo" lay-data="{id:'groupinfo'}" lay-filter="groupinfo" style="overflow-y:auto;overflow-x:auto">
+			<table class="layui-hide" id="groupinfo" name="groupinfo" lay-data="{id:'groupinfo'}" lay-filter="groupinfo" style="overflow-y:auto;overflow-x:auto">
 			</table>
 			<label class="layui-form-label" style="width:20px"></label>
 			<script id="barDemo" type="text/html">
@@ -208,6 +225,70 @@
 <script>
 	/*<![CDATA[*/
 		//JavaScript代码区域
+	var stutable = document.getElementsByName("groupinfo")[0]
+	var un_meet = document.getElementsByName("未参会次数")
+	var thetips = document.getElementsByClassName("err")[0]
+	var trs = document.getElementsByTagName("tr")
+
+	// 给单元格添加点击事件
+	function setCellCilck() {
+		for (let i = 0; i < un_meet.length; i++) {
+			un_meet[i].onclick = function () {
+				updateCell(this)
+			}
+		}
+	}
+	setCellCilck()
+
+	// 更新单元格内容
+	function updateCell(ele) {
+		if (document.getElementsByClassName("active-input").length == 0) {
+			var oldhtml = ele.innerHTML;
+			ele.innerHTML = '';
+			var newInput = document.createElement('input');
+			newInput.setAttribute("class", "active-input")
+			newInput.value = oldhtml;
+			newInput.onblur = function () {
+				if (!(Number(this.value)) || this.value > 3 || this.value < 0) {
+					console.log("err");
+					addAnimate();
+					thetips.style.display = "block";
+					return;
+				} else {
+					thetips.style.display = "none"
+					ele.innerHTML = this.value == oldhtml ? oldhtml : this.value;
+					updateScore()
+				}
+			}
+			newInput.select()
+			ele.appendChild(newInput);
+			newInput.focus()
+		} else {
+			return
+		}
+
+	}
+
+	// 更新总成绩
+	function updateScore() {
+		for (let n = 1; n < trs.length; n++) {
+			var grade01 = un_meet[n].parentNode.parentNode.children[n - 1].querySelectorAll("td[name]")
+			var grade02 = un_meet[n].parentNode.parentNode.children[n - 1].querySelectorAll("td[rname]")
+			var sum = 0
+			for (let i = 0; i < grade01.length; i++) {
+				sum += parseFloat(grade01[i].innerHTML)
+				for (let j = 0; j < grade02.length; j++) {
+					grade02[j].innerHTML = sum
+				}
+			}
+		}
+	}
+	updateScore()
+
+	// 添加动画
+	function addAnimate() {
+		thetips.className = "err movedown"
+	}
 		layui.use(['jquery','layer','form','table','laydate','element','upload'], function() {
 			var $ = layui.jquery,
 			layer = layui.layer,
@@ -252,11 +333,14 @@
 					  ,{field: 'level', title: '职称', width: 120}
 					  ,{field: 'technologyLevel', title: '技术职级', width: 100}
 					  ,{field: 'fieldName', title: '擅长专业领域', width: 150}
+				      ,{field: 'address', title: '地域', width: 150}
+				      ,{field: 'place', title: '单位', width: 150}
 					  ,{field: 'phone', title: '电话', width: 150}
-					  ,{field: 'birthday', title: '出生日期', width:100}
+					  ,{field: 'birthday', title: '出生日期', width:150}
 					  ,{field: 'age', title: '年龄', width:80, sort:true}
 					  ,{field: 'integral', title: '参与评审积分', width:130,sort:true}
 					  ,{field: 'refuseCount', title:'拒绝评审次数', width: 130,sort:true}
+					  ,{field: 'unMeeting', title:'未参会次数', width: 130}
 					  ,{field: 'expertStatus', title: '专家状态', width:100}
 					]
 				var renderTable = function(data) {
@@ -302,8 +386,8 @@
 					contentType:'application/json;charset=utf-8',
                 	success:function(data){
                     	if(data.code==200){
+							parent.location.reload();
                         	layer.msg("删除成功",function() {time:1000});
-                        	parent.location.reload();
                     	}else{
                         	layer.msg("删除失败",function() {time:1000})
                     	}

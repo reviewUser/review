@@ -180,7 +180,8 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             return result;
         }
         List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
-        List<String> list = GetRandomThreeInfoList(phones, 3);
+
+        List<String> list = GetRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
         for (String str : list) {
             String msg = sendSms(reviewManagement.getId(), str);
             if (msg.contains("短信发送成功")) {
