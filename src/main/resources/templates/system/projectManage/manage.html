@@ -256,7 +256,7 @@
 					  ,{field: 'reviewStatus', title: '评审状态', width:150}
 					  ,{field: 'detail', title:'详细', width: 100, align:'center', toolbar: '#check'}
 					  ,{field: 'right', title:'操作', width: 100, align:'center', toolbar: '#barDemo'}
-                      ,{field: 'add', title:'追加参会人', width: 100, align:'center', toolbar: '#addExpert'}
+                      ,{field: 'add', title:'追加参会人', width: 100, align:'center',toolbar: '#addExpert'}
 					];
 			 //执行一个 table 实例
 			 var renderTable = function(data) {
@@ -347,10 +347,8 @@
                                       ,id:'detailInfo'
                                       ,title: '评审任务对应专家回复详情'
                                       ,area:['50%', '50%']
-<!--                                      ,content:JSON.stringify(res)-->
                                       ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form></div>'
                                       ,btn: ['查询','关闭']
-<!--                                      ,btn: '确定'-->
                                       ,btnAlign: 'c'
                                       ,shade: 0 //不显示遮罩
                                       ,success:function(){
@@ -424,12 +422,12 @@
                     {
                         var addExpert=data.id;
                         var add;
-                        var url2="id="+checkDetail;
+                        var url2="id="+addExpert;
 
                         if (data.reviewStatus == "通知完成"||data.reviewStatus == "部分通知完成") {
                             $.ajax({
                                 method: "get",
-                                url: "/review/queryRepeatMsg?" + url1,
+                                url: "/review/queryRepeatMsg?" + url2,
                                 data: JSON.stringify(checkDetail),
                                 contentType: "application/json",
                                 success: function (res) {
@@ -439,19 +437,18 @@
                             layer.open({
                                 type: 1
                                 ,id: 'detailInfo'
-                                ,title: '评审任务对应专家回复详情'
-                                ,area: ['50%', '50%']
-
-                                ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form></div>'
+                                ,title: '追加专家人选'
+                                ,area: ['40%', '50%']
+                                ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table><div class="layui-btn-container"><button type="button" id="add_sure" class="layui-btn layui-btn-normal" lay-submit lay-filter="add_sure" style="margin-left: 40%">确认选择</button></div></form></div>'
                                 ,btn: ['查询', '关闭']
                                 ,btnAlign: 'c'
                                 ,shade: 0 //不显示遮罩
                                 ,success: function () {
                                     var Dcols = [ //表头
-                                        {field: 'workNum', title: '工号', width: 100}
+                                        {type:'checkbox'}
+                                        ,{field: 'workNum', title: '工号', width: 100}
                                         , {field: 'name', title: '姓名', width: 100}
-                                        , {field: 'phone', title: '电话号码', width: 100}
-                                        ,{field: 'choose', title:'操作', width: 100,toolbar: '#addExpert'}
+                                        , {field: 'phone', title: '电话号码', width: 150}
                                     ];
                                     var tableIns2 = table.render({
                                         id: 'detailinfo'
@@ -471,17 +468,17 @@
                                             limit: 10,//指定每页显示的条数
                                             limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
                                         }
-
                                     });
                                     // 执行重载
                                     table.render().reload('detailinfo', {cols: [Dcols]})
                                 }
                                 ,yes: function () {
                                     var Dcols = [ //表头
-                                        {field: 'workNum', title: '工号', width: 100}
+                                        {type:'checkbox'}
+                                        ,{field: 'workNum', title: '工号', width: 100}
                                         , {field: 'name', title: '姓名', width: 100}
-                                        , {field: 'phone', title: '电话号码', width: 100}
-                                        ,{field: 'choose', title:'操作', width: 100,toolbar: '#addExpert'}
+                                        , {field: 'phone', title: '电话号码', width: 150}
+
                                     ];
                                     var tableIns2 = table.render({
                                         id: 'detailinfo'

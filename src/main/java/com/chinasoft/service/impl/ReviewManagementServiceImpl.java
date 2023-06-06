@@ -121,12 +121,15 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 reviewManagement.setReviewName(String.valueOf(list.get(0)));
                 reviewManagement.setReviewRemark(String.valueOf(list.get(1)));
                 reviewManagement.setReviewUser(String.valueOf(list.get(2)));
+                reviewManagement.setSourceAddress(String.valueOf(list.get(3)));
+                reviewManagement.setAddress(String.valueOf(list.get(4)));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                reviewManagement.setReviewDate(Timestamp.valueOf(String.valueOf(list.get(3))));
-                reviewManagement.setReviewStartDate(sdf.parse(String.valueOf(list.get(4))));
-                reviewManagement.setReviewEndDate(sdf.parse(String.valueOf(list.get(5))));
-                reviewManagement.setReviewField(String.valueOf(list.get(6)));
-                reviewManagement.setReviewExperts(String.valueOf(list.get(7)));
+                reviewManagement.setReviewDate(Timestamp.valueOf(String.valueOf(list.get(5))));
+                reviewManagement.setReviewStartDate(sdf.parse(String.valueOf(list.get(6))));
+                reviewManagement.setReviewEndDate(sdf.parse(String.valueOf(list.get(7))));
+                reviewManagement.setReviewField(String.valueOf(list.get(8)));
+                reviewManagement.setFundSource(String.valueOf(list.get(9)));
+                reviewManagement.setReviewExperts(String.valueOf(list.get(10)));
 
                 ReviewManagement management = reviewManagementDao.selectByReviewName(reviewManagement.getReviewName());
                 if (management != null) {

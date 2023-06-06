@@ -157,6 +157,24 @@
 				</div>
 
 				<div class="layui-inline" style="position:static">
+					<label class="layui-form-label" style="width:150px">地域</label>
+					<div class="layui-input-inline">
+						<input id="address" type="text" name="address"
+							   placeholder="根据地域模糊搜索" autocomplete="off"
+							   class="layui-input"/>
+					</div>
+				</div>
+
+				<div class="layui-inline" style="position:static">
+					<label class="layui-form-label" style="width:150px">单位</label>
+					<div class="layui-input-inline">
+						<input id="work_unit" type="text" name="work_unit"
+							   placeholder="根据单位模糊搜索" autocomplete="off"
+							   class="layui-input"/>
+					</div>
+				</div>
+
+				<div class="layui-inline" style="position:static">
 					<label class="layui-form-label" style="width:150px">手机号码</label>
 					<div class="layui-input-inline">
 						<input id="phone" type="text" name="phone"
@@ -308,13 +326,14 @@
 			params.level =$('#expert_level').val();
 			params.technologyLevel =$('#technology_level').val();
 			params.fieldName =$('#field_name').val();
+			params.address =$('#address').val();;
+			params.workUnit =$('#work_unit').val();;
 			params.phone =$('#phone').val();
 			params.birthday =$('#birthday').val();
 			params.age =$('#age').val();
 			params.integral =$('#integral').val();
 			params.refuseCount =$('#refuse_count').val();
 			params.expertStatus =$('#expert_status').val();
-
 
 			$.ajax({
       			  url: '/expert/queryExpertInfo',
@@ -334,13 +353,13 @@
 					  ,{field: 'technologyLevel', title: '技术职级', width: 100}
 					  ,{field: 'fieldName', title: '擅长专业领域', width: 150}
 				      ,{field: 'address', title: '地域', width: 150}
-				      ,{field: 'place', title: '单位', width: 150}
+				      ,{field: 'workUnit', title: '单位', width: 150}
 					  ,{field: 'phone', title: '电话', width: 150}
 					  ,{field: 'birthday', title: '出生日期', width:150}
 					  ,{field: 'age', title: '年龄', width:80, sort:true}
 					  ,{field: 'integral', title: '参与评审积分', width:130,sort:true}
 					  ,{field: 'refuseCount', title:'拒绝评审次数', width: 130,sort:true}
-					  ,{field: 'unMeeting', title:'未参会次数', width: 130}
+					  ,{field: 'unMeeting', title:'未参会次数', width: 130,edit: true}
 					  ,{field: 'expertStatus', title: '专家状态', width:100}
 					]
 				var renderTable = function(data) {
