@@ -59,4 +59,6 @@ public interface ReviewManagementService {
     void  exportReview(List<Long> ids, HttpServletResponse response);
 
     List<QueryDescVo> queryRepeatMsg(Long id);
+
+    Result addParticipants(ReviewManagement reviewManagement) throws Exception;
 }

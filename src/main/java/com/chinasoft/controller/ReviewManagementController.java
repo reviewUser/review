@@ -89,6 +89,16 @@ public class ReviewManagementController {
         return null;
     }
 
+    @PostMapping("/addParticipants")
+    public Result addParticipants(@RequestBody ReviewManagement reviewManagement) throws Exception {
+        try {
+        return reviewManagementService.addParticipants(reviewManagement);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
     /**
      * 导出评审任务信息
      *

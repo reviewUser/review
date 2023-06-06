@@ -193,7 +193,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
         List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
 
-        List<String> list = GetRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
         for (String str : list) {
             String msg = sendSms(reviewManagement.getId(), str);
             if (msg.contains("短信发送成功")) {
@@ -254,7 +254,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
      * @param list
      * @return
      */
-    public static List<String> GetRandomThreeInfoList(List<String> list, int count) {
+    public static List<String> getRandomThreeInfoList(List<String> list, int count) {
         List<String> olist = new ArrayList<>();
         if (list.size() <= count) {
             return list;
@@ -310,5 +310,50 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         System.out.println("新版本短信通知参数smsParam:" + smsParam);
         //模板中的变量替换JSON串,如模板内容为"亲爱的${hour},您的验证码为${code}"时,此处的值为
         return smsParam;
+    }
+
+    @Override
+    public Result addParticipants(ReviewManagement reviewManagement) throws Exception {
+        Result result = new Result();
+        if (StringUtils.isEmpty(reviewManagement.getReviewField())) {
+            result.setCode("500");
+            result.setMsg("评审所属专业领域不能为空");
+            return result;
+        }
+
+        List<String> phone = null;
+        List<CheckReview> checkReviews = checkReviewDao.queryStatusByReviewId(reviewManagement.getId());
+        if (checkReviews.size() > 0) {
+            phone = checkReviews.stream().map(CheckReview::getPhone).collect(Collectors.toList());
+        }
+
+        List<ExpertInfo>expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
+        if (phone != null){
+            if (expertInfos.size() - phone.size() < Long.parseLong(reviewManagement.getReviewExperts())) {
+                result.setCode("500");
+                result.setMsg("评审所需专家数量不足");
+                return result;
+            }
+        }
+
+        List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
+        for (String str : phone) {
+            if (phones.contains(str)){
+                phones.remove(str);
+            }
+        }
+        List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        for (String str : list) {
+            String msg = sendSms(reviewManagement.getId(), str);
+            if (msg.contains("短信发送成功")) {
+                result.setCode("200");
+            } else {
+                result.setCode("500");
+            }
+            result.setMsg(msg);
+        }
+        reviewManagementDao.updateStatus("通知中", reviewManagement.getId());
+        return result;
+
     }
 }

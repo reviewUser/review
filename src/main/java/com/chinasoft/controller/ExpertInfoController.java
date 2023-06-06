@@ -108,7 +108,7 @@ public class ExpertInfoController {
      * @param id
      */
     @PostMapping(value = "/unMeeting")
-    public Result unMeeting(@RequestParam int unMeeting, long id){
+    public Result unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id")long id){
         expertInfoService.unMeetingNum(unMeeting, id);
         return Result.success("");
     }
