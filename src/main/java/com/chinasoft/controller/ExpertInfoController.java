@@ -6,10 +6,7 @@ import com.chinasoft.po.PwdInfo;
 import com.chinasoft.service.ExpertInfoService;
 import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -103,6 +100,16 @@ public class ExpertInfoController {
             e.getMessage();
         }
         return null;
+    }
+
+    /**
+     *
+     * @param unMeeting
+     * @param id
+     */
+    @PostMapping(value = "/unMeeting")
+    public void unMeeting(@RequestParam int unMeeting, long id){
+        expertInfoService.unMeetingNum(unMeeting, id);
     }
 
     /**

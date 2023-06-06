@@ -67,6 +67,12 @@ public interface ExpertInfoService {
     Result delExperts(List<Long> ids);
 
     /**
+     * 未参会次数
+     * @param unMeeting
+     */
+    void unMeetingNum(int unMeeting, long id);
+
+    /**
      * 修改密码
      *
      * @param pwdInfo

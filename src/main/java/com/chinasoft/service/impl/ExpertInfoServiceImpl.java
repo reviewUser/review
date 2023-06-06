@@ -255,6 +255,11 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     }
 
     @Override
+    public void unMeetingNum(int unMeeting, long id) {
+        expertInfoDao.updateUnMeetingNum(unMeeting, id);
+    }
+
+    @Override
     public Result updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Result result = new Result();
         if (pwdInfo == null) {

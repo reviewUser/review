@@ -82,6 +82,8 @@ public interface ExpertInfoDao {
     @Select("SELECT * FROM expert_info")
     List<ExpertInfo> queryAllExpert();
 
+    void updateUnMeetingNum(@Param("unMeeting") int unMeeting, @Param("id") long id);
+
     @Select("SELECT * FROM sys_user where username = #{username}")
     SysUser queryUser(@Param("username") String username);
 

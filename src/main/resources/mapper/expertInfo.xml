@@ -190,4 +190,10 @@
             </foreach>
         </if>
     </select>
+
+    <update id="updateUnMeetingNum">
+        UPDATE expert_info
+        SET un_meeting = #{unMeeting}
+        WHERE id = #{id}
+    </update>
 </mapper>
