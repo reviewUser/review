@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50722 (5.7.22-log)
+ Source Server Version : 50722
  Source Host           : localhost:3306
  Source Schema         : review
 
  Target Server Type    : MySQL
- Target Server Version : 50722 (5.7.22-log)
+ Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 02/06/2023 17:30:08
+ Date: 02/06/2023 19:05:54
 */
 
 SET NAMES utf8mb4;
@@ -101,6 +101,8 @@ CREATE TABLE `expert_info`  (
   `expert_level` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职级',
   `technology_level` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '技术等级',
   `field_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '擅长领域',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在区域',
+  `work_unit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工作单位',
   `phone` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '手机号',
   `birthday` date NULL DEFAULT NULL COMMENT '出生日期',
   `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
@@ -108,20 +110,19 @@ CREATE TABLE `expert_info`  (
   `refuse_count` int(11) NULL DEFAULT NULL COMMENT '拒绝评审次数',
   `expert_status` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专家状态:正常,封禁',
   `un_meeting` int(11) NULL DEFAULT NULL COMMENT '未参会次数',
-  `work_unit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工作单位',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在区域',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `work_number_index`(`work_number`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 124 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of expert_info
 -- ----------------------------
-INSERT INTO `expert_info` VALUES (119, '000315', '张旺', '科员', '初级工程师', '财务', '15991252344', '1905-06-06', 117, 0, 1, '正常', NULL, NULL, NULL);
-INSERT INTO `expert_info` VALUES (120, '000318', '张恒', '科员', '初级工程师', '工程', '13659196637', '1968-11-02', 54, 0, 0, '正常', NULL, NULL, NULL);
-INSERT INTO `expert_info` VALUES (121, '000329', '李珏', '正处', '高级工程师', '工程', '18591981653', '1983-11-03', 39, 0, 0, '正常', NULL, NULL, NULL);
-INSERT INTO `expert_info` VALUES (122, '000378', '赵胜', '副处', '中级工程师', '工程', '18891791102', '1973-11-04', 49, 0, 0, '正常', 0, NULL, NULL);
-INSERT INTO `expert_info` VALUES (123, '000415', '刘飞', '正科', '中级工程师', '地质', '17391986497', '1978-12-04', 44, 0, 0, '正常', NULL, NULL, NULL);
+INSERT INTO `expert_info` VALUES (130, '000315', '张旺', '科员', '初级工程师', '工程', '研究所', '华东', '15991252344', '1965-06-06', 57, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (131, '000318', '张恒', '科员', '初级工程师', '工程', '研究所', '华东', '13659196637', '1968-11-02', 54, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (132, '000329', '李珏', '正处', '高级工程师', '工程', '研究所', '华东', '18591981653', '1983-11-03', 39, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (133, '000378', '赵胜', '副处', '中级工程师', '财务', '研究所', '华东', '15319783096', '1973-11-04', 49, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (134, '000415', '刘飞', '正科', '中级工程师', '地质', '研究所', '华东', '17391986497', '1978-12-04', 44, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (135, '000484', '胡静', '正科', '高级工程师', '财务', '研究所', '华东', '13572081862', '1988-07-02', 34, 0, 0, '正常', 0);
 
 -- ----------------------------
 -- Table structure for field
@@ -269,20 +270,22 @@ CREATE TABLE `review_management`  (
   `review_field` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评审所属专业领域',
   `review_experts` int(11) NULL DEFAULT NULL COMMENT '评审所需专家数量',
   `review_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评审状态',
-  `fund_source` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '项目资金来源',
-  `address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '会议地点',
+  `fund_source` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `source_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `review_name_index`(`review_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of review_management
 -- ----------------------------
-INSERT INTO `review_management` VALUES (95, '长庆油田评估', '长庆油田评估1', '刘明', '2023-04-17 09:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '部分通知完成', NULL, NULL);
-INSERT INTO `review_management` VALUES (96, '大庆油田评估', '长庆油田评估2', '刘明', '2023-04-17 09:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '部分通知完成', NULL, NULL);
-INSERT INTO `review_management` VALUES (97, '西藏油田勘测', '长庆油田评估3', '刘明', '2023-04-15 09:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '部分通知完成', NULL, NULL);
-INSERT INTO `review_management` VALUES (98, '长庆油田勘测', '长庆油田评估4', '刘明', '2023-04-17 09:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '地质', 1, '待评审', NULL, NULL);
-INSERT INTO `review_management` VALUES (99, '长庆油田开发', '长庆油田评估5', '刘明', '2023-04-17 09:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '待评审', NULL, NULL);
+INSERT INTO `review_management` VALUES (100, '长庆油田评估', '长庆油田评估1', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (101, '大庆油田评估', '长庆油田评估2', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (102, '西藏油田勘测', '长庆油田评估3', '刘明', '2023-04-15 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (103, '长庆油田勘测', '长庆油田评估4', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '地质', 1, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (104, '长庆油田开发', '长庆油田评估5', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (105, '长庆油田检测', '长庆油田评估6', '刘明', '2023-04-18 00:00:00', '2023-04-17 10:00:00', '2023-04-17 12:00:00', '工程', 2, '待评审', '研究所', '西安', '华东');
 
 -- ----------------------------
 -- Table structure for standard_information

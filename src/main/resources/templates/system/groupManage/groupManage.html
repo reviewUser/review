@@ -243,70 +243,8 @@
 <script>
 	/*<![CDATA[*/
 		//JavaScript代码区域
-	var stutable = document.getElementsByName("groupinfo")[0]
-	var un_meet = document.getElementsByName("未参会次数")
-	var thetips = document.getElementsByClassName("err")[0]
-	var trs = document.getElementsByTagName("tr")
-
-	// 给单元格添加点击事件
-	function setCellCilck() {
-		for (let i = 0; i < un_meet.length; i++) {
-			un_meet[i].onclick = function () {
-				updateCell(this)
-			}
-		}
-	}
-	setCellCilck()
 
 	// 更新单元格内容
-	function updateCell(ele) {
-		if (document.getElementsByClassName("active-input").length == 0) {
-			var oldhtml = ele.innerHTML;
-			ele.innerHTML = '';
-			var newInput = document.createElement('input');
-			newInput.setAttribute("class", "active-input")
-			newInput.value = oldhtml;
-			newInput.onblur = function () {
-				if (!(Number(this.value)) || this.value > 3 || this.value < 0) {
-					console.log("err");
-					addAnimate();
-					thetips.style.display = "block";
-					return;
-				} else {
-					thetips.style.display = "none"
-					ele.innerHTML = this.value == oldhtml ? oldhtml : this.value;
-					updateScore()
-				}
-			}
-			newInput.select()
-			ele.appendChild(newInput);
-			newInput.focus()
-		} else {
-			return
-		}
-
-	}
-
-	// 更新总成绩
-	function updateScore() {
-		for (let n = 1; n < trs.length; n++) {
-			var grade01 = un_meet[n].parentNode.parentNode.children[n - 1].querySelectorAll("td[name]")
-			var grade02 = un_meet[n].parentNode.parentNode.children[n - 1].querySelectorAll("td[rname]")
-			var sum = 0
-			for (let i = 0; i < grade01.length; i++) {
-				sum += parseFloat(grade01[i].innerHTML)
-				for (let j = 0; j < grade02.length; j++) {
-					grade02[j].innerHTML = sum
-				}
-			}
-		}
-	}
-	updateScore()
-
-	// 添加动画
-	function addAnimate() {
-		thetips.className = "err movedown"
-	}
 		layui.use(['jquery','layer','form','table','laydate','element','upload'], function() {
 			var $ = layui.jquery,
 			layer = layui.layer,
@@ -359,7 +297,7 @@
 					  ,{field: 'age', title: '年龄', width:80, sort:true}
 					  ,{field: 'integral', title: '参与评审积分', width:130,sort:true}
 					  ,{field: 'refuseCount', title:'拒绝评审次数', width: 130,sort:true}
-					  ,{field: 'unMeeting', title:'未参会次数', width: 130,edit: true}
+					  ,{field: 'unMeeting', title:'未参会次数', width: 130,edit: "text"}
 					  ,{field: 'expertStatus', title: '专家状态', width:100}
 					]
 				var renderTable = function(data) {
@@ -382,8 +320,7 @@
             		 }
 				  });
 				  //重载
-            		table.render().reload('groupinfo', { cols: [colsnew] })
-            		//查询
+					table.render().reload('groupinfo', { cols: [colsnew] });
 
 				//删除
   				form.on('submit(delete)',function(data){
@@ -475,26 +412,31 @@
 						 }
 						});
     				});
+					//监听工具条
+					//监听单元格编辑
+					table.on('edit(groupinfo)', function(obj){
+						var value = obj.value;
+						var data = obj.data; //得到所在行所有键值
+						var unMeeting = data.unMeeting; //得到字段
 
+						$.post("/expert/unMeeting", { id : data.id, unMeeting : data.unMeeting}, res=>{//“”内填url
+							if(res){  // 未参会次数更新成功
+								layer.msg("管理员信息修改成功");
+								window.reloadView = function () {
+									window.location.reload();
+								}
+								setInterval('reloadView()',1500);
+							}
+							else
+							{
+								layer.msg("管理员信息修改失败!");
+							}
 
+						})
+					});
 				}
 
-				//监听工具条
-			  table.on('tool(groupinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-			     var data = obj.data //获得当前行数据
-			    ,layEvent = obj.event; //获得 lay-event 对应的值
-			    if(layEvent === 'detail'){
-			    	if (data.allocate != '选择完成'){
-			    		layer.msg('目前发送状态为：'+ data.status + ",请耐心等待");
-			    		window.location.href="/project/allocatePage?id="+id;
-			    	} else {
-			    		var projectId = data.id;
-				    	window.location.href="/review/resultPage?id="+projectId;
-			    	}
-			    }
-			  });
-
-			 $("#select").click(function Search() {
+			$("#select").click(function Search() {
             		 	var search={};
             		 	search.pageNum = 1;
 						search.pageSize = 10;
