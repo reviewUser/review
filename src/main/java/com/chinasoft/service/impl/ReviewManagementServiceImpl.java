@@ -4,7 +4,6 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.ExpertInfoDao;
 import com.chinasoft.dao.RepeatMessageDao;
@@ -177,6 +176,19 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     @Override
     public Result startReview(ReviewManagement reviewManagement) throws Exception {
         Result result = new Result();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fromTime = format.format(new Date());
+        String toTime = format.format(reviewManagement.getReviewStartDate());
+        long from = format.parse(fromTime).getTime();
+        long to = format.parse(toTime).getTime();
+        int hours = (int) ((to - from) / (1000 * 60 *60));
+        if (hours <= 24){
+            result.setCode("500");
+            result.setMsg("评审计划时间必须在24小时之后");
+            return result;
+        }
+
         if (StringUtils.isEmpty(reviewManagement.getReviewField())) {
             result.setCode("500");
             result.setMsg("评审所属专业领域不能为空");
@@ -247,14 +259,20 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         return queryDescVos;
     }
 
-
     /**
-     * 随机抽取3个手机号
-     *
+     * 随机抽取count个手机号
      * @param list
+     * @param count
      * @return
      */
     public static List<String> getRandomThreeInfoList(List<String> list, int count) {
+        // TODO
+//        List<String> phone1 = new ArrayList<>();
+//        List<String> phone2 = new ArrayList<>();
+//        List<String> phone3 = new ArrayList<>();
+//        for (String str : list) {
+//
+//        }
         List<String> olist = new ArrayList<>();
         if (list.size() <= count) {
             return list;
