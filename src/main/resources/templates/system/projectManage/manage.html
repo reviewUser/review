@@ -61,6 +61,11 @@
                             <a class="" href="javascript:;" th:href="@{/project/allocateManagePage}">密码修改</a>
                         </dd>
                     </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a class="" href="javascript:;"th:href="@{/project/fieldManage}">系统配置</a>
+                        </dd>
+                    </dl>
                 </li>
                 <!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
                 <dl class="layui-nav-child">
@@ -72,6 +77,9 @@
                     </dd>
                     <dd>
                         <a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">密码修改</a>
+                    </dd>
+                    <dd>
+                        <a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">系统配置</a>
                     </dd>
                     <!--							<dd>-->
                     <!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
@@ -175,7 +183,21 @@
                 {{#  } }}
             </script>
             <script type="text/html" id="addExpert">
+                {{#  if(d.reviewStatus== "待评审"){ }}
+                <a  class="layui-hide" lay-event="add">进行追加</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "通知中"){ }}
                 <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "部分通知完成"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "通知失败"){ }}
+                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                {{#  } }}
+                {{#  if(d.reviewStatus== "全部通知完成"){ }}
+                <a  class="layui-hide" lay-event="add">进行追加</a>
+                {{#  } }}
             </script>
         </div>
     </div>
@@ -287,7 +309,8 @@
                                  }
                                  else
                                  {
-                                    alert("信息发送失败");
+                                     layer.msg('会议已经开始，不再可发送短信！',{time: 2000 //5秒关闭（如果不配置，默认是3秒）
+                                     }, function(){
                                     var Title="专家实际数量小于评审所需数量需添加";
                                     var message="领域专家,";
                                     var filed=JSON.stringify(reviewStart.reviewField);
@@ -304,6 +327,7 @@
                                              layer.closeAll();
                                            }
                                         });
+                                 })
                                  }
                              }
                          });
