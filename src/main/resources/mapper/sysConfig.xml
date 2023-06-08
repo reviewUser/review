@@ -4,4 +4,14 @@
     <select id="getConfigValue" parameterType="String" resultType="String">
         select config_value from sys_config where config_name = #{configName}
     </select>
+
+    <select id="querySysConfig" resultType="java.util.HashMap">
+        select * from sys_config
+    </select>
+
+    <update id="updateSysConfig" parameterType="String">
+        update sys_config
+        set config_value = #{configValue}
+        where config_name = #{configName}
+    </update>
 </mapper>
