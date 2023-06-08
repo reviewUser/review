@@ -193,7 +193,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             return result;
         }
 
-        List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
+        List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField(), reviewManagement.getSourceAddress());
         if (expertInfos.size() < Long.parseLong(reviewManagement.getReviewExperts())) {
             result.setCode("500");
             result.setMsg("评审所需专家数量不足");
@@ -343,7 +343,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             phone = checkReviews.stream().map(CheckReview::getPhone).collect(Collectors.toList());
         }
 
-        List<ExpertInfo>expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField());
+        List<ExpertInfo>expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField(), reviewManagement.getSourceAddress());
         if (phone != null){
             if (expertInfos.size() - phone.size() < Long.parseLong(reviewManagement.getReviewExperts())) {
                 result.setCode("500");

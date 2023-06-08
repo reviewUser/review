@@ -43,7 +43,7 @@ public interface ReviewManagementDao {
     int batchDelReviews(List<Long> ids);
 
     @Select("SELECT * from expert_info where expert_status = '正常' and field_name = #{reviewFiled} and source_Address = #{sourceAddress}")
-    List<ExpertInfo> queryExpertByFiled(@Param("reviewFiled") String reviewFiled);
+    List<ExpertInfo> queryExpertByFiled(@Param("reviewFiled") String reviewFiled, @Param("sourceAddress") String sourceAddress);
 
     @Select("UPDATE review_management SET review_status = #{reviewStatus}  where id = #{id}")
     void updateStatus(@Param("reviewStatus") String reviewStatus, @Param("id") long id);
