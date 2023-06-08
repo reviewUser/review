@@ -57,11 +57,6 @@ aliyun:
     template-code: SMS_460955205
     queue-Name: Alicom-Queue-1763481093987402-SmsUp
     param: 12
-expert:
-  refuse-count: 5
-  un-meeting: 3
-  percent: 50
-  hour: 24
 #License相关配置
 license:
   subject: review

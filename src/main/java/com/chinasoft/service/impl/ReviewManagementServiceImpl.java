@@ -53,9 +53,6 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     @Value("${aliyun.sms.param}")
     private String param;
 
-    @Value("${expert.percent}")
-    private long percent;
-
     @Autowired
     private RepeatMessageDao repeatMessageDao;
 

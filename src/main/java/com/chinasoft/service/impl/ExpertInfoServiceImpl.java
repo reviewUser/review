@@ -2,6 +2,7 @@ package com.chinasoft.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.chinasoft.dao.ExpertInfoDao;
+import com.chinasoft.dao.SysConfigDao;
 import com.chinasoft.param.ExpertParam;
 import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.PwdInfo;
@@ -35,11 +36,8 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     @Autowired
     private ExpertInfoDao expertInfoDao;
 
-    @Value("${expert.refuse-count}")
-    private Integer refuseCount;
-
-    @Value("${expert.un-meeting}")
-    private Integer unMeeting;
+    @Autowired
+    private SysConfigDao sysConfigDao;
 
     /**
      * 新增专家信息
@@ -69,6 +67,8 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
 
     @Override
     public List<ExpertInfo> queryExpertInfo(ExpertParam param) {
+        int refuseCount = Integer.valueOf(sysConfigDao.getConfigValue("refuseCount"));
+        int unMeeting = Integer.valueOf(sysConfigDao.getConfigValue("unMeeting"));
         List<ExpertInfo> infos = expertInfoDao.queryExpertInfo(param);
         infos.forEach(p -> {
             if (p.getRefuseCount() > refuseCount || p.getUnMeeting() > unMeeting) {

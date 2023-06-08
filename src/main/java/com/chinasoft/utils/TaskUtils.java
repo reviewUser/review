@@ -3,6 +3,7 @@ package com.chinasoft.utils;
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.ExpertInfoDao;
 import com.chinasoft.dao.RepeatMessageDao;
+import com.chinasoft.dao.SysConfigDao;
 import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.ExpertInfo;
 import com.chinasoft.po.RepeatMessageInfo;
@@ -29,8 +30,8 @@ public class TaskUtils {
     @Autowired
     private CheckReviewDao checkReviewDao;
 
-    @Value("${expert.hour}")
-    private int hour;
+    @Autowired
+    private SysConfigDao sysConfigDao;
 
     // 添加定时任务
     @Scheduled(cron = "0/10 * * * * ?")
@@ -46,6 +47,7 @@ public class TaskUtils {
     }
 
     private void updateExpert(String phone) throws ParseException {
+        int hour = Integer.valueOf(sysConfigDao.getConfigValue("hour"));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         RepeatMessageInfo msgInfo = repeatMessageDao.queryMsgByPhone(phone);
         ExpertInfo info = expertInfoDao.queryExpertByPhone(phone);
