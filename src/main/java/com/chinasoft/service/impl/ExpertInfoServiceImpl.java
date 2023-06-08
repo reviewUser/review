@@ -133,8 +133,8 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                     throw new Exception("擅长专业领域不能为空");
                 }
                 expertInfo.setFieldName(String.valueOf(list.get(4)));
-                expertInfo.setAddress(String.valueOf(list.get(5)));
-                expertInfo.setWorkUnit(String.valueOf(list.get(6)));
+                expertInfo.setAddress(String.valueOf(list.get(6)));
+                expertInfo.setWorkUnit(String.valueOf(list.get(5)));
                 expertInfo.setPhone(String.valueOf(list.get(7)));
                 expertInfo.setBirthday(String.valueOf(list.get(8)));
                 int age = age(convert(String.valueOf(list.get(8))));
