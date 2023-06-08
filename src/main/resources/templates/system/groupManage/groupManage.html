@@ -230,6 +230,7 @@
 			<button  data-method="offSet" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
 			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
+<!--			<a class="layui-btn layui-btn-normal" href="../source/专家信息表.xlsx" download="专家信息表.xlsx">下载模板</a>-->
 		</div>
 		<div id="tableInfo">
 			<label class="layui-form-label" style="width:20px"></label>
@@ -281,6 +282,7 @@
 			params.refuseCount =$('#refuse_count').val();
 			params.expertStatus =$('#expert_status').val();
 
+
 			$.ajax({
       			  url: '/expert/queryExpertInfo',
 				  method: 'post',
@@ -311,7 +313,7 @@
 				var renderTable = function(data) {
 				    var tableIns = table.render({
 						elem: '#groupinfo'
-						,id:'groupinfo'
+						,id:'#groupinfo'
 						,width: '100%'
 						,data:data
 						,cols: [colsnew]

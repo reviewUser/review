@@ -11,7 +11,7 @@
 	th:href="@{/css/allocate.css}" />
 <style type="text/css">
 #tableInfo{
-	width: 100%;
+	width: 90%;
 }
 </style>
 </head>
@@ -33,23 +33,47 @@
 <!--					<li class="layui-nav-item layui-nav-itemed">-->
 <!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
 <!--					</li>-->
-					<li class="layui-nav-item layui-nav-itemed"><a class=""
-						href="javascript:;" th:href="@{/group/groupManagePage}">评审专家管理</a></li>
-					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;" th:href="@{/project/managePage}">评审任务管理</a></li>
-<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
+					<li class="layui-nav-item layui-nav-itemed">
+						<a class="" href="javascript:;" ><STRONG>评审管理</STRONG></a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a class="" href="javascript:;" th:href="@{/project/userPage?role=1}">评审任务申请者管理</a>
+								<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审专家管理</a>
 							</dd>
-							<dd>
-								<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
-							</dd>
-<!--							<dd>-->
-<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
-<!--							</dd>-->
 						</dl>
-<!--						<li class="layui-nav-item layui-nav-itemed"><a class=""-->
-<!--						href="javascript:;" th:href="@{/field/fieldPage}">领域标签管理</a></li>-->
+						<dl class="layui-nav-child">
+							<dd>
+								<a class="" href="javascript:;"th:href="@{/project/managePage}">评审任务管理</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child">
+							<dd>
+								<a class="" href="javascript:;" th:href="@{/project/allocateManagePage}">密码修改</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child">
+							<dd>
+								<a class="" href="javascript:;">系统配置</a>
+							</dd>
+						</dl>
+					</li>
+					<!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/project/userPage?role=1}">评审任务管理</a>
+						</dd>
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/project/userPage?role=2}">评审专家管理</a>
+						</dd>
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">密码修改</a>
+						</dd>
+						<dd>
+							<a class="" href="javascript:;" th:href="@{/project/userPage?role=4}">系统配置</a>
+						</dd>
+						<!--							<dd>-->
+						<!--								<a class="" href="javascript:;" th:href="@{/project/userPage?role=3}">管理员管理</a>-->
+						<!--							</dd>-->
+					</dl>
 				</ul>
 			</div>
 		</div>
@@ -58,45 +82,50 @@
 			<span class="layui-breadcrumb" lay-separator="/">
 			  <a href=""><cite>系统配置管理</cite></a>
 			</span>
-			<blockquote class="layui-elem-quote">可添加、删除、修改、查询领域标签信息</blockquote>
+			<blockquote class="layui-elem-quote">可修改所需配置信息</blockquote>
 			<form class="layui-form" method="POST">
-				<div class="layui-inline">
-					<label class="layui-form-label">标签名</label>
-					<div class="layui-input-inline">
-						<input id="fieldName" type="text" name="fieldName"
-							placeholder="根据领域名模糊搜索" autocomplete="off"
-							class="layui-input"/>
-					</div>
-				</div>
-				<div class="layui-inline">
-					<label class="layui-form-label">评审计划日期</label>
-					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createTime" placeholder="开始时间~结束时间"/>
-					</div>
-				</div>
-				<div class="layui-inline">
-					<label class="layui-form-label"></label>
-					<a id="select" class="layui-btn"><i style="padding-right: 4px;" class="layui-icon">&#xe615;</i>查询</a>
-					<a id="add" class="layui-btn"><i style="padding-right: 4px;" class="layui-icon">&#xe608;</i>添加</a>
-				</div>
+<!--				<div id="tableInfo" >-->
+<!--					<table class="layui-hide" id="setting" lay-data="{id:'setting'}" lay-filter="setting" style="overflow-y:auto;overflow-x:auto">-->
+<!--					</table>-->
+<!--					<script type="text/html" id="barDemo">-->
+<!--						<a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="save" id="save">修改配置</a>-->
+<!--					</script>-->
+<!--				</div>-->
+				<table>
+					<tr>
+						<th>
+							<div class="layui-inline" style="position:static">
+								<label class="layui-form-label" style="width: 100px">自动拒绝时间</label>
+								<div class="layui-input-inline">
+									<input id="hour" type="text" name="fieldName" placeholder="输入专家多久未回复视为拒绝" autocomplete="off" class="layui-input" style="width: 220px"/>
+								</div>
+								<button type="button" class="layui-btn layui-btn-normal" id="save_hour" style="height: 35px">确认修改</button>
+							</div>
+						</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="layui-inline" style="position:static">
+								<label class="layui-form-label" style="width: 100px">拒绝封禁次数</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" id="refuse_count" placeholder="输入拒绝多少次后专家会被封禁" style="width: 220px"/>
+								</div>
+								<button type="button" class="layui-btn layui-btn-normal" id="save_refuse" style="height: 35px">确认修改</button>
+							</div>
+						</th>
+					</tr>
+					<tr>
+						<div class="layui-inline" style="position:static">
+							<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input" id="un_meeting" placeholder="输入未参会多少次后专家会被封禁" style="width: 220px"/>
+							</div>
+							<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
+						</div>
+					</tr>
+				</table>
+
 			</form>
-			<div id="tableInfo">
-				<table class="layui-table" lay-data="{url:'/field/fields.json', id:'fieldinfo'}" lay-filter="fieldinfo">
-			  <thead>
-			    <tr>
-			      <th lay-data="{field:'id', width:100, sort: true}">ID</th>
-			      <th lay-data="{field:'fieldName',edit: 'text' ,width:140}">领域名</th>
-			      <th lay-data="{field:'createUserName', width: 140}">评审发起人</th>
-			      <th lay-data="{field:'createTime', width:220, sort: true}">评审计划日期</th>
-			      <th lay-data="{field:'lastUpdateTime', width:220, sort: true}">最后更新时间</th>
-			      <th lay-data="{fixed: 'right', width: 180, align:'center', toolbar: '#barDemo'}">操作</th>
-			    </tr>
-			  </thead>
-			</table>
-				<script type="text/html" id="barDemo">
-  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i style="padding-right: 4px;" class="layui-icon">&#xe640;</i>删除</a>
-				</script>
-			</div>
 		</div>
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
@@ -116,6 +145,33 @@
 			laydate = layui.laydate,
 			element = layui.element;
 
+			$.ajax({
+				url: '/config',
+				method: 'get',
+				contentType:'application/json;charset=utf-8',
+				success: function(res) {
+					renderTable(res);
+				}
+			})
+			var colsnew=[ //表头
+				{field: 'configName', title: '配置参数名', width:150}
+				,{field: 'configValue', title: '原参数', width:120}
+				,{field: 'right', title:'操作', width: 100, align:'center', toolbar: '#barDemo'}
+			]
+			var renderTable = function(data) {
+				var tableIns = table.render({
+					elem: '#setting'
+					, id: '#setting'
+					, width: '100%'
+					, data: data
+					, cols: [colsnew]
+					, done: function (res, curr, count) {
+						this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+					}
+				});
+				//重载
+				table.render().reload('setting', {cols: [colsnew]});
+			}
 			var message = [[${message}]];
 			if (message != null){
 				layer.msg(message)
@@ -128,56 +184,67 @@
 			    ,format: 'yyyy-MM-dd HH:mm:ss'
 			  });
 			//监听工具条
-			  table.on('tool(fieldinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			  table.on('tool(setting)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 			    var data = obj.data //获得当前行数据
 			    ,layEvent = obj.event; //获得 lay-event 对应的值
-			    if(layEvent === 'del'){
-			    	layer.confirm('真的删除行么', function(index){
-				        obj.del(); //删除对应行（tr）的DOM结构
-				        layer.close(index);
-				        //向服务端发送删除指令
-				        $.get("/field/delete", { id: data.id} );
-				      });
+			    if(layEvent === 'save'){
+					$.ajax({
+						url: '/config',
+						method: 'get',
+						contentType:'application/json;charset=utf-8',
+						data:JSON.stringify(data.configValue),
+						success: function(res) {
+							renderTable(res);
+						}
+					})
 			    }
 			  });
 			//监听单元格编辑
-			  table.on('edit(fieldinfo)', function(obj){
-			    var value = obj.value //得到修改后的值
-			    ,data = obj.data //得到所在行所有键值
-			    ,field = obj.field; //得到字段
-			    /* layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value); */
-			    if (value == null || value == ''){
-			    	layer.msg("字段[" + field + "]值不能为空！！！");
-			    	flag = false;
-			    } else {
-			    	$.ajax({
-			             type: "POST",
-			             url: "/field/update",
-			             data: {
-			            	 id:data.id,
-			            	 fieldName : data.fieldName
-			             },
-			             dataType: "json",
-			             success: function(data){
-			                     layer.msg(data.data);
-			             }
-			         });
-			    }
-			  });
-			  $('#select').click(function(){
-				   table.reload("fieldinfo",{
-					   where: { //设定异步数据接口的额外参数，任意设
-						   fieldName: $('#fieldName').val(),
-						   createTime: $('#createTime').val()
-					   }
-					   ,page: {
-					     curr: 1 //重新从第 1 页开始
-					   }
-					 });
+			//   table.on('edit(fieldinfo)', function(obj){
+			//     var value = obj.value //得到修改后的值
+			//     ,data = obj.data //得到所在行所有键值
+			//     ,field = obj.field; //得到字段
+			//     /* layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value); */
+			//     if (value == null || value == ''){
+			//     	layer.msg("字段[" + field + "]值不能为空！！！");
+			//     	flag = false;
+			//     } else {
+			//     	$.ajax({
+			//              type: "POST",
+			//              url: "/field/update",
+			//              data: {
+			//             	 id:data.id,
+			//             	 fieldName : data.fieldName
+			//              },
+			//              dataType: "json",
+			//              success: function(data){
+			//                      layer.msg(data.data);
+			//              }
+			//          });
+			//     }
+			//   });
+			  $('#save_hour').click(function(){
+
+				   var hour=$('#hour').value();
+
+				  $.ajax({
+					  method: "post",
+					  url: "/config",
+					  data: JSON.stringify(hour),
+					  contentType: "application/json",
+					  success: function(res){
+						  if(res)
+						  {
+							  layer.msg('修改配置成功');
+						  }
+						  else
+						  {
+							  layer.msg('修改配置失败！');
+						  }
+					  }
+				  })
 				});
-			  $('#add').click(function(){
-				  window.location.href="/field/addFieldPage";
-				});
+
 			  });
 		/* ]]> */
 	</script>

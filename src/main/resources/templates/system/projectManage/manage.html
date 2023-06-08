@@ -154,6 +154,7 @@
             <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
             <button type="button" id="delete" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
             <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
+<!--            <a class="layui-btn layui-btn-normal" href="../source/评审任务管理表.xlsx" download="评审任务管理表.xlsx">下载模板</a>-->
         </div>
         <div id="tableInfo">
             <label class="layui-form-label" style="width:20px"></label>
@@ -220,13 +221,6 @@
 			upload=layui.upload;
 			
 			 //日期时间范围
-			  laydate.render({
-			    elem: '#createTime'
-			    ,type: 'datetime'
-			    ,range: '~'
-			    ,format: 'yyyy-MM-dd HH:mm:ss'
-			  });
-
 			  var params = {};
 			  params.pageNum = 1;
 			  params.pageSize = 10;
@@ -461,7 +455,7 @@
                                     contentType: "application/json",
                                     success: function (res) {
                                         if (res) {
-                                            layer.msg("信息发送成功");
+                                            layer.msg(res.msg);
                                         } else {
                                             alert("信息发送失败！");
                                         }
