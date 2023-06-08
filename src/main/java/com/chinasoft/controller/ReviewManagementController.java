@@ -2,7 +2,6 @@ package com.chinasoft.controller;
 
 import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.param.ReviewParam;
-import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.QueryDescVo;
 import com.chinasoft.po.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
@@ -60,43 +59,23 @@ public class ReviewManagementController {
      */
     @PostMapping(value = "/importReviewExcel")
     public Map<String, Object> excelProTbZbzs(MultipartFile file) throws IOException {
-        try {
             Map<String, Object> stringObjectMap = reviewManagementService.importReview(file);
             return stringObjectMap;
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
-        return null;
     }
 
     @PostMapping(value = "/delReview")
     public Result delExpert(@RequestBody List<Long> ids) throws IOException {
-        try {
             return reviewManagementService.delReviews(ids);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
-        return null;
     }
 
     @PostMapping(value = "/startReview")
-    public Result startReview(@RequestBody ReviewManagement reviewManagement) throws IOException {
-        try {
+    public Result startReview(@RequestBody ReviewManagement reviewManagement) throws Exception {
             return reviewManagementService.startReview(reviewManagement);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return null;
     }
 
     @PostMapping("/addParticipants")
     public Result addParticipants(@RequestBody ReviewManagement reviewManagement) throws Exception {
-        try {
         return reviewManagementService.addParticipants(reviewManagement);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return null;
     }
 
     /**
@@ -108,11 +87,7 @@ public class ReviewManagementController {
      */
     @PostMapping(value = "/exportReviewExcel")
     public void exportReviewExcel(@RequestBody List<Long> ids, HttpServletResponse response) {
-        try {
             reviewManagementService.exportReview(ids, response);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
     }
 
     /**
@@ -124,11 +99,6 @@ public class ReviewManagementController {
      */
     @GetMapping(value = "/queryRepeatMsg")
     public List<QueryDescVo> queryRepeatMsg(@RequestParam Long id) {
-        try {
             return reviewManagementService.queryRepeatMsg(id);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
-        return null;
     }
 }
