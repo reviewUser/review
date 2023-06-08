@@ -1,10 +1,13 @@
 package com.chinasoft.service;
 
+import com.chinasoft.entity.sysConfig;
+
 import java.util.HashMap;
+import java.util.List;
 
 public interface SysConfigService{
 
-    HashMap<String, String> querySysConfig();
+    List<sysConfig> querySysConfig();
 
     int updateSysConfig(String configName, String configValue);
 }

@@ -1,5 +1,6 @@
 package com.chinasoft.dao;
 
+import com.chinasoft.entity.sysConfig;
 import com.chinasoft.po.Allocate;
 import com.chinasoft.po.SysUser;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface SysConfigDao {
     String getConfigValue(String configValue);
 
-    HashMap<String, String> querySysConfig();
+    List<sysConfig> querySysConfig();
 
     int updateSysConfig(String configName, String configValue);
 }
