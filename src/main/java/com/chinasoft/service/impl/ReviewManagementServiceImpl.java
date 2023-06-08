@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -174,12 +175,12 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     public Result startReview(ReviewManagement reviewManagement) throws Exception {
         Result result = new Result();
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String fromTime = format.format(new Date());
-        String toTime = format.format(reviewManagement.getReviewStartDate());
-        long from = format.parse(fromTime).getTime();
-        long to = format.parse(toTime).getTime();
-        int hours = (int) ((to - from) / (1000 * 60 *60));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fromTime = simpleDateFormat.format(new Date());
+        String toTime = simpleDateFormat.format(reviewManagement.getReviewStartDate());
+        long from = simpleDateFormat.parse(fromTime).getTime();
+        long to = simpleDateFormat.parse(toTime).getTime();
+        long hours = ((to - from) / (1000 * 60 * 60));
         if (hours <= 24){
             result.setCode("500");
             result.setMsg("评审计划时间必须在24小时之后");

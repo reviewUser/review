@@ -55,7 +55,7 @@ public class TaskUtils {
         String nowTime = format.format(new Date());
         long from = format.parse(fromDate).getTime();
         long to = format.parse(nowTime).getTime();
-        int hours = (int) ((to - from) / (1000 * 60 * 60));
+        long hours = (to - from) / (1000 * 60 * 60);
         CheckReview checkReview = new CheckReview();
         checkReview.setPhone(phone);
         if (StringUtils.isNotBlank(msgInfo.getRepeats()) && msgInfo.getRepeats().contains("1")) {
