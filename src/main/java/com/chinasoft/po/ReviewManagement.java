@@ -21,10 +21,10 @@ public class ReviewManagement {
     private Date reviewStartDate;
     @ExcelProperty("评审结束时间")
     private Date reviewEndDate;
-    @ExcelProperty("评审所属专业领域")
-    private String reviewField;
     @ExcelProperty("所需专家数量")
     private String reviewExperts;
+    @ExcelProperty("评审所属专业领域")
+    private String reviewField;
     @ExcelProperty("评审状态")
     private String reviewStatus;
     @ExcelProperty("项目资金来源")
