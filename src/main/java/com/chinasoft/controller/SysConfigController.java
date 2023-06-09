@@ -1,6 +1,6 @@
 package com.chinasoft.controller;
 
-import com.chinasoft.entity.sysConfig;
+import com.chinasoft.entity.SysConfig;
 import com.chinasoft.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class SysConfigController {
     private SysConfigService sysConfigService;
 
     @GetMapping()
-    public List<sysConfig> querySysConfig() {
+    public List<SysConfig> querySysConfig() {
         return sysConfigService.querySysConfig();
     }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @TableName("sys_config")
-public class sysConfig {
+public class SysConfig {
     private String configName;
     private String configValue;
 }

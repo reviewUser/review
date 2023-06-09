@@ -1,7 +1,7 @@
 package com.chinasoft.service.impl;
 
 import com.chinasoft.dao.SysConfigDao;
-import com.chinasoft.entity.sysConfig;
+import com.chinasoft.entity.SysConfig;
 import com.chinasoft.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     private SysConfigDao sysConfigDao;
 
     @Override
-    public List<sysConfig> querySysConfig() {
+    public List<SysConfig> querySysConfig() {
         return sysConfigDao.querySysConfig();
     }
 
