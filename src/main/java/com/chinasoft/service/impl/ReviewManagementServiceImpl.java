@@ -252,13 +252,6 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         return queryDescVos;
     }
 
-    /**
-     * 随机抽取count个手机号
-     *
-     * @param list
-     * @param count
-     * @return
-     */
     public static List<String> getRandomThreeInfoList(List<String> list, int count) {
         // TODO
 //        List<String> phone1 = new ArrayList<>();
@@ -366,6 +359,5 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         }
         reviewManagementDao.updateStatus("通知中", reviewManagement.getId());
         return result;
-
     }
 }

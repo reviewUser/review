@@ -16,44 +16,16 @@ import java.util.Map;
  */
 public interface ReviewManagementService {
 
-    /**
-     * 通过name和角色搜索用户
-     *
-     * @param param
-     * @return
-     */
     List<ReviewManagement> queryReviewInfo(ReviewParam param);
 
-    /**
-     * 得到总记录数
-     *
-     * @param param
-     */
     int getReviewTotalCount(ReviewParam param);
 
-    /**
-     * 导入评审任务信息
-     *
-     * @param file
-     * @return
-     */
     Map<String, Object> importReview(MultipartFile file);
 
     Result delReviews(List<Long> ids);
 
-    /**
-     * 发起评审
-     *
-     * @param reviewManagement
-     */
     Result startReview(ReviewManagement reviewManagement) throws Exception;
 
-    /**
-     * 导出评审任务信息
-     *
-     * @param ids
-     * @return
-     */
     void exportReview(List<Long> ids, HttpServletResponse response);
 
     List<QueryDescVo> queryRepeatMsg(Long id);

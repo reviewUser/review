@@ -28,12 +28,11 @@ public class ReviewManagementController {
 
     /**
      * 查询评审任务信息以json的形式返回
-     *
+     * @param param
      * @return
-     * @throws Exception
      */
     @PostMapping("/queryReviewInfo")
-    public Map<String, Object> queryReviewInfo(@RequestBody ReviewParam param) throws Exception {
+    public Map<String, Object> queryReviewInfo(@RequestBody ReviewParam param) {
         Map<String, Object> map = new HashMap<String, Object>();
         int pageNum = (param.getPageNum() - 1) * param.getPageSize();
 
@@ -55,10 +54,9 @@ public class ReviewManagementController {
      *
      * @param file
      * @return
-     * @throws IOException
      */
     @PostMapping(value = "/importReviewExcel")
-    public Map<String, Object> excelProTbZbzs(MultipartFile file) throws IOException {
+    public Map<String, Object> excelProTbZbzs(MultipartFile file) {
         Map<String, Object> stringObjectMap = reviewManagementService.importReview(file);
         return stringObjectMap;
     }
@@ -83,7 +81,6 @@ public class ReviewManagementController {
      *
      * @param ids
      * @return
-     * @throws IOException
      */
     @PostMapping(value = "/exportReviewExcel")
     public void exportReviewExcel(@RequestBody List<Long> ids, HttpServletResponse response) {
@@ -95,7 +92,6 @@ public class ReviewManagementController {
      *
      * @param id
      * @return
-     * @throws IOException
      */
     @GetMapping(value = "/queryRepeatMsg")
     public List<QueryDescVo> queryRepeatMsg(@RequestParam Long id) {
