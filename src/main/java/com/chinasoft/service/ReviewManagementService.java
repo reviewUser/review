@@ -13,8 +13,6 @@ import java.util.Map;
 
 /**
  * 系统用户业务层接口
- *
- * @author 王鹏
  */
 public interface ReviewManagementService {
 
@@ -56,7 +54,7 @@ public interface ReviewManagementService {
      * @param ids
      * @return
      */
-    void  exportReview(List<Long> ids, HttpServletResponse response);
+    void exportReview(List<Long> ids, HttpServletResponse response);
 
     List<QueryDescVo> queryRepeatMsg(Long id);
 

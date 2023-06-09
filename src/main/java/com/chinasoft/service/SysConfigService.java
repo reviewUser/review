@@ -2,10 +2,9 @@ package com.chinasoft.service;
 
 import com.chinasoft.entity.sysConfig;
 
-import java.util.HashMap;
 import java.util.List;
 
-public interface SysConfigService{
+public interface SysConfigService {
 
     List<sysConfig> querySysConfig();
 

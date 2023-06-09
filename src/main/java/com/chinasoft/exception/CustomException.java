@@ -3,8 +3,6 @@ package com.chinasoft.exception;
 /**
  * 自定义异常
  * 
- * @author 王鹏
- *
  */
 public class CustomException extends RuntimeException {
 

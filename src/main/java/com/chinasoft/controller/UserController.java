@@ -154,7 +154,6 @@ public class UserController {
         if (session.getAttribute("user") == null) {
             throw new CustomException("未登录，请先登录", "/");
         }
-
         return "applicant/applyinfo";
     }
 

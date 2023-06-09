@@ -44,7 +44,6 @@ public class FieldController {
 		if (session.getAttribute("user") == null) {
 			throw new CustomException("未登录，请先登录", "/");
 		}
-		
 		return "system/fieldManage/fieldManage";
 	}
 	
@@ -201,7 +200,8 @@ public class FieldController {
 	 * 为专家添加擅长领域
 	 * @param session
 	 * @param model
-	 * @param id
+	 * @param expertId
+	 * @param fieldId
 	 * @return
 	 * @throws Exception
 	 */

@@ -11,14 +11,15 @@ public interface ReviewService {
 
 	/**
 	 * 插入
-	 * @param group
+	 * @param review
 	 */
 	void insert(Review review);
 
 	/**
 	 * 打分
 	 * @param review
-	 * @param attribute
+	 * @param user
+	 * @param groupId
 	 */
 	void review(Review review, SysUser user,Long groupId);
 

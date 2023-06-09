@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 /**
  * html转义过滤器
- * @author 王鹏
  *
  */
 @WebFilter(filterName="htmlFilter", urlPatterns={"/*"})

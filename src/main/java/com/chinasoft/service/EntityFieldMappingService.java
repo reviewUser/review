@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * 用于评审任务申请、专家与领域相关联的业务层接口
- * @author 王鹏
  *
  */
 public interface EntityFieldMappingService {

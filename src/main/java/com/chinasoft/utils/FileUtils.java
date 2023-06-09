@@ -10,8 +10,6 @@ import java.net.URLEncoder;
 /**
  * 文件处理工具类
  * 
- * @author 王鹏
- *
  */
 public class FileUtils {
 

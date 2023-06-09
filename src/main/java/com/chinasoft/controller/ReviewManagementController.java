@@ -39,7 +39,7 @@ public class ReviewManagementController {
 
         List<ReviewManagement> users = null;
         int totalCount = 0;
-        //页码
+        // 页码
         param.setPageNum(pageNum);
         users = reviewManagementService.queryReviewInfo(param);
         totalCount = reviewManagementService.getReviewTotalCount(param);
@@ -59,18 +59,18 @@ public class ReviewManagementController {
      */
     @PostMapping(value = "/importReviewExcel")
     public Map<String, Object> excelProTbZbzs(MultipartFile file) throws IOException {
-            Map<String, Object> stringObjectMap = reviewManagementService.importReview(file);
-            return stringObjectMap;
+        Map<String, Object> stringObjectMap = reviewManagementService.importReview(file);
+        return stringObjectMap;
     }
 
     @PostMapping(value = "/delReview")
     public Result delExpert(@RequestBody List<Long> ids) throws IOException {
-            return reviewManagementService.delReviews(ids);
+        return reviewManagementService.delReviews(ids);
     }
 
     @PostMapping(value = "/startReview")
     public Result startReview(@RequestBody ReviewManagement reviewManagement) throws Exception {
-            return reviewManagementService.startReview(reviewManagement);
+        return reviewManagementService.startReview(reviewManagement);
     }
 
     @PostMapping("/addParticipants")
@@ -87,7 +87,7 @@ public class ReviewManagementController {
      */
     @PostMapping(value = "/exportReviewExcel")
     public void exportReviewExcel(@RequestBody List<Long> ids, HttpServletResponse response) {
-            reviewManagementService.exportReview(ids, response);
+        reviewManagementService.exportReview(ids, response);
     }
 
     /**
@@ -99,6 +99,6 @@ public class ReviewManagementController {
      */
     @GetMapping(value = "/queryRepeatMsg")
     public List<QueryDescVo> queryRepeatMsg(@RequestParam Long id) {
-            return reviewManagementService.queryRepeatMsg(id);
+        return reviewManagementService.queryRepeatMsg(id);
     }
 }

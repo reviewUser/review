@@ -50,7 +50,6 @@ public class GroupController {
 		if (session.getAttribute("user") == null) {
 			throw new CustomException("未登录，请先登录", "/");
 		}
-		
 		return "system/groupManage/groupManage";
 	}
 	
@@ -297,6 +296,4 @@ public class GroupController {
 		}
 		return result;
 	}
-	
-	
 }

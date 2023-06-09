@@ -1,11 +1,13 @@
 package com.chinasoft.po;
 
+import lombok.Data;
+
 import java.util.Date;
-/***
+/**
  * 评审任务分组持久类
- * @author 王鹏
  *
  */
+@Data
 public class Group {
 	
 	public static final String PROJECT_GROUP_STATUS_WAIT_ALLOCATE = "WAIT_ALLOCATE";
@@ -20,55 +22,4 @@ public class Group {
 	private Date createTime; // 创建时间
 	private Date lastUpdateTime; // 创建时间
 	private SysUser user; // 评审任务申请者持久类
-	
-	public SysUser getUser() {
-		return user;
-	}
-	public void setUser(SysUser user) {
-		this.user = user;
-	}
-	public long getId() {
-		return id;
-	}
-	public String getGroupName() {
-		return groupName;
-	}
-	public long getCreateUserId() {
-		return createUserId;
-	}
-	public String getCreateUserName() {
-		return createUserName;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-	public void setCreateUserId(long createUserId) {
-		this.createUserId = createUserId;
-	}
-	public void setCreateUserName(String createUserName) {
-		this.createUserName = createUserName;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	
 }

@@ -16,8 +16,6 @@ import java.util.Map;
 
 /**
  * 系统用户业务层接口
- *
- * @author 王鹏
  */
 public interface ExpertInfoService {
 
@@ -57,7 +55,7 @@ public interface ExpertInfoService {
      * @param ids
      * @return
      */
-    void  exportExpert(List<Long> ids, HttpServletResponse response) throws IOException;
+    void exportExpert(List<Long> ids, HttpServletResponse response) throws IOException;
 
     /**
      * 删除专家信息
@@ -68,6 +66,7 @@ public interface ExpertInfoService {
 
     /**
      * 未参会次数
+     *
      * @param unMeeting
      */
     void unMeetingNum(int unMeeting, long id);

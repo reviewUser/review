@@ -4,10 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.chinasoft.dao.CheckReviewDao;
-import com.chinasoft.dao.ExpertInfoDao;
-import com.chinasoft.dao.RepeatMessageDao;
-import com.chinasoft.dao.ReviewManagementDao;
+import com.chinasoft.dao.*;
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.*;
 import com.chinasoft.service.ReviewManagementService;
@@ -23,21 +20,21 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * 系统用户业务层接口实现
- *
- * @author 王鹏
  */
 @Service
 public class ReviewManagementServiceImpl implements ReviewManagementService {
 
     @Autowired
     private ReviewManagementDao reviewManagementDao;
+
+    @Autowired
+    private SysConfigDao sysConfigDao;
 
     @Value("${aliyun.sms.access-key-id}")
     private String accessKeyId;
@@ -59,9 +56,6 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
     @Autowired
     private CheckReviewDao checkReviewDao;
-
-    @Autowired
-    private ExpertInfoDao expertInfoDao;
 
     @Override
     public List<ReviewManagement> queryReviewInfo(ReviewParam param) {
@@ -173,6 +167,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
     @Override
     public Result startReview(ReviewManagement reviewManagement) throws Exception {
+        int hour = Integer.valueOf(sysConfigDao.getConfigValue("hour"));
         Result result = new Result();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -181,7 +176,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         long from = simpleDateFormat.parse(fromTime).getTime();
         long to = simpleDateFormat.parse(toTime).getTime();
         long hours = ((to - from) / (1000 * 60 * 60));
-        if (hours <= 24){
+        if (hours <= 24) {
             result.setCode("500");
             result.setMsg("评审计划时间必须在24小时之后");
             return result;
@@ -259,6 +254,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
     /**
      * 随机抽取count个手机号
+     *
      * @param list
      * @param count
      * @return
@@ -343,8 +339,8 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
             phone = checkReviews.stream().map(CheckReview::getPhone).collect(Collectors.toList());
         }
 
-        List<ExpertInfo>expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField(), reviewManagement.getSourceAddress());
-        if (phone != null){
+        List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField(), reviewManagement.getSourceAddress());
+        if (phone != null) {
             if (expertInfos.size() - phone.size() < Long.parseLong(reviewManagement.getReviewExperts())) {
                 result.setCode("500");
                 result.setMsg("评审所需专家数量不足");
@@ -354,7 +350,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
 
         List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
         for (String str : phone) {
-            if (phones.contains(str)){
+            if (phones.contains(str)) {
                 phones.remove(str);
             }
         }

@@ -5,11 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * 
- * @author 王鹏
- *
- */
 public class ListUtils {
 
 	/**

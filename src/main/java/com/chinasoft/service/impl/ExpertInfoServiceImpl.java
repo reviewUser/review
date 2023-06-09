@@ -27,8 +27,6 @@ import java.util.*;
 
 /**
  * 系统用户业务层接口实现
- *
- * @author 王鹏
  */
 @Service
 public class ExpertInfoServiceImpl implements ExpertInfoService {

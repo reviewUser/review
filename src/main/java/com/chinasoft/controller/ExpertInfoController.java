@@ -67,13 +67,8 @@ public class ExpertInfoController {
      */
     @PostMapping(value = "/importExpertExcel")
     public Map<String, Object> excelProTbZbzs(MultipartFile file) throws IOException {
-        try {
-            Map<String, Object> stringObjectMap = expertInfoService.importExpert(file);
-            return stringObjectMap;
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
-        return null;
+        Map<String, Object> stringObjectMap = expertInfoService.importExpert(file);
+        return stringObjectMap;
     }
 
     /**
@@ -85,30 +80,20 @@ public class ExpertInfoController {
      */
     @PostMapping(value = "/exportExpertExcel")
     public void exportExpertExcel(@RequestBody List<Long> ids, HttpServletResponse response) throws IOException {
-        try {
-            expertInfoService.exportExpert(ids, response);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
+        expertInfoService.exportExpert(ids, response);
     }
 
     @PostMapping(value = "/delExpert")
     public Result delExpert(@RequestBody List<Long> ids) throws IOException {
-        try {
-            return expertInfoService.delExperts(ids);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
-        return null;
+        return expertInfoService.delExperts(ids);
     }
 
     /**
-     *
      * @param unMeeting
      * @param id
      */
     @PostMapping(value = "/unMeeting")
-    public Result unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id")long id){
+    public Result unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {
         expertInfoService.unMeetingNum(unMeeting, id);
         return Result.success("");
     }
@@ -120,16 +105,7 @@ public class ExpertInfoController {
      * @return
      */
     @PostMapping(value = "/updatePwd")
-    public Result updatePwd(@RequestBody PwdInfo pwdInfo) {
-        try {
-            return expertInfoService.updatePwd(pwdInfo);
-        } catch (RuntimeException e) {
-            e.getMessage();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Result updatePwd(@RequestBody PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        return expertInfoService.updatePwd(pwdInfo);
     }
 }

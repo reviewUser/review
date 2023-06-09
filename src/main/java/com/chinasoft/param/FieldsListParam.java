@@ -1,15 +1,9 @@
 package com.chinasoft.param;
 
-public class FieldsListParam extends CustomParam{
+import lombok.Data;
 
-	private String fieldName;
-	
-	public String getFieldName() {
-		return fieldName;
-	}
+@Data
+public class FieldsListParam extends CustomParam {
 
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
-	}
-
+    private String fieldName;
 }
