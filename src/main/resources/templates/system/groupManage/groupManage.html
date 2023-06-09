@@ -230,7 +230,6 @@
 			<button  data-method="offSet" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" id="delete" lay-submit lay-filter="delete">删除</button>
 			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
-<!--			<a class="layui-btn layui-btn-normal" href="../source/专家信息表.xlsx" download="专家信息表.xlsx">下载模板</a>-->
 		</div>
 		<div id="tableInfo">
 			<label class="layui-form-label" style="width:20px"></label>
@@ -245,6 +244,7 @@
 	<div class="layui-footer">
 		<!-- 底部固定区域 -->
 		<p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
+		<span class="layui-breadcrumb" lay-separator="/"><a style = "text-decoration: underline ; color :blue" href="http://127.0.0.1:8080/source/专家信息表.xlsx" download="专家信息表.xlsx"><big>下载模板</big></a></span>
 	</div>
 </div>
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
@@ -558,7 +558,6 @@
 								  })
 
 					  });
-
 
 
 

@@ -93,7 +93,7 @@
 <!--				</div>-->
 				<table>
 					<tr>
-						<th>
+						<td>
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">自动拒绝时间</label>
 								<div class="layui-input-inline">
@@ -101,10 +101,10 @@
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_hour" style="height: 35px">确认修改</button>
 							</div>
-						</th>
+						</td>
 					</tr>
 					<tr>
-						<th>
+						<td>
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">拒绝封禁次数</label>
 								<div class="layui-input-inline">
@@ -112,16 +112,18 @@
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_refuse" style="height: 35px">确认修改</button>
 							</div>
-						</th>
+						</td>
 					</tr>
 					<tr>
-						<div class="layui-inline" style="position:static">
-							<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
-							<div class="layui-input-inline">
-								<input type="text" class="layui-input" id="un_meeting" placeholder="输入未参会多少次后专家会被封禁" style="width: 220px"/>
+						<td>
+							<div class="layui-inline" style="position:static">
+								<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" id="un_meeting" placeholder="输入未参会多少次后专家会被封禁" style="width: 220px"/>
+								</div>
+								<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
 							</div>
-							<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
-						</div>
+						</td>
 					</tr>
 				</table>
 
@@ -183,22 +185,22 @@
 			    ,range: '~'
 			    ,format: 'yyyy-MM-dd HH:mm:ss'
 			  });
-			//监听工具条
-			  table.on('tool(setting)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-			    var data = obj.data //获得当前行数据
-			    ,layEvent = obj.event; //获得 lay-event 对应的值
-			    if(layEvent === 'save'){
-					$.ajax({
-						url: '/config',
-						method: 'get',
-						contentType:'application/json;charset=utf-8',
-						data:JSON.stringify(data.configValue),
-						success: function(res) {
-							renderTable(res);
-						}
-					})
-			    }
-			  });
+			// //监听工具条
+			//   table.on('tool(setting)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			//     var data = obj.data //获得当前行数据
+			//     ,layEvent = obj.event; //获得 lay-event 对应的值
+			//     if(layEvent === 'save'){
+			// 		$.ajax({
+			// 			url: '/config',
+			// 			method: 'get',
+			// 			contentType:'application/json;charset=utf-8',
+			// 			data:JSON.stringify(data.configValue),
+			// 			success: function(res) {
+			// 				renderTable(res);
+			// 			}
+			// 		})
+			//     }
+			//   });
 			//监听单元格编辑
 			//   table.on('edit(fieldinfo)', function(obj){
 			//     var value = obj.value //得到修改后的值
@@ -244,7 +246,48 @@
 					  }
 				  })
 				});
+			$('#save_refuse').click(function(){
 
+				var refuseCount=$('#refuse_count').value();
+
+				$.ajax({
+					method: "post",
+					url: "/config",
+					data: JSON.stringify(hour),
+					contentType: "application/json",
+					success: function(res){
+						if(res)
+						{
+							layer.msg('修改配置成功');
+						}
+						else
+						{
+							layer.msg('修改配置失败！');
+						}
+					}
+				})
+			});
+			$('#save_unMeeting').click(function(){
+
+				var unMeetinng=$('#un_meeting').value();
+
+				$.ajax({
+					method: "post",
+					url: "/config",
+					data: JSON.stringify(hour),
+					contentType: "application/json",
+					success: function(res){
+						if(res)
+						{
+							layer.msg('修改配置成功');
+						}
+						else
+						{
+							layer.msg('修改配置失败！');
+						}
+					}
+				})
+			});
 			  });
 		/* ]]> */
 	</script>
