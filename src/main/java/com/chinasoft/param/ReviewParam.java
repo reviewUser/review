@@ -12,6 +12,8 @@ public class ReviewParam {
 	private String reviewUser;
 	private String reviewField;
 	private String reviewStatus;
+	private String address;
+	private String sourceAddress;
 	//分页
 	private int pageNum;
 	private int pageSize;
