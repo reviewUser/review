@@ -33,6 +33,12 @@
             <if test="reviewStatus != null and reviewStatus != ''">
                 AND review_status LIKE CONCAT('%',#{reviewStatus},'%')
             </if>
+            <if test="address != null and address != ''">
+                AND address = #{address}
+            </if>
+            <if test="sourceAddress != null and sourceAddress != ''">
+                AND source_address = #{sourceAddress}
+            </if>
         </where>
         LIMIT #{pageNum},#{pageSize}
     </select>
