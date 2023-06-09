@@ -26,26 +26,25 @@ public class ExpertInfoController {
 
     /**
      * 新增评审专家
-     *
+     * @param expertInfo
      * @return
      * @throws Exception
      */
     @PostMapping("/addExpert")
-    public String addExpert(@RequestBody ExpertInfo expertInfo) throws Exception {
-        expertInfoService.insert(expertInfo);
-        return "新增成功";
+    public int addExpert(@RequestBody ExpertInfo expertInfo) throws Exception {
+        return expertInfoService.insert(expertInfo);
     }
 
     /**
      * 查询专家基本信息以json的形式返回
-     *
+     * @param param
      * @return
      * @throws Exception
      */
     @PostMapping("/queryExpertInfo")
-    public Map<String, Object> queryExpertInfo(@RequestBody ExpertParam param) throws Exception {
+    public Map<String, Object> queryExpertInfo(@RequestBody ExpertParam param) {
         int pageNum = (param.getPageNum() - 1) * param.getPageSize();
-        Map<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         List<ExpertInfo> users = null;
         int totalCount = 0;
         param.setPageNum(pageNum);
@@ -63,19 +62,17 @@ public class ExpertInfoController {
      *
      * @param file
      * @return
-     * @throws IOException
      */
     @PostMapping(value = "/importExpertExcel")
-    public Map<String, Object> excelProTbZbzs(MultipartFile file) throws IOException {
+    public Map<String, Object> excelProTbZbzs(MultipartFile file) {
         Map<String, Object> stringObjectMap = expertInfoService.importExpert(file);
         return stringObjectMap;
     }
 
     /**
      * 导出专家信息
-     *
      * @param ids
-     * @return
+     * @param response
      * @throws IOException
      */
     @PostMapping(value = "/exportExpertExcel")
@@ -83,14 +80,22 @@ public class ExpertInfoController {
         expertInfoService.exportExpert(ids, response);
     }
 
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/delExpert")
-    public Result delExpert(@RequestBody List<Long> ids) throws IOException {
+    public Result delExpert(@RequestBody List<Long> ids) {
         return expertInfoService.delExperts(ids);
     }
 
     /**
+     * 未参会
      * @param unMeeting
      * @param id
+     * @return
      */
     @PostMapping(value = "/unMeeting")
     public int unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {

@@ -19,6 +19,7 @@
         <result column="work_unit" property="workUnit"/>
         <result column="address" property="address"/>
     </resultMap>
+
     <insert id="insert" parameterType="com.chinasoft.po.ExpertInfo">
         <selectKey resultType="java.lang.Long" keyProperty="id"
                    order="AFTER">

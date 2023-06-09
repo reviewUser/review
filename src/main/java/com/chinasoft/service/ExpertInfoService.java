@@ -19,49 +19,16 @@ import java.util.Map;
  */
 public interface ExpertInfoService {
 
-    /**
-     * 新增专家信息
-     *
-     * @param expertInfo
-     */
-    void insert(ExpertInfo expertInfo) throws ParseException;
+    int insert(ExpertInfo expertInfo) throws ParseException;
 
-    /**
-     * 通过name和角色搜索用户
-     *
-     * @param param
-     * @return
-     */
     List<ExpertInfo> queryExpertInfo(ExpertParam param);
 
-    /**
-     * 得到总记录数
-     *
-     * @param param
-     */
     int getTotalCount(ExpertParam param);
 
-    /**
-     * 导入专家信息
-     *
-     * @param file
-     * @return
-     */
     Map<String, Object> importExpert(MultipartFile file);
 
-    /**
-     * 导出专家信息
-     *
-     * @param ids
-     * @return
-     */
     void exportExpert(List<Long> ids, HttpServletResponse response) throws IOException;
 
-    /**
-     * 删除专家信息
-     *
-     * @param ids
-     */
     Result delExperts(List<Long> ids);
 
     /**

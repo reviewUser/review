@@ -12,7 +12,6 @@ import com.chinasoft.utils.ImportExcelUtils;
 import com.chinasoft.utils.Md5Utils;
 import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,13 +36,9 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     @Autowired
     private SysConfigDao sysConfigDao;
 
-    /**
-     * 新增专家信息
-     *
-     * @param expertInfo
-     */
     @Override
-    public void insert(ExpertInfo expertInfo) throws ParseException {
+    public int insert(ExpertInfo expertInfo) throws ParseException {
+        int result = 0;
         DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date date = fmt.parse(expertInfo.getBirthday());
         if (expertInfo != null) {
@@ -59,8 +54,9 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                 expertInfo.setRefuseCount(0);
                 expertInfo.setExpertStatus("正常");
             }
-            expertInfoDao.insert(expertInfo);
+            result = expertInfoDao.insert(expertInfo);
         }
+        return result;
     }
 
     @Override
@@ -209,7 +205,6 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
         // 返回年龄值
         return age;
     }
-
 
     @Override
     public void exportExpert(List<Long> ids, HttpServletResponse response) {
