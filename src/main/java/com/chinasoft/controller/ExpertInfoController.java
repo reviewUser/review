@@ -93,9 +93,19 @@ public class ExpertInfoController {
      * @param id
      */
     @PostMapping(value = "/unMeeting")
-    public Result unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {
-        expertInfoService.unMeetingNum(unMeeting, id);
-        return Result.success("");
+    public int unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {
+        return expertInfoService.unMeetingNum(unMeeting, id);
+    }
+
+    /**
+     * 批量解封
+     * @param ids
+     * @return
+     * @throws IOException
+     */
+    @PostMapping(value = "/unBan")
+    public int unBan(@RequestBody List<Long> ids) {
+        return expertInfoService.unBan(ids);
     }
 
     /**

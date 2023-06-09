@@ -196,4 +196,7 @@
         SET un_meeting = #{unMeeting}
         WHERE id = #{id}
     </update>
+
+    <update id="unBan" parameterType="java.util.List">
+    </update>
 </mapper>

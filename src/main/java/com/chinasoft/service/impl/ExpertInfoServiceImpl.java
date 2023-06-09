@@ -252,8 +252,13 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     }
 
     @Override
-    public void unMeetingNum(int unMeeting, long id) {
-        expertInfoDao.updateUnMeetingNum(unMeeting, id);
+    public int unMeetingNum(int unMeeting, long id) {
+        return expertInfoDao.updateUnMeetingNum(unMeeting, id);
+    }
+
+    @Override
+    public int unBan(List<Long> ids) {
+        return expertInfoDao.unBan(ids);
     }
 
     @Override

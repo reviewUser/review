@@ -71,6 +71,8 @@ public interface ExpertInfoDao {
     @Select("UPDATE expert_info SET expert_status = '封禁'  where id = #{id}")
     void updateExpertStatus(@Param("id") long id);
 
+    int unBan(List<Long> ids);
+
     /**
      * 根据ids查询专家信息
      *
@@ -82,7 +84,7 @@ public interface ExpertInfoDao {
     @Select("SELECT * FROM expert_info")
     List<ExpertInfo> queryAllExpert();
 
-    void updateUnMeetingNum(@Param("unMeeting") int unMeeting, @Param("id") long id);
+    int updateUnMeetingNum(@Param("unMeeting") int unMeeting, @Param("id") long id);
 
     @Select("SELECT * FROM sys_user where username = #{username}")
     SysUser queryUser(@Param("username") String username);

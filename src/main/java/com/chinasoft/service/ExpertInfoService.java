@@ -69,7 +69,9 @@ public interface ExpertInfoService {
      *
      * @param unMeeting
      */
-    void unMeetingNum(int unMeeting, long id);
+    int unMeetingNum(int unMeeting, long id);
+
+    int unBan(List<Long> ids);
 
     /**
      * 修改密码
