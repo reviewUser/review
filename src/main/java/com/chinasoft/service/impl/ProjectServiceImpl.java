@@ -103,34 +103,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 查询projects
-     *
-     * @param param
-     * @return
-     */
-    @Override
-    public List<Project> listProject(ProjectListParam param) {
-        if (param != null) {
-            return projectDao.listProject(param);
-        }
-        return null;
-    }
-
-    /**
-     * 查询总记录数
-     *
-     * @param param
-     * @return
-     */
-    @Override
-    public int getTotalCount(ProjectListParam param) {
-        if (param != null) {
-            return projectDao.getTotalCount(param);
-        }
-        return 0;
-    }
-
-    /**
      * 更新申请记录
      *
      * @param project
@@ -159,18 +131,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 通过id删除评审任务申请记录
-     *
-     * @param id
-     */
-    @Override
-    public void deleteById(Long id) {
-        if (id != null) {
-            projectDao.deleteById(id);
-        }
-    }
-
-    /**
      * 查找分组下的所有评审任务
      *
      * @param groupId
@@ -195,22 +155,6 @@ public class ProjectServiceImpl implements ProjectService {
         if (!CollectionUtils.isEmpty(projectIds)) {
             projectDao.updateStatusByIds(projectIds, status);
         }
-    }
-
-    @Override
-    public int getReivewdTotalCount(ProjectListParam param) {
-        if (param != null) {
-            return projectDao.getReivewdTotalCount(param);
-        }
-        return 0;
-    }
-
-    @Override
-    public List<Project> listReivewdtProject(ProjectListParam param) {
-        if (param != null) {
-            return projectDao.listReivewdtProject(param);
-        }
-        return null;
     }
 
     @Override

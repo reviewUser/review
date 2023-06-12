@@ -12,13 +12,6 @@ import java.util.List;
 public interface ProjectService {
 
     /**
-     * 检查文件是否为系统支持的类型
-     * @param fileName 上传文件名
-     * @return
-     */
-//	boolean checkFileSuffix(String fileName);
-
-    /**
      * 插入评审任务申请记录
      *
      * @param project
@@ -28,25 +21,9 @@ public interface ProjectService {
     /**
      * 生成申请记录
      *
-     * @param GenerateApplyParam param 记录生成参数
+     * @param param 记录生成参数
      */
     void generateApply(GenerateApplyParam param);
-
-    /**
-     * 查询projects
-     *
-     * @param param
-     * @return
-     */
-    List<Project> listProject(ProjectListParam param);
-
-    /**
-     * 查询总记录数
-     *
-     * @param param
-     * @return
-     */
-    int getTotalCount(ProjectListParam param);
 
     /**
      * 更新申请记录
@@ -65,13 +42,6 @@ public interface ProjectService {
     Project getProjectById(Long id);
 
     /**
-     * 通过id删除评审任务申请记录
-     *
-     * @param id
-     */
-    void deleteById(Long id);
-
-    /**
      * 查找分组下的所有评审任务
      *
      * @param groupId
@@ -85,22 +55,6 @@ public interface ProjectService {
      * @param projectIds
      */
     void updateStatusByIds(List<Long> projectIds, String status);
-
-    /**
-     * 某专家已评审评审任务总记录数
-     *
-     * @param param
-     * @return
-     */
-    int getReivewdTotalCount(ProjectListParam param);
-
-    /**
-     * 某专家已评审评审任务
-     *
-     * @param param
-     * @return
-     */
-    List<Project> listReivewdtProject(ProjectListParam param);
 
     void updateReviewCountById(Long id);
 

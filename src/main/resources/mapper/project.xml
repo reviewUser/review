@@ -23,7 +23,7 @@
 	         #{item}
 	     </foreach>
     </sql>
-	
+
 	<insert id="insert" parameterType="com.chinasoft.po.Project">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
 			order="AFTER">
@@ -32,9 +32,9 @@
 		INSERT INTO project(id,project_name,description,status,file_save_path,create_time,last_update_time,create_user_id,review_count)
 		VALUES(#{id},#{projectName},#{description},#{status},#{fileSavePath},#{createTime},#{lastUpdateTime},#{createUserId},0)
 	</insert>
-	
+
 	<select id="listProject" resultMap="projectMap">
-		SELECT * FROM project 
+		SELECT * FROM project
 		<where>
 			<if test="projectName != null">
 	            and project_name LIKE CONCAT('%',#{projectName},'%')
@@ -46,7 +46,7 @@
 	            and status = #{status}
 	        </if>
 	        <if test="createUserIds != null and createUserIds.size() > 0">
-	            and create_user_id in 
+	            and create_user_id in
 				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
 			        #{item}
 			    </foreach>
@@ -59,7 +59,7 @@
 <!--			    and status in('IN_REVIEW','WAIT_REVIEW')-->
 <!--	        </if>-->
 	        <if test="startTime != null">
-	            and create_time &gt; #{startTime} 
+	            and create_time &gt; #{startTime}
 	        </if>
 	        <if test="endTime != null">
 	            and create_time &lt; #{endTime}
@@ -68,7 +68,7 @@
         LIMIT #{offset},#{limit}
 	</select>
 	<select id="listReivewdtProject" resultMap="projectMap">
-		SELECT * FROM project p, review r 
+		SELECT * FROM project p, review r
 		<where>
 			p.id = r.project_id
 			<if test="projectName != null">
@@ -76,13 +76,13 @@
 	        </if>
 	        and p.status in('IN_REVIEW','REVIEW_DONE')
 	        <if test="createUserIds != null and createUserIds.size() > 0">
-	            and p.create_user_id in 
+	            and p.create_user_id in
 				<foreach collection="createUserIds" item="item" separator="," open="(" close=")">
 			        #{item}
 			    </foreach>
 	        </if>
 	        <if test="startTime != null">
-	            and p.create_time &gt; #{startTime} 
+	            and p.create_time &gt; #{startTime}
 	        </if>
 	        <if test="endTime != null">
 	            and p.create_time &lt; #{endTime}
@@ -187,9 +187,7 @@
 		</set>
 		WHERE id  = #{id}
 	</update>
-	<delete id="deleteById" parameterType="long">
-		DELETE FROM project WHERE id = #{id}
-	</delete>
+
 	<select id="listByGroupId"  parameterType="long" resultMap="projectMap">
 		SELECT * FROM project WHERE group_id = #{groupId}
 	</select>
