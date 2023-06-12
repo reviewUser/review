@@ -6,6 +6,7 @@ import com.chinasoft.po.ReviewManagement;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -22,6 +23,15 @@ public interface ReviewManagementDao {
 
     @Select("SELECT * from expert_info where expert_status = '正常' and field_name = #{reviewFiled} and address = #{sourceAddress}")
     List<ExpertInfo> queryExpertByFiled(@Param("reviewFiled") String reviewFiled, @Param("sourceAddress") String sourceAddress);
+
+    @Select("SELECT phone FROM expert_info ORDER BY meeting_times ASC , id ASC limit #{nums} WHERE expert_status = '正常' and field_name = #{reviewFiled} and address = #{sourceAddress}")
+    List<String> queryExperts(@Param("reviewFiled") String reviewFiled, @Param("sourceAddress") String sourceAddress, @Param("nums") int nums);
+
+    @Select("SELECT meeting_times FROM expert_info WHERE phone = #{phone}")
+    int queryMeetingTimesByPhone(String phone);
+
+    @Update("UPDATE expert_info SET meeting_times = #{meetingTimes} WHERE phone = #{phone}")
+    void updateMeetingTimesByPhone(String phone, int meetingTimes);
 
     @Select("UPDATE review_management SET review_status = #{reviewStatus}  where id = #{id}")
     void updateStatus(@Param("reviewStatus") String reviewStatus, @Param("id") long id);

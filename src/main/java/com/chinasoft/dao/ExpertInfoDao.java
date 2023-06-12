@@ -6,6 +6,7 @@ import com.chinasoft.po.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -38,6 +39,12 @@ public interface ExpertInfoDao {
     List<ExpertInfo> queryAllExpert();
 
     int updateUnMeetingNum(@Param("unMeeting") int unMeeting, @Param("id") long id);
+
+    @Select("SELECT meeting_times FROM expert_info WHERE id = #{id}")
+    int queryMeetingTime(@Param("id") long id);
+
+    @Update("UPDATE expert_info SET meeting_times = #{meetingTime} WHERE id = #{id}")
+    void updateMeetingTime(@Param("meetingTime") int meetingTime, @Param("id") long id);
 
     @Select("SELECT * FROM sys_user where username = #{username}")
     SysUser queryUser(@Param("username") String username);

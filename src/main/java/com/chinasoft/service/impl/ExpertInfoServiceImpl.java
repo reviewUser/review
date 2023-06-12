@@ -65,7 +65,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
         int unMeeting = Integer.valueOf(sysConfigDao.getConfigValue("unMeeting"));
         List<ExpertInfo> infos = expertInfoDao.queryExpertInfo(param);
         infos.forEach(p -> {
-            if (p.getRefuseCount() > refuseCount || p.getUnMeeting() > unMeeting) {
+            if (p.getRefuseCount() >= refuseCount || p.getUnMeeting() >= unMeeting) {
                 expertInfoDao.updateExpertStatus(p.getId());
             }
         });
@@ -248,6 +248,10 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
 
     @Override
     public int unMeetingNum(int unMeeting, long id) {
+        int numOfEmptyTurns = Integer.valueOf(sysConfigDao.getConfigValue("numOfEmptyTurns"));
+        int meetingTime = expertInfoDao.queryMeetingTime(id);
+        meetingTime = meetingTime + numOfEmptyTurns;
+        expertInfoDao.updateMeetingTime(meetingTime, id);
         return expertInfoDao.updateUnMeetingNum(unMeeting, id);
     }
 

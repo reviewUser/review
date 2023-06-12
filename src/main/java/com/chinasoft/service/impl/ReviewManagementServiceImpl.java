@@ -196,10 +196,16 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         }
 
 
-        List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
-
-        List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        // List<String> phones = expertInfos.stream().map(ExpertInfo::getPhone).collect(Collectors.toList());
+        // 随机抽手机号
+        // List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        // 轮流手机号
+        List<String> list =  reviewManagementDao.queryExperts(reviewManagement.getReviewField(), reviewManagement.getSourceAddress(), Integer.parseInt(reviewManagement.getReviewExperts()));
         for (String str : list) {
+            // 轮流手机号记录已发次数
+            int meetingTimes = reviewManagementDao.queryMeetingTimesByPhone(str);
+            meetingTimes = meetingTimes + 1;
+            reviewManagementDao.updateMeetingTimesByPhone(str, meetingTimes);
             String msg = sendSms(reviewManagement.getId(), str);
             if (msg.contains("短信发送成功")) {
                 result.setCode("200");
@@ -253,13 +259,6 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     }
 
     public static List<String> getRandomThreeInfoList(List<String> list, int count) {
-        // TODO
-//        List<String> phone1 = new ArrayList<>();
-//        List<String> phone2 = new ArrayList<>();
-//        List<String> phone3 = new ArrayList<>();
-//        for (String str : list) {
-//
-//        }
         List<String> olist = new ArrayList<>();
         if (list.size() <= count) {
             return list;
@@ -347,8 +346,12 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                 phones.remove(str);
             }
         }
-        List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        // List<String> list = getRandomThreeInfoList(phones, Integer.parseInt(reviewManagement.getReviewExperts()));
+        List<String> list =  reviewManagementDao.queryExperts(reviewManagement.getReviewField(), reviewManagement.getSourceAddress(), Integer.parseInt(reviewManagement.getReviewExperts()));
         for (String str : list) {
+            int meetingTimes = reviewManagementDao.queryMeetingTimesByPhone(str);
+            meetingTimes = meetingTimes + 1;
+            reviewManagementDao.updateMeetingTimesByPhone(str, meetingTimes);
             String msg = sendSms(reviewManagement.getId(), str);
             if (msg.contains("短信发送成功")) {
                 result.setCode("200");
