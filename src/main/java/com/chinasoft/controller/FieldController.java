@@ -3,9 +3,7 @@ package com.chinasoft.controller;
 import com.alibaba.druid.util.StringUtils;
 import com.chinasoft.exception.CustomException;
 import com.chinasoft.param.FieldsListParam;
-import com.chinasoft.po.EntityField;
 import com.chinasoft.po.SysUser;
-import com.chinasoft.service.EntityFieldMappingService;
 import com.chinasoft.utils.Result;
 import com.chinasoft.utils.UUIDUtils;
 import com.chinasoft.po.Field;
@@ -31,8 +29,6 @@ public class FieldController {
 	@Autowired
 	private FieldService fieldService;
 
-	@Autowired
-	private EntityFieldMappingService entityFieldMappingService;
 	/**
 	 * 领域标签管理页面
 	 * 
@@ -195,34 +191,5 @@ public class FieldController {
 		}
 		session.setAttribute("expertId", id);
 		return "system/userManage/allocateField";
-	}
-	/**
-	 * 为专家添加擅长领域
-	 * @param session
-	 * @param model
-	 * @param expertId
-	 * @param fieldId
-	 * @return
-	 * @throws Exception
-	 */
-	@ResponseBody
-	@RequestMapping("/allocateField")
-	public Result<String> allocateField(HttpSession session, Model model, Long expertId, Long fieldId) throws Exception {
-		SysUser user = (SysUser) session.getAttribute("user");
-		if (user == null) {
-			throw new CustomException("未登录，请先登录", "/");
-		}
-		Result<String> result = new Result<String>();
-		EntityField entityField = new EntityField();
-		entityField.setEntityId(expertId);
-		entityField.setFieldId(fieldId);
-		entityField.setEntityType(EntityField.ENTITY_TYPE_EXPERT);
-		int num = entityFieldMappingService.insert(entityField);
-		if (num > 0){
-			result.setData("添加领域成功");
-		} else {
-			result.setData("添加领域失败");
-		}
-		return result;
 	}
 }

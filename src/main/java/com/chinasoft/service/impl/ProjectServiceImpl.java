@@ -7,7 +7,6 @@ import com.chinasoft.param.GenerateApplyParam;
 import com.chinasoft.param.ProjectListParam;
 import com.chinasoft.po.Group;
 import com.chinasoft.po.Project;
-import com.chinasoft.service.EntityFieldMappingService;
 import com.chinasoft.service.FieldService;
 import com.chinasoft.service.ProjectService;
 import com.chinasoft.utils.FileUtils;
@@ -32,21 +31,11 @@ public class ProjectServiceImpl implements ProjectService {
         validSuffixs.add(".doc");
         validSuffixs.add(".docx");
     }
-
     @Autowired
     private ProjectDao projectDao;
 
     @Autowired
-    private FieldDao fieldDao;
-
-    @Autowired
-    private FieldService fieldService;
-
-    @Autowired
     private GroupDao groupDao;
-
-    @Autowired
-    private EntityFieldMappingService entityFieldMappingService;
 
     /**
      * 生成申请记录
@@ -87,20 +76,6 @@ public class ProjectServiceImpl implements ProjectService {
         group.setCreateUserId(param.getSysUser().getId());
         group.setStatus(Project.PROJECT_REVIEW_STATUS_WAIT_ALLOCATE);
         groupDao.insert(group);
-
-//		// 生成有效领域标签、插入记录同时关联申请记录
-//		List<String> inputFields = Arrays.asList(param.getTagsinput().split("\\,")); // 用户输入的标签
-//		fieldService.getValidFieldAndInsertBatch(inputFields, param.getSysUser().getId());
-//
-//		// 将领域标签与评审任务申请记录关联起来
-//		List<Field> Fields = fieldDao.listFieldsByNames(inputFields);  //该记录所有相关标签
-//		for (Field field : Fields) {
-//			EntityField entityField = new EntityField();
-//			entityField.setEntityId(param.getProject().getId());
-//			entityField.setFieldId(field.getId());
-//			entityField.setEntityType(EntityField.ENTITY_TYPE_PROJECT);
-//			entityFieldMappingService.insert(entityField);
-//		}
     }
 
     /**
