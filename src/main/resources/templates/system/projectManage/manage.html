@@ -12,15 +12,16 @@
     <link rel="stylesheet" href="../../static/css/allocate.css"
           th:href="@{/css/allocate.css}"/>
     <style type="text/css">
-.layui-inline{
-	margin-top: 10px;
-}
-#tableInfo{
-	width:90%;
-	height:400px;
-	position: static;
-	left:50px;
-}
+        .layui-inline {
+            margin-top: 10px;
+        }
+
+        #tableInfo {
+            width: 90%;
+            height: 400px;
+            position: static;
+            left: 50px;
+        }
 
     </style>
 </head>
@@ -44,28 +45,17 @@
                 <!--					<li class="layui-nav-item layui-nav-itemed">-->
                 <!--						<a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审任务分组管理</a>-->
                 <!--					</li>-->
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;" ><STRONG>评审管理</STRONG></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a class="" href="javascript:;" th:href="@{/group/groupManagePage}">评审专家管理</a>
-                        </dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a class="" href="javascript:;">评审任务管理</a>
-                        </dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a class="" href="javascript:;" th:href="@{/project/allocateManagePage}">密码修改</a>
-                        </dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a class="" href="javascript:;" th:href="@{/field/fieldPage}">系统配置</a>
-                        </dd>
-                    </dl>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;" th:href="@{/group/groupManagePage}"><STRONG>评审管理</STRONG></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;" ><STRONG>评审任务管理</STRONG></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;" th:href="@{/project/allocateManagePage}"><strong>密码修改</strong></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"th:href="@{/field/fieldPage}"><strong>系统配置</strong></a>
                 </li>
                 <!--					<li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">用户管理</a>-->
                 <dl class="layui-nav-child">
@@ -100,106 +90,114 @@
         <form class="layui-form" method="POST" style="margin-left:50px">
             <div class="layui-form-item">
 
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width: 150px">评审任务名</label>
-                                <div class="layui-input-inline">
-                                    <input id="review_name" type="text" name="review_name"
-                                           placeholder="根据任务名模糊搜索" autocomplete="off"
-                                           class="layui-input" style="width: 150px"/>
-                                </div>
-                            </div>
+                <div class="layui-inline" style="position:static">
+                    <label class="layui-form-label" style="width: 150px">评审任务名</label>
+                    <div class="layui-input-inline">
+                        <input id="review_name" type="text" name="review_name"
+                               placeholder="根据任务名模糊搜索" autocomplete="off"
+                               class="layui-input" style="width: 150px"/>
+                    </div>
+                </div>
 
 
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
-                                <div class="layui-input-inline">
-                                    <select id="review_field" name="review_field" style="width: 150px">
-                                        <option value=""></option>
-                                        <option value="工程">工程</option>
-                                        <option value="财务">财务</option>
-                                        <option value="地质">地质</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="layui-inline" style="position:static">
+                    <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
+                    <div class="layui-input-inline">
+                        <select id="review_field" name="review_field" style="width: 150px">
+                            <option value=""></option>
+                            <option value="工程">工程</option>
+                            <option value="财务">财务</option>
+                            <option value="地质">地质</option>
+                        </select>
+                    </div>
+                </div>
 
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width:150px">会议地点</label>
-                                <div class="layui-input-inline">
-                                    <input id="address" type="text" name="address"
-                                           placeholder="根据会议地点模糊搜索" autocomplete="off"
-                                           class="layui-input" style="width:150px"/>
-                                </div>
-                            </div>
+                <div class="layui-inline" style="position:static">
+                    <label class="layui-form-label" style="width:150px">会议地点</label>
+                    <div class="layui-input-inline">
+                        <input id="address" type="text" name="address"
+                               placeholder="根据会议地点模糊搜索" autocomplete="off"
+                               class="layui-input" style="width:150px"/>
+                    </div>
+                </div>
 
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width: 150px">评审状态</label>
-                                <div class="layui-input-inline">
-                                    <select id="review_status" name="review_status" style="width: 150px">
-                                        <option value=""></option>
-                                        <option value="待评审">待评审</option>
-                                        <option value="通知中">通知中</option>
-                                        <option value="通知中">通知失败</option>
-                                        <option value="通知完成">部分通知完成</option>
-                                        <option value="通知完成">全部通知完成</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="layui-inline" style="position:static">
+                    <label class="layui-form-label" style="width: 150px">评审状态</label>
+                    <div class="layui-input-inline">
+                        <select id="review_status" name="review_status" style="width: 150px">
+                            <option value=""></option>
+                            <option value="待评审">待评审</option>
+                            <option value="通知中">通知中</option>
+                            <option value="通知中">通知失败</option>
+                            <option value="通知完成">部分通知完成</option>
+                            <option value="通知完成">全部通知完成</option>
+                        </select>
+                    </div>
+                </div>
 
             </div>
             <div class="layui-inline" style="margin-left:35%">
-                <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
-                                                                                      class="layui-icon">&#xe615;</i>查询</a>
+                <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit=""
+                   lay-filter="room_search"><i style="padding-right: 4px"
+                                               class="layui-icon">&#xe615;</i>查询</a>
             </div>
         </form>
         <div id="layerDemo" class="layui-btn-container" style="margin-top:80px">
             <label class="layui-form-label" style="width:20px"></label>
-            <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
-            <button type="button" id="delete" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
-            <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
-            <a class="layui-btn layui-btn-primary" style = "text-decoration: underline ; color :blue;border-style: none;" href="http://127.0.0.1:8080/source/评审任务管理表.xlsx" download="评审任务管理表.xlsx"><big>下载模板</big></a>
+            <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入
+            </button>
+            <button type="button" id="delete" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除
+            </button>
+            <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出
+            </button>
+            <a class="layui-btn layui-btn-primary" style="text-decoration: underline ; color :blue;border-style: none;"
+               href="http://127.0.0.1:8080/source/评审任务管理表.xlsx"
+               download="评审任务管理表.xlsx"><big>下载模板</big></a>
         </div>
         <div id="tableInfo">
             <label class="layui-form-label" style="width:20px"></label>
-            <table class="layui-hide" id="applyinfo" lay-data="{id:'applyinfo'}" lay-filter="applyinfo" style="overflow-y:auto;overflow-x:auto"></table>
+            <table class="layui-hide" id="applyinfo" lay-data="{id:'applyinfo'}" lay-filter="applyinfo"
+                   style="overflow-y:auto;overflow-x:auto"></table>
             <label class="layui-form-label" style="width:20px"></label>
 
             <script type="text/html" id="check">
-                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail" id="finddetail"><i style="padding-right: 4px" class="layui-icon">&#xe615;</i>查看详细</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="detail"
+                   id="finddetail"><i style="padding-right: 4px" class="layui-icon">&#xe615;</i>查看详细</a>
             </script>
 
             <script type="text/html" id="barDemo">
                 {{#  if(d.reviewStatus== "全部通知完成"){ }}
-                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
+                <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "待评审"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="right">
                     <i style="padding-right: 4px" class="layui-icon">&#xe705;</i>发起评审</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知中"){ }}
-                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
+                <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "部分通知完成"){ }}
-                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
+                <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知失败"){ }}
-                <a  class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
+                <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="right">已发送</a>
                 {{#  } }}
             </script>
             <script type="text/html" id="addExpert">
                 {{#  if(d.reviewStatus== "待评审"){ }}
-                <a  class="layui-hide" lay-event="add">进行追加</a>
+                <a class="layui-hide" lay-event="add">进行追加</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知中"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "部分通知完成"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "通知失败"){ }}
-                <a  class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="add">进行追加</a>
                 {{#  } }}
                 {{#  if(d.reviewStatus== "全部通知完成"){ }}
-                <a  class="layui-hide" lay-event="add">进行追加</a>
+                <a class="layui-hide" lay-event="add">进行追加</a>
                 {{#  } }}
             </script>
         </div>
@@ -212,425 +210,384 @@
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 
 <script th:inline="javascript">
-		//JavaScript代码区域
-		layui.use([ 'jquery', 'layer' ,'form' ,'table', 'laydate','element','upload'], function() {
-			var $ = layui.jquery,
-			layer = layui.layer,
-			form = layui.element,
-			table = layui.table,
-			laydate = layui.laydate,
-			element = layui.element,
-			upload=layui.upload;
-			
-			 //日期时间范围
-			  var params = {};
-			  params.pageNum = 1;
-			  params.pageSize = 10;
-			  params.reviewName =$('#review_name').val();
-			  params.reviewField =$('#review_field').val();
-			  params.reviewStatus =$('#review_status').val();
-              params.address=$('#address').val();
+    //JavaScript代码区域
+    layui.use(['jquery', 'layer', 'form', 'table', 'laydate', 'element', 'upload'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.element,
+            table = layui.table,
+            laydate = layui.laydate,
+            element = layui.element,
+            upload = layui.upload;
 
-			  //接口接入
-			  $.ajax({
-      			  url: '/review/queryReviewInfo',
-				  method: 'post',
-				  contentType:'application/json;charset=utf-8',
-				  data:JSON.stringify(params),
-				  success: function(res) {
-				    renderTable(res.data);
-                    }
-			 });
-                var colsnew = [ //表头
-                       {type:'checkbox'}
-					  ,{field: 'id', title: '流水号', width:100, sort: true}
-					  ,{field: 'reviewName', title: '评审任务名', width:100}
-					  ,{field: 'reviewRemark', title: '摘要', width:150}
-					  ,{field: 'reviewUser', title: '评审发起人', width: 120}
-                      ,{field: 'sourceAddress', title: '所属地域', width: 150}
-                      ,{field: 'address', title: '会议地点', width: 150}
-					  ,{field: 'reviewDate', title: '评审计划日期', width: 150,sort:true}
-					  ,{field: 'reviewStartDate', title: '评审开始时间', width: 150, sort: true}
-					  ,{field: 'reviewEndDate', title: '评审结束时间', width: 150, sort: true}
-					  ,{field: 'reviewField', title: '评审所属专业领域', width:150}
-                      ,{field: 'fundSource', title: '项目资金来源', width:150}
-					  ,{field: 'reviewExperts', title: '评审所需专家数量', width:150}
-					  ,{field: 'reviewStatus', title: '评审状态', width:150}
-					  ,{field: 'detail', title:'详细', width: 100, align:'center', toolbar: '#check'}
-					  ,{field: 'right', title:'操作', width: 100, align:'center', toolbar: '#barDemo'}
-                      ,{field: 'add', title:'追加参会人', width: 100, align:'center',toolbar: '#addExpert'}
-					];
-			 //执行一个 table 实例
-			 var renderTable = function(data) {
-				   var tableIns = table.render({
-					elem: '#applyinfo'
-					,width: '100%'
-					,data:data
-					,cols: [colsnew]
-					 ,where: { action: "List" }
-            		 ,request: {
-               		 	pageName: 'pageNum', //页码的参数名称
-                	 	limitName: 'pageSize' //每页数据量的参数名
-            		 }
-            		,done: function (res, curr, count) {
-                		this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-            		}
+        //日期时间范围
+        var params = {};
+        params.pageNum = 1;
+        params.pageSize = 10;
+        params.reviewName = $('#review_name').val();
+        params.reviewField = $('#review_field').val();
+        params.reviewStatus = $('#review_status').val();
+        params.address = $('#address').val();
 
-				   ,page: {
-               		 	limit: params.pageSize ,//指定每页显示的条数
-                        limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-            		 }
-				  });
-                  // 执行重载
-                  table.render().reload('applyinfo', { cols: [colsnew] })
-                  //监听工具条
-                  table.on('tool(applyinfo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-                    var data = obj.data //获得当前行数据
-                    ,layEvent = obj.event; //获得 lay-event 对应的值
-                    if(layEvent === 'right'){
-                        if (data.reviewStatus == "待评审"){
-                          var reviewStart = {};
-                            reviewStart.id=data.id;
-                            reviewStart.reviewField=data.reviewField;
-                            reviewStart.reviewExperts=data.reviewExperts;
-                            reviewStart.reviewStartDate=data.reviewStartDate;
-                            reviewStart.sourceAddress=data.sourceAddress;
-                            $.ajax({
-                             method: "post",
-                             url: "/review/startReview",
-                             data: JSON.stringify(reviewStart),
-                             contentType: "application/json",
-                             success: function(data){
-                                if(data.code==200)
-                                 {
-                                    layer.msg(data.msg);
-                                 }
-                                 else
-                                 {
-                                     layer.msg('无对应领域专家！',{time: 2000 //5秒关闭（如果不配置，默认是3秒）
-                                     }, function(){
-                                    var Title="专家实际数量小于评审所需数量需添加";
-                                    var message="领域专家,";
-                                    var filed=JSON.stringify(reviewStart.reviewField);
-                                    var error="或修改评审任务专家需求数!";
-                                    layer.open({
-                                          type: 1
-                                          ,title: '报错信息'
-                                          ,area:['20%','20%']
-                                          ,content: Title+filed+message+error //这里content是一个普通的String
-                                          ,btn: '确认'
-                                          ,btnAlign: 'c'
-                                          ,shade: 0 //不显示遮罩
-                                          ,yes: function(){
-                                             layer.closeAll();
-                                           }
-                                        });
-                                 })
-                                 }
-                             }
-                         });
-                        } else {
-                            console.log("不可操作");
-                        }
-                    }
-                    else if(layEvent === 'detail')
-                    {
-                        var checkDetail=data.id;
-                        var result;
-                        var url1="id="+checkDetail;
+        //接口接入
+        $.ajax({
+            url: '/review/queryReviewInfo',
+            method: 'post',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(params),
+            success: function (res) {
+                renderTable(res.data);
+            }
+        });
+        var colsnew = [ //表头
+            {type: 'checkbox'}
+            , {field: 'id', title: '流水号', width: 100, sort: true}
+            , {field: 'reviewName', title: '评审任务名', width: 100}
+            , {field: 'reviewRemark', title: '摘要', width: 150}
+            , {field: 'reviewUser', title: '评审发起人', width: 120}
+            , {field: 'sourceAddress', title: '所属地域', width: 150}
+            , {field: 'address', title: '会议地点', width: 150}
+            , {field: 'reviewDate', title: '评审计划日期', width: 150, sort: true}
+            , {field: 'reviewStartDate', title: '评审开始时间', width: 150, sort: true}
+            , {field: 'reviewEndDate', title: '评审结束时间', width: 150, sort: true}
+            , {field: 'reviewField', title: '评审所属专业领域', width: 150}
+            , {field: 'fundSource', title: '项目资金来源', width: 150}
+            , {field: 'reviewExperts', title: '评审所需专家数量', width: 150}
+            , {field: 'reviewStatus', title: '评审状态', width: 150}
+            , {field: 'detail', title: '详细', width: 100, align: 'center', toolbar: '#check'}
+            , {field: 'right', title: '操作', width: 100, align: 'center', toolbar: '#barDemo'}
+            , {field: 'add', title: '追加参会人', width: 100, align: 'center', toolbar: '#addExpert'}
+        ];
+        //执行一个 table 实例
+        var renderTable = function (data) {
+            var tableIns = table.render({
+                elem: '#applyinfo'
+                , width: '100%'
+                , data: data
+                , cols: [colsnew]
+                , where: {action: "List"}
+                , request: {
+                    pageName: 'pageNum', //页码的参数名称
+                    limitName: 'pageSize' //每页数据量的参数名
+                }
+                , done: function (res, curr, count) {
+                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                }
 
+                , page: {
+                    limit: params.pageSize,//指定每页显示的条数
+                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+                }
+            });
+            // 执行重载
+            table.render().reload('applyinfo', {cols: [colsnew]})
+            //监听工具条
+            table.on('tool(applyinfo)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'right') {
+                    if (data.reviewStatus == "待评审") {
+                        var reviewStart = {};
+                        reviewStart.id = data.id;
+                        reviewStart.reviewField = data.reviewField;
+                        reviewStart.reviewExperts = data.reviewExperts;
+                        reviewStart.reviewStartDate = data.reviewStartDate;
+                        reviewStart.sourceAddress = data.sourceAddress;
                         $.ajax({
-                             method: "get",
-                             url: "/review/queryRepeatMsg?"+url1,
-                             data: JSON.stringify(checkDetail),
-                             contentType: "application/json",
-                             success: function(res){
-                                result=res;
-                             }
-                        })
-                                 layer.open({
-                                      type: 1
-                                      ,id:'detailInfo'
-                                      ,title: '评审任务对应专家回复详情'
-                                      ,area:['50%', '50%']
-                                      ,content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form></div>'
-                                      ,btn: ['查询','关闭']
-                                      ,btnAlign: 'c'
-                                      ,shade: 0 //不显示遮罩
-                                      ,success:function(){
-                                         var Dcols = [ //表头
-                                             {field: 'workNum', title: '工号', width:100}
-                                             ,{field: 'name', title: '姓名', width:100}
-                                             ,{field: 'phone', title: '电话号码',width:100}
-                                             ,{field: 'status', title: '回复状态', width:100}
-                                         ];
-                                            var tableIns2 = table.render({
-                                                id: 'detailinfo'
-                                                ,elem: '#detailinfo'
-                                                ,width: '100%'
-                                                ,data:result
-                                                ,cols: [Dcols]
-                                                ,where: { action: "List" }
-                                                ,done: function (res, curr, count) {
-                                                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-                                                }
-                                                ,request: {
-                                                    pageName: 'pageNum', //页码的参数名称
-                                                    limitName: 'pageSize' //每页数据量的参数名
-                                                 }
-                                               ,page: {
-                                                    limit: 10 ,//指定每页显示的条数
-                                                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-                                                 }
-
-                                          });
-                                          // 执行重载
-                                          table.render().reload('detailinfo', { cols: [Dcols] });
-                                         $.ajax({
-                                             url: '/review/queryReviewInfo',
-                                             method: 'post',
-                                             contentType:'application/json;charset=utf-8',
-                                             data:JSON.stringify(params),
-                                             success: function(res) {
-                                                 renderTable(res.data);
-                                             }
-                                         });
-                                      }
-                                      ,yes:function(){
-                                        var Dcols = [ //表头
-                                           {field: 'workNum', title: '工号', width:100}
-                                          ,{field: 'name', title: '姓名', width:100}
-                                          ,{field: 'phone', title: '电话号码',width:100}
-                                          ,{field: 'status', title: '回复状态', width:100}
-                                        ];
-                                            var tableIns2 = table.render({
-                                                id: 'detailinfo'
-                                                ,elem: '#detailinfo'
-                                                ,width: '100%'
-                                                ,data:result
-                                                ,cols: [Dcols]
-                                                ,where: { action: "List" }
-                                                ,done: function (res, curr, count) {
-                                                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-                                                }
-                                                ,request: {
-                                                    pageName: 'pageNum', //页码的参数名称
-                                                    limitName: 'pageSize' //每页数据量的参数名
-                                                 }
-                                               ,page: {
-                                                    limit: 10 ,//指定每页显示的条数
-                                                    limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-                                                 }
-
-                                          });
-                                          // 执行重载
-                                          table.render().reload('detailinfo', { cols: [Dcols] })
-                                      }
-                                      ,btn2: function(){
-                                         layer.closeAll();
-                                      }
-                                    });
-
-
-                    }
-                    else if(layEvent === 'add')
-                    {
-
-                        layer.open({
-                            type: 1
-                            ,id: 'detailInfo'
-                            ,title: '追加专家人选'
-                            ,area: ['40%', '20%']
-                            ,content: '<div style="width:90%">' +
-                                '<form>' +
-                                '<label class="layui-form-label">输入所需专家数量</label>\n' +
-                                '                                <div class="layui-input-inline">\n' +
-                                '                                    <input id="addition" type="text" name="addition"\n' +
-                                '                                           placeholder="" autocomplete="off"\n' +
-                                '                                           class="layui-input"/>\n' +
-                                '                                </div>' +
-                                '</form>' +
-                                '</div>'
-                            ,btn: ['确认', '关闭']
-                            ,btnAlign: 'c'
-                            ,shade: 0 //不显示遮罩
-                            ,yes: function () {
-                                var addExpert = {};
-                                addExpert.id = data.id;
-                                addExpert.reviewField = data.reviewField;
-                                addExpert.reviewExperts = $('#addition').val();
-                                $.ajax({
-                                    method: "post",
-                                    url: "/review//addParticipants" ,
-                                    data: JSON.stringify(addExpert),
-                                    contentType: "application/json",
-                                    success: function (res) {
-                                        if (res) {
-                                            layer.msg(res.msg);
-                                        } else {
-                                            alert("信息发送失败！");
-                                        }
-                                    }
-                                    , btn2: function () {
-                                        layer.closeAll();
-                                    }
-                                });
-                            }
-                        })
-
-                    }
-                  });
-
-
-			//删除
-                $("#delete").click(function(data){
-                    var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
-                    console.log(checkStatus.data[0]) //获取选中行的数据
-                    console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-                    console.log(checkStatus.isAll ) //表格是否全选
-                    var deleteEp=[];
-                    for(var i=0;i<checkStatus.data.length;i++)
-                    {
-                            deleteEp.push(checkStatus.data[i].id);
-
-                    }
-                    console.log(deleteEp);
-                    layer.open({
-                        type: 1
-                        ,title: '删除评审任务'
-                        ,area:['20%','15%']
-                        ,content:'是否删除所选评审任务？' //这里content是一个普通的String
-                        ,btn: ['确认','关闭']
-                        ,btnAlign: 'c'
-                        ,shade: 0 //不显示遮罩
-                        ,yes: function() {
-                            $.ajax({
-                                url:'/review/delReview',
-                                method:'post',
-                                data:JSON.stringify(deleteEp),
-                                contentType:'application/json;charset=utf-8',
-                                success:function(data){
-                                    if(data.code==200){
-                                        layer.msg("删除成功",function() {time:1000});
-                                        parent.location.reload();
-                                    }else{
-                                        layer.msg("删除失败",function() {time:1000})
+                            method: "post",
+                            url: "/review/startReview",
+                            data: JSON.stringify(reviewStart),
+                            contentType: "application/json",
+                            success: function (data) {
+                                if (data.code == 200) {
+                                    layer.msg(data.msg);
+                                } else if (data.code == 500) {
+                                    if (data.msg == '评审计划时间必须在24小时之后') {
+                                        layer.msg(data.msg);
+                                    } else {
+                                        var Title = "专家实际数量小于评审所需数量需添加";
+                                        var message = "领域专家,";
+                                        var filed = JSON.stringify(reviewStart.reviewField);
+                                        var error = "或修改评审任务专家需求数!";
+                                        layer.msg(Title + filed + message + error);
                                     }
                                 }
-                            })
-                        }
-                        ,btn2: function(){
-                            layer.closeAll();
+                            }
+                        });
+                    } else {
+                        console.log("不可操作");
+                    }
+                } else if (layEvent === 'detail') {
+                    var checkDetail = data.id;
+                    var result;
+                    var url1 = "id=" + checkDetail;
+
+                    $.ajax({
+                        url: '/review/queryReviewInfo',
+                        method: 'post',
+                        contentType: 'application/json;charset=utf-8',
+                        data: JSON.stringify(params),
+                        success: function (res) {
+                            renderTable(res.data);
                         }
                     });
 
-                })
-			//导出
-                $('#export').on('click', function(){
-    				// 模拟从后端接口读取需要导出的数据
-    				var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
-                    console.log(checkStatus.data[0]) //获取选中行的数据
-                    console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-                    console.log(checkStatus.isAll ) //表格是否全选
-                    var RvEp=[];
-                    for(var i=0;i<checkStatus.data.length;i++)
-                    {
-                            RvEp.push(checkStatus.data[i].id);
+                    $.ajax({
+                        method: "get",
+                        url: "/review/queryRepeatMsg?" + url1,
+                        data: JSON.stringify(checkDetail),
+                        contentType: "application/json",
+                        success: function (res) {
+                            result = res;
+                            layer.open({
+                                type: 1
+                                ,
+                                id: 'detailInfo'
+                                ,
+                                title: '评审任务对应专家回复详情'
+                                ,
+                                area: ['50%', '50%']
+                                ,
+                                content: '<div style="width:90%"><form><label class="layui-form-label" style="width:10px"></label><table class="layui-table" id="detailinfo" lay-filter="detailinfo" style="width:40%;overflow-y:auto;overflow-x:auto"></table></form></div>'
+                                ,
+                                btn: ['确认']
+                                ,
+                                btnAlign: 'c'
+                                ,
+                                shade: 0 //不显示遮罩
+                                ,
+                                success: function () {
+                                    var Dcols = [ //表头
+                                        {field: 'workNum', title: '工号', width: 150}
+                                        , {field: 'name', title: '姓名', width: 100}
+                                        , {field: 'phone', title: '电话号码', width: 150}
+                                        , {field: 'status', title: '回复状态', width: 100}
+                                    ];
+                                    var tableIns2 = table.render({
+                                        elem: '#detailinfo'
+                                        , width: '60%'
+                                        , data: result
+                                        , cols: [Dcols]
+                                        , where: {action: "List"}
+                                        , done: function (res, curr, count) {
+                                            this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                                        }
+                                        , request: {
+                                            pageName: 'pageNum', //页码的参数名称
+                                            limitName: 'pageSize' //每页数据量的参数名
+                                        }
+                                        , page: {
+                                            limit: 10,//指定每页显示的条数
+                                            limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+                                        }
 
+                                    });
+                                    // 执行重载
+                                    table.render().reload('detailinfo', {cols: [Dcols]});
+                                }
+                                ,
+                                yes: function () {
+                                    layer.closeAll();
+                                }
+                            });
+                        }
+                    })
+
+                } else if (layEvent === 'add') {
+
+                    layer.open({
+                        type: 1
+                        , id: 'detailInfo'
+                        , title: '追加专家人选'
+                        , area: ['40%', '20%']
+                        , content: '<div style="width:90%">' +
+                            '<form>' +
+                            '<label class="layui-form-label">输入所需专家数量</label>\n' +
+                            '                                <div class="layui-input-inline">\n' +
+                            '                                    <input id="addition" type="text" name="addition"\n' +
+                            '                                           placeholder="" autocomplete="off"\n' +
+                            '                                           class="layui-input"/>\n' +
+                            '                                </div>' +
+                            '</form>' +
+                            '</div>'
+                        , btn: ['确认', '关闭']
+                        , btnAlign: 'c'
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+                            var addExpert = {};
+                            addExpert.id = data.id;
+                            addExpert.reviewField = data.reviewField;
+                            addExpert.reviewExperts = $('#addition').val();
+                            $.ajax({
+                                method: "post",
+                                url: "/review//addParticipants",
+                                data: JSON.stringify(addExpert),
+                                contentType: "application/json",
+                                success: function (res) {
+                                    if (res) {
+                                        layer.msg(res.msg);
+                                    } else {
+                                        alert("信息发送失败！");
+                                    }
+                                }
+                                , btn2: function () {
+                                    layer.closeAll();
+                                }
+                            });
+                        }
+                    })
+
+                }
+            });
+
+
+            //删除
+            $("#delete").click(function (data) {
+                var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
+                console.log(checkStatus.data[0]) //获取选中行的数据
+                console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+                console.log(checkStatus.isAll) //表格是否全选
+                var deleteEp = [];
+                for (var i = 0; i < checkStatus.data.length; i++) {
+                    deleteEp.push(checkStatus.data[i].id);
+
+                }
+                console.log(deleteEp);
+                layer.open({
+                    type: 1
+                    , title: '删除评审任务'
+                    , area: ['20%', '15%']
+                    , content: '是否删除所选评审任务？' //这里content是一个普通的String
+                    , btn: ['确认', '关闭']
+                    , btnAlign: 'c'
+                    , shade: 0 //不显示遮罩
+                    , yes: function () {
+                        $.ajax({
+                            url: '/review/delReview',
+                            method: 'post',
+                            data: JSON.stringify(deleteEp),
+                            contentType: 'application/json;charset=utf-8',
+                            success: function (data) {
+                                if (data.code == 200) {
+                                    layer.msg("删除成功", function () {
+                                        time:1000
+                                    });
+                                    parent.location.reload();
+                                } else {
+                                    layer.msg("删除失败", function () {
+                                        time:1000
+                                    })
+                                }
+                            }
+                        })
                     }
-                    console.log(RvEp);
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+                });
 
-					var url = "/review/exportReviewExcel";
-					$.ajax({
-					method : "POST", //提交方式
-					url : url,//路径
-					contentType: "application/json",
-					data:JSON.stringify(RvEp),
-					beforeSend: function (request) {
-					request.setRequestHeader("Authorization", "xxx");
-					},
-					success : function(result) {
-						var xhr = new XMLHttpRequest();
+            })
+            //导出
+            $('#export').on('click', function () {
+                // 模拟从后端接口读取需要导出的数据
+                var checkStatus = table.checkStatus('applyinfo'); //idTest 即为基础参数 id 对应的值
+                console.log(checkStatus.data[0]) //获取选中行的数据
+                console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+                console.log(checkStatus.isAll) //表格是否全选
+                var RvEp = [];
+                for (var i = 0; i < checkStatus.data.length; i++) {
+                    RvEp.push(checkStatus.data[i].id);
+
+                }
+                console.log(RvEp);
+
+                var url = "/review/exportReviewExcel";
+                $.ajax({
+                    method: "POST", //提交方式
+                    url: url,//路径
+                    contentType: "application/json",
+                    data: JSON.stringify(RvEp),
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", "xxx");
+                    },
+                    success: function (result) {
+                        var xhr = new XMLHttpRequest();
                         xhr.responseType = "arraybuffer";
                         xhr.open("POST", url, true);
                         xhr.onload = function () {
-                        const blob = new Blob([this.response], {type:"application/vnd.ms-excel"});
-                        if(blob.size < 1) {
-                              alert('导出失败，导出的内容为空！');
-                              return;
-                        }
-                        if(window.navigator.msSaveOrOpenBlob) {
-                              navigator.msSaveOrOpenBlob(blob, '评审任务表.xlsx')
-                        } else {
-                            const aLink = document.createElement('a');
-                              aLink.style.display = 'none';
-                              aLink.href = window.URL.createObjectURL(blob);
-                              aLink.download = '评审任务表';
-                              document.body.appendChild(aLink);
-                              aLink.click();
-                              document.body.removeChild(aLink);
-                              return;
-                          }
+                            const blob = new Blob([this.response], {type: "application/vnd.ms-excel"});
+                            if (blob.size < 1) {
+                                alert('导出失败，导出的内容为空！');
+                                return;
+                            }
+                            if (window.navigator.msSaveOrOpenBlob) {
+                                navigator.msSaveOrOpenBlob(blob, '评审任务表.xlsx')
+                            } else {
+                                const aLink = document.createElement('a');
+                                aLink.style.display = 'none';
+                                aLink.href = window.URL.createObjectURL(blob);
+                                aLink.download = '评审任务表';
+                                document.body.appendChild(aLink);
+                                aLink.click();
+                                document.body.removeChild(aLink);
+                                return;
+                            }
                         }
                         xhr.setRequestHeader("Authorization", "xxx");
                         xhr.setRequestHeader("Content-Type", "application/json");
                         xhr.send(JSON.stringify(RvEp));
-					}
-				});
+                    }
+                });
 
-    	    });
+            });
 
-    	}
-    	//查询
-			  $('#select').click(function(){
-			      var s={
-			      pageNum:1,
-                  pageSize:10};
-                  s.reviewName =$('#review_name').val();
-                  s.reviewField =$('#review_field').val();
-                  s.reviewStatus =$('#review_status').val();
-                  s.address=$('#address').val();
-			    $.ajax({
-                                url:"/review/queryReviewInfo",
-							method:"post",
-							contentType:'application/json;charset=utf-8',
-				  			data:JSON.stringify(s),
-							success:function (res) {
-                                    if(res.data){
-									 renderTable(res.data);
-									 }
-									 else
-									 {
-									    layer.msg("无符合条件任务！");
-									 }
-                            }
-              })
-			});
-    	//文件上传
-			upload.render({
-			  elem: '#import'
-			  ,method: 'post'
-    		  ,url: '/review/importReviewExcel' //此处配置你自己的上传接口即可
-    		  ,accept: 'file' //普通文件
-    		  ,done: function(res){
-    		    layer.msg('上传成功');
+        }
+        //查询
+        $('#select').click(function () {
+            var s = {
+                pageNum: 1,
+                pageSize: 10
+            };
+            s.reviewName = $('#review_name').val();
+            s.reviewField = $('#review_field').val();
+            s.reviewStatus = $('#review_status').val();
+            s.address = $('#address').val();
+            $.ajax({
+                url: "/review/queryReviewInfo",
+                method: "post",
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(s),
+                success: function (res) {
+                    if (res.data) {
+                        renderTable(res.data);
+                    } else {
+                        layer.msg("无符合条件任务！");
+                    }
+                }
+            })
+        });
+        //文件上传
+        upload.render({
+            elem: '#import'
+            , method: 'post'
+            , url: '/review/importReviewExcel' //此处配置你自己的上传接口即可
+            , accept: 'file' //普通文件
+            , done: function (res) {
+                layer.msg('上传成功');
                 $.ajax({
                     url: '/review/queryReviewInfo',
                     method: 'post',
-                    contentType:'application/json;charset=utf-8',
-                    data:JSON.stringify(params),
-                    success: function(res) {
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(params),
+                    success: function (res) {
                         renderTable(res.data);
                     }
                 });
-    		}
-    		});
+            }
+        });
 
 
-})
-
-
-
+    })
 
 
 </script>
