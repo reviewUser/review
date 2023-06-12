@@ -136,7 +136,10 @@
                      contentType:'application/json;charset=utf-8',
                      success:function (data) {
                            if(data.code==200){
-                              alert("修改成功");
+							   layer.msg("密码修该成功!",{time:1000},function(){
+								   //重新加载当前页面
+								   location.reload();
+							   });
                            }else{
                                  alert("账户或密码错误,请重新输入");
                            }

@@ -162,11 +162,14 @@
 					  success: function(res){
 						  if(res)
 						  {
-							  layer.msg('修改配置成功');
+							  layer.msg("修改配置成功!",{time:1000},function(){
+								  //重新加载当前页面
+								  location.reload();
+							  });
 						  }
 						  else
 						  {
-							  layer.msg('修改配置失败！');
+							  alert('修改配置失败！');
 						  }
 					  }
 				  })
@@ -182,11 +185,14 @@
 					success: function(res){
 						if(res)
 						{
-							layer.msg('修改配置成功');
+							layer.msg("修改配置成功!",{time:1000},function(){
+								//重新加载当前页面
+								location.reload();
+							});
 						}
 						else
 						{
-							layer.msg('修改配置失败！');
+							alert('修改配置失败！');
 						}
 					}
 				})
@@ -202,11 +208,14 @@
 					success: function(res){
 						if(res)
 						{
-							layer.msg('修改配置成功');
+							layer.msg("修改配置成功!",{time:1000},function(){
+								//重新加载当前页面
+								location.reload();
+							});
 						}
 						else
 						{
-							layer.msg('修改配置失败！');
+							alert('修改配置失败！');
 						}
 					}
 				})
@@ -222,11 +231,14 @@
 					success: function(res){
 						if(res)
 						{
-							layer.msg('修改配置成功');
+							layer.msg("修改配置成功!",{time:1000},function(){
+								//重新加载当前页面
+								location.reload();
+							});
 						}
 						else
 						{
-							layer.msg('修改配置失败！');
+							alert('修改配置失败！');
 						}
 					}
 				})

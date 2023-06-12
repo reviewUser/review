@@ -194,7 +194,7 @@
 			<button  data-method="offSet" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" id="delete" lay-submit lay-filter="delete">删除</button>
 			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
-			<button type="button" class="layui-btn" id="release"><i class="layui-icon"></i>解除封禁</button>
+			<button type="button" class="layui-btn" lay-submit lay-filter="release"id="release"><i class="layui-icon"></i>解除封禁</button>
 			<a class="layui-btn layui-btn-primary" style = "text-decoration: underline ; color :blue;border-style: none; " href="http://127.0.0.1:8080/source/专家信息表.xlsx" download="专家信息表.xlsx"><big>下载模板</big></a>
 		</div>
 		<div id="tableInfo">
@@ -311,7 +311,7 @@
 							, shade: 0 //不显示遮罩
 							, yes: function () {
 								$.ajax({
-									url:'/expert/',
+									url:'/expert/unBan',
 									method:'post',
 									data:JSON.stringify(release),
 									contentType:'application/json;charset=utf-8',
