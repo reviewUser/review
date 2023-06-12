@@ -219,104 +219,6 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     }
 
     @Override
-    public void exportReview(List<Long> ids, HttpServletResponse response) {
-        List<ReviewManagement> reviewManagements = null;
-        try {
-            if (ids.size() == 0) {
-                reviewManagements = reviewManagementDao.queryAllReviews();
-            } else {
-                reviewManagements = reviewManagementDao.queryReviewByIds(ids);
-            }
-            response.setContentType("application/vnd.ms-excel");
-            response.setCharacterEncoding("utf-8");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            String fileName = "任务评审管理-" + sdf.format(new Date()) + ".xlsx";
-            String fileNameURL = URLEncoder.encode(fileName, "UTF-8");
-            response.setHeader("Content-disposition", "attachment;filename=" + fileNameURL + ";" + "filename*=utf-8''" + fileNameURL);
-            EasyExcel.write(response.getOutputStream(), ReviewManagement.class).sheet("任务评审管理").doWrite(reviewManagements);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-    }
-
-    @Override
-    public List<QueryDescVo> queryRepeatMsg(Long id) {
-        List<QueryDescVo> queryDescVos = new ArrayList<>();
-        if (id != null) {
-            List<CheckReview> repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
-            for (CheckReview checkReview : repeatMessageInfos) {
-                QueryDescVo queryDescVo = new QueryDescVo();
-                queryDescVo.setStatus(checkReview.getRepeats());
-                queryDescVo.setPhone(checkReview.getPhone());
-                ExpertInfo expertInfo = repeatMessageDao.queryName(checkReview.getPhone());
-                queryDescVo.setName(expertInfo.getName());
-                queryDescVo.setWorkNum(expertInfo.getWorkNumber());
-                queryDescVos.add(queryDescVo);
-            }
-
-        }
-        return queryDescVos;
-    }
-
-    public static List<String> getRandomThreeInfoList(List<String> list, int count) {
-        List<String> olist = new ArrayList<>();
-        if (list.size() <= count) {
-            return list;
-        } else {
-            Random random = new Random();
-            for (int i = 0; i < count; i++) {
-                int intRandom = random.nextInt(list.size() - 1);
-                olist.add(list.get(intRandom));
-                list.remove(list.get(intRandom));
-            }
-            return olist;
-        }
-    }
-
-    private String sendSms(long reviewId, String phone) throws Exception {
-        com.aliyun.dysmsapi20170525.Client client = Sample.createClient(accessKeyId, accessKeySecret);
-        SendSmsRequest sendSmsRequest = new SendSmsRequest()
-                .setPhoneNumbers(phone)
-                .setSignName(signName)
-                .setTemplateCode(templateCode);
-        // 复制代码运行请自行打印 API 的返回值
-        SendSmsResponse response = client.sendSms(sendSmsRequest);
-        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        //同步插入记录短信回复
-        RepeatMessageInfo repeatMessageInfo = new RepeatMessageInfo();
-        repeatMessageInfo.setTime(Timestamp.valueOf(time));
-        repeatMessageInfo.setPhone(phone);
-        repeatMessageInfo.setReview(reviewId);
-
-        CheckReview checkReview = new CheckReview();
-        checkReview.setReview(reviewId);
-        checkReview.setPhone(phone);
-        checkReview.setStatus("0");
-        checkReview.setRepeats("暂未回复");
-        CheckReview review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
-
-        if ("ok".equalsIgnoreCase(response.getBody().getMessage())) {
-            repeatMessageDao.insert(repeatMessageInfo);
-            if (review == null) {
-                checkReviewDao.insert(checkReview);
-            }
-            return "短信发送成功！";
-        }
-        return "短信发送失败！";
-    }
-
-    private String setTemplateParam() {
-        //短信通知参数json格式
-        SmsParam smsParamVo = new SmsParam();
-        //设置短信通知模板里面的变量值
-        smsParamVo.setHour(param);
-        String smsParam = JSONObject.toJSONString(smsParamVo);
-        System.out.println("新版本短信通知参数smsParam:" + smsParam);
-        //模板中的变量替换JSON串,如模板内容为"亲爱的${hour},您的验证码为${code}"时,此处的值为
-        return smsParam;
-    }
-
-    @Override
     public Result addParticipants(ReviewManagement reviewManagement) throws Exception {
         Result result = new Result();
         if (StringUtils.isEmpty(reviewManagement.getReviewField())) {
@@ -362,5 +264,103 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         }
         reviewManagementDao.updateStatus("通知中", reviewManagement.getId());
         return result;
+    }
+
+    @Override
+    public void exportReview(List<Long> ids, HttpServletResponse response) {
+        List<ReviewManagement> reviewManagements = null;
+        try {
+            if (ids.size() == 0) {
+                reviewManagements = reviewManagementDao.queryAllReviews();
+            } else {
+                reviewManagements = reviewManagementDao.queryReviewByIds(ids);
+            }
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String fileName = "任务评审管理-" + sdf.format(new Date()) + ".xlsx";
+            String fileNameURL = URLEncoder.encode(fileName, "UTF-8");
+            response.setHeader("Content-disposition", "attachment;filename=" + fileNameURL + ";" + "filename*=utf-8''" + fileNameURL);
+            EasyExcel.write(response.getOutputStream(), ReviewManagement.class).sheet("任务评审管理").doWrite(reviewManagements);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    @Override
+    public List<QueryDescVo> queryRepeatMsg(Long id) {
+        List<QueryDescVo> queryDescVos = new ArrayList<>();
+        if (id != null) {
+            List<CheckReview> repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
+            for (CheckReview checkReview : repeatMessageInfos) {
+                QueryDescVo queryDescVo = new QueryDescVo();
+                queryDescVo.setStatus(checkReview.getRepeats());
+                queryDescVo.setPhone(checkReview.getPhone());
+                ExpertInfo expertInfo = repeatMessageDao.queryName(checkReview.getPhone());
+                queryDescVo.setName(expertInfo.getName());
+                queryDescVo.setWorkNum(expertInfo.getWorkNumber());
+                queryDescVos.add(queryDescVo);
+            }
+
+        }
+        return queryDescVos;
+    }
+
+    private String sendSms(long reviewId, String phone) throws Exception {
+        com.aliyun.dysmsapi20170525.Client client = Sample.createClient(accessKeyId, accessKeySecret);
+        SendSmsRequest sendSmsRequest = new SendSmsRequest()
+                .setPhoneNumbers(phone)
+                .setSignName(signName)
+                .setTemplateCode(templateCode);
+        // 复制代码运行请自行打印 API 的返回值
+        SendSmsResponse response = client.sendSms(sendSmsRequest);
+        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        //同步插入记录短信回复
+        RepeatMessageInfo repeatMessageInfo = new RepeatMessageInfo();
+        repeatMessageInfo.setTime(Timestamp.valueOf(time));
+        repeatMessageInfo.setPhone(phone);
+        repeatMessageInfo.setReview(reviewId);
+
+        CheckReview checkReview = new CheckReview();
+        checkReview.setReview(reviewId);
+        checkReview.setPhone(phone);
+        checkReview.setStatus("0");
+        checkReview.setRepeats("暂未回复");
+        CheckReview review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
+
+        if ("ok".equalsIgnoreCase(response.getBody().getMessage())) {
+            repeatMessageDao.insert(repeatMessageInfo);
+            if (review == null) {
+                checkReviewDao.insert(checkReview);
+            }
+            return "短信发送成功！";
+        }
+        return "短信发送失败！";
+    }
+
+    public static List<String> getRandomThreeInfoList(List<String> list, int count) {
+        List<String> olist = new ArrayList<>();
+        if (list.size() <= count) {
+            return list;
+        } else {
+            Random random = new Random();
+            for (int i = 0; i < count; i++) {
+                int intRandom = random.nextInt(list.size() - 1);
+                olist.add(list.get(intRandom));
+                list.remove(list.get(intRandom));
+            }
+            return olist;
+        }
+    }
+
+    private String setTemplateParam() {
+        //短信通知参数json格式
+        SmsParam smsParamVo = new SmsParam();
+        //设置短信通知模板里面的变量值
+        smsParamVo.setHour(param);
+        String smsParam = JSONObject.toJSONString(smsParamVo);
+        System.out.println("新版本短信通知参数smsParam:" + smsParam);
+        //模板中的变量替换JSON串,如模板内容为"亲爱的${hour},您的验证码为${code}"时,此处的值为
+        return smsParam;
     }
 }

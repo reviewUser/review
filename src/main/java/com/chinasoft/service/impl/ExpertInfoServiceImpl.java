@@ -247,7 +247,7 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
     }
 
     @Override
-    public int unMeetingNum(int unMeeting, long id) {
+    public int updateUnMeetingNum(int unMeeting, long id) {
         int numOfEmptyTurns = Integer.valueOf(sysConfigDao.getConfigValue("numOfEmptyTurns"));
         int meetingTime = expertInfoDao.queryMeetingTime(id);
         meetingTime = meetingTime + numOfEmptyTurns;

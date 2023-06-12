@@ -98,8 +98,8 @@ public class ExpertInfoController {
      * @return
      */
     @PostMapping(value = "/unMeeting")
-    public int unMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {
-        return expertInfoService.unMeetingNum(unMeeting, id);
+    public int updateUnMeeting(@RequestParam("unMeeting") int unMeeting, @RequestParam("id") long id) {
+        return expertInfoService.updateUnMeetingNum(unMeeting, id);
     }
 
     /**

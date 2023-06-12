@@ -31,7 +31,6 @@ public class ReviewManagement {
     private String fundSource;
     @ExcelProperty("会议地点")
     private String address;
-
     @ExcelProperty("所属地域")
     private String sourceAddress;
 }
