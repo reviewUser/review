@@ -61,16 +61,34 @@ public class ReviewManagementController {
         return stringObjectMap;
     }
 
+    /**
+     * 批量删除任务
+     * @param ids
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/delReview")
     public Result delExpert(@RequestBody List<Long> ids) throws IOException {
         return reviewManagementService.delReviews(ids);
     }
 
+    /**
+     * 发起评审
+     * @param reviewManagement
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value = "/startReview")
     public Result startReview(@RequestBody ReviewManagement reviewManagement) throws Exception {
         return reviewManagementService.startReview(reviewManagement);
     }
 
+    /**
+     * 追加参会人
+     * @param reviewManagement
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/addParticipants")
     public Result addParticipants(@RequestBody ReviewManagement reviewManagement) throws Exception {
         return reviewManagementService.addParticipants(reviewManagement);

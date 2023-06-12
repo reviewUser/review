@@ -36,7 +36,7 @@ public interface ExpertInfoService {
      *
      * @param unMeeting
      */
-    int unMeetingNum(int unMeeting, long id);
+    int updateUnMeetingNum(int unMeeting, long id);
 
     int unBan(List<Long> ids);
 
