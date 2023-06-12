@@ -118,6 +118,17 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<div class="layui-inline" style="position:static">
+								<label class="layui-form-label" style="width: 100px">轮空次数</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" id="numOfEmptyTurns" style="width: 220px"/>
+								</div>
+								<button type="button" class="layui-btn layui-btn-normal" id="save_numOfEmptyTurns" style="height: 35px">确认修改</button>
+							</div>
+						</td>
+					</tr>
 				</table>
 			</form>
 		</div>
@@ -148,6 +159,7 @@
 					$('#refuse_count').attr('placeholder',res[0].configValue);
 					$('#un_meeting').attr('placeholder',res[1].configValue);
 					$('#hour').attr('placeholder',res[2].configValue);
+					// $('#save_numOfEmptyTurns').attr('placeholder',res[3].configValue);
 				}
 			})
 			  $('#save_hour').click(function(){
@@ -198,6 +210,26 @@
 					method: "put",
 					url: "/config",
 					data: {configName:'unMeeting',configValue:unMeeting},
+					success: function(res){
+						if(res)
+						{
+							layer.msg('修改配置成功');
+						}
+						else
+						{
+							layer.msg('修改配置失败！');
+						}
+					}
+				})
+			});
+			$('#save_numOfEmptyTurns').click(function(){
+
+				var numOfEmptyTurns=$('#numOfEmptyTurns').val();
+
+				$.ajax({
+					method: "put",
+					url: "/config",
+					data: {configName:'numOfEmptyTurns',configValue:numOfEmptyTurns},
 					success: function(res){
 						if(res)
 						{
