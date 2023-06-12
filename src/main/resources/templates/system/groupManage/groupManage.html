@@ -118,24 +118,15 @@
 							   class="layui-input"/>
 					</div>
 				</div>
+
 				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">姓名</label>
+					<label class="layui-form-label" style="width:150px">擅长专业领域</label>
 					<div class="layui-input-inline">
-						<input id="username" type="text" name="username"
-							   placeholder="根据姓名模糊搜索" autocomplete="off"
-							   class="layui-input"/>
-					</div>
-				</div>
-				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">职称</label>
-					<div class="layui-input-inline">
-						<select id="expert_level" name="expert_level">
+						<select id="field_name" name="field_name">
 							<option value=""></option>
-							<option value="科员">科员</option>
-							<option value="副科">副科</option>
-							<option value="正科">正科</option>
-							<option value="副处">副处</option>
-							<option value="正处">正处</option>
+							<option value="财务">财务</option>
+							<option value="工程">工程</option>
+							<option value="地质">地质</option>
 						</select>
 					</div>
 				</div>
@@ -153,23 +144,16 @@
 				</div>
 
 				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">擅长专业领域</label>
+					<label class="layui-form-label" style="width:150px">职称</label>
 					<div class="layui-input-inline">
-						<select id="field_name" name="field_name">
+						<select id="expert_level" name="expert_level">
 							<option value=""></option>
-							<option value="财务">财务</option>
-							<option value="工程">工程</option>
-							<option value="地质">地质</option>
+							<option value="科员">科员</option>
+							<option value="副科">副科</option>
+							<option value="正科">正科</option>
+							<option value="副处">副处</option>
+							<option value="正处">正处</option>
 						</select>
-					</div>
-				</div>
-
-				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">地域</label>
-					<div class="layui-input-inline">
-						<input id="address" type="text" name="address"
-							   placeholder="根据地域模糊搜索" autocomplete="off"
-							   class="layui-input"/>
 					</div>
 				</div>
 
@@ -183,28 +167,19 @@
 				</div>
 
 				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">手机号码</label>
+					<label class="layui-form-label" style="width:150px">未参会次数</label>
 					<div class="layui-input-inline">
-						<input id="phone" type="text" name="phone"
+						<input id="un_meeting" type="text" name="un_meeting"
 							   placeholder="" autocomplete="off"
 							   class="layui-input"/>
 					</div>
 				</div>
 
 				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">参与评审积分</label>
+					<label class="layui-form-label" style="width:150px">地域</label>
 					<div class="layui-input-inline">
-						<input id="integral" type="text" name="integral"
-							   placeholder="" autocomplete="off"
-							   class="layui-input"/>
-					</div>
-				</div>
-
-				<div class="layui-inline" style="position:static">
-					<label class="layui-form-label" style="width:150px">拒绝评审次数</label>
-					<div class="layui-input-inline">
-						<input id="refuse_count" type="text" name="refuse_count"
-							   placeholder="" autocomplete="off"
+						<input id="address" type="text" name="address"
+							   placeholder="根据地域模糊搜索" autocomplete="off"
 							   class="layui-input"/>
 					</div>
 				</div>
@@ -221,7 +196,7 @@
 				</div>
 			</div>
 		</form>
-		<div class="layui-inline" style="margin-left:40%">
+		<div class="layui-inline" style="margin-left:45%">
 			<a id="select" class="layui-btn layui-btn-normal layui-btn-radius"><i style="padding-right: 4px;" class="layui-icon">&#xe615;</i>查询</a>
 		</div>
 		<div id="layerDemo" class="layui-btn-container" style="margin-top:100px">
@@ -229,7 +204,9 @@
 			<button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
 			<button  data-method="offSet" type="button" data-type="auto" class="layui-btn layui-btn-normal" id="hand_add">手动添加</button>
 			<button type="button" class="layui-btn layui-btn-normal" id="delete" lay-submit lay-filter="delete">删除</button>
-			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
+			<button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
+			<button type="button" class="layui-btn" id="release"><i class="layui-icon"></i>解除封禁</button>
+			<a class="layui-btn layui-btn-primary" style = "text-decoration: underline ; color :blue;border-style: none; " href="http://127.0.0.1:8080/source/专家信息表.xlsx" download="专家信息表.xlsx"><big>下载模板</big></a>
 		</div>
 		<div id="tableInfo">
 			<label class="layui-form-label" style="width:20px"></label>
@@ -244,7 +221,6 @@
 	<div class="layui-footer">
 		<!-- 底部固定区域 -->
 		<p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
-		<span class="layui-breadcrumb" lay-separator="/"><a style = "text-decoration: underline ; color :blue" href="http://127.0.0.1:8080/source/专家信息表.xlsx" download="专家信息表.xlsx"><big>下载模板</big></a></span>
 	</div>
 </div>
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
@@ -269,19 +245,13 @@
 			params.pageSize = 10;
 			params.id=$('#id').val();
 			params.workNumber =$('#work_number').val();
-			params.name =$('#username').val();
 			params.level =$('#expert_level').val();
 			params.technologyLevel =$('#technology_level').val();
 			params.fieldName =$('#field_name').val();
-			params.address =$('#address').val();;
-			params.workUnit =$('#work_unit').val();;
-			params.phone =$('#phone').val();
-			params.birthday =$('#birthday').val();
-			params.age =$('#age').val();
-			params.integral =$('#integral').val();
-			params.refuseCount =$('#refuse_count').val();
+			params.address =$('#address').val();
+			params.workUnit =$('#work_unit').val();
+			params.unMeeting =$('#un_meeting').val();
 			params.expertStatus =$('#expert_status').val();
-
 
 			$.ajax({
       			  url: '/expert/queryExpertInfo',
@@ -330,7 +300,47 @@
 				  });
 				  //重载
 					table.render().reload('groupinfo', { cols: [colsnew] });
+					//解封
+					form.on('submit(release)',function(data) {
+						var checkStatus = table.checkStatus('groupinfo'); //idTest 即为基础参数 id 对应的值
+						console.log(checkStatus.data[0]) //获取选中行的数据
+						console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
+						console.log(checkStatus.isAll) //表格是否全选
+						var release = [];
+						for (var i = 0; i < checkStatus.data.length; i++) {
+							release.push(checkStatus.data[i].id);
 
+						}
+						console.log(release);
+						layer.open({
+							type: 1
+							, title: '解除专家封禁状态'
+							, area: ['20%', '20%']
+							, content: '是否解除所选专家封禁状态？' //这里content是一个普通的String
+							, btn: ['确认', '关闭']
+							, btnAlign: 'c'
+							, shade: 0 //不显示遮罩
+							, yes: function () {
+								$.ajax({
+									url:'/expert/',
+									method:'post',
+									data:JSON.stringify(release),
+									contentType:'application/json;charset=utf-8',
+									success:function(data){
+										if(data.code==200){
+											layer.msg("删除成功",function() {time:1000});
+											parent.location.reload();
+										}else{
+											layer.msg("删除失败",function() {time:1000})
+										}
+									}
+								})
+							}
+							, btn2: function () {
+								layer.closeAll();
+							}
+						})
+					})
 				//删除
 					form.on('submit(delete)',function(data){
 						var checkStatus = table.checkStatus('groupinfo'); //idTest 即为基础参数 id 对应的值
@@ -344,20 +354,35 @@
 
 						}
 						console.log(deleteEp);
-						$.ajax({
-							url:'/expert/delExpert',
-							method:'post',
-							data:JSON.stringify(deleteEp),
-							contentType:'application/json;charset=utf-8',
-							success:function(data){
-								if(data.code==200){
-									parent.location.reload();
-									layer.msg("删除成功",function() {time:1000});
-								}else{
-									layer.msg("删除失败",function() {time:1000})
-								}
+						layer.open({
+							type: 1
+							,title: '删除专家信息'
+							,area:['20%','15%']
+							,content:'<div style="top:40%;left: 20%"><a>是否删除所选专家信息？</a></div>' //这里content是一个普通的String
+							,btn: ['确认','关闭']
+							,btnAlign: 'c'
+							,shade: 0 //不显示遮罩
+							,yes: function(){
+								$.ajax({
+									url:'/expert/delExpert',
+									method:'post',
+									data:JSON.stringify(deleteEp),
+									contentType:'application/json;charset=utf-8',
+									success:function(data){
+										if(data.code==200){
+											layer.msg("删除成功",function() {time:1000});
+											parent.location.reload();
+										}else{
+											layer.msg("删除失败",function() {time:1000})
+										}
+									}
+								})
 							}
-						})
+							,btn2: function(){
+								layer.closeAll();
+							}
+						});
+
 					})
         //导出
         /*
@@ -450,16 +475,13 @@
             		 	search.pageNum = 1;
 						search.pageSize = 10;
 						search.workNumber=$("#work_number").val();
-						search.name=$("#username").val();
 						search.level =$('#expert_level').val();
 						search.technologyLevel =$('#technology_level').val();
 						search.fieldName =$('#field_name').val();
-						search.phone =$('#phone').val();
 						search.birthday =$('#birthday').val();
-						search.age =$('#age').val();
-						search.integral =$('#integral').val();
-						search.refuseCount =$('#refuse_count').val();
 						search.expertStatus =$('#expert_status').val();
+						search.unMeeting=$('#un_meeting').val();
+
 						$.ajax({
 							url:"/expert/queryExpertInfo",
 							method:"post",
@@ -505,7 +527,86 @@
 						  ,area:['60%','40%']
 						  ,offset: 'auto'
 						  ,id: 'layerDemo'+type //防止重复弹出
-						  ,content: '<form style="height:300px"><table border="0" cellspacing="0" style="margin-right:30px" id="add_table"><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">工号</label><div class="layui-input-inline"><input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">姓名</label><div class="layui-input-inline"><input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">职称</label><div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">技术职级</label><div class="layui-input-inline"><input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">擅长专业领域</label><div class="layui-input-inline"><input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/></div></div></td><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">手机号码</label><div class="layui-input-inline"><input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/></div></div></td></tr><tr><td><div class="layui-inline"><label class="layui-form-label" style="width:150px">生日</label><div class="layui-input-inline"><input id="add_birthday" type="date" name="ID" autocomplete="off" class="layui-input"/></div></div></td></tr></table></form>'
+						  ,content: '<table border="0" cellspacing="0" style="margin-right:30px" id="add_table">' +
+									 '<tr>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">工号</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_id" type="text" name="ID" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">姓名</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_name" type="text" name="username" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">职称</label>' +
+									 '<div class="layui-input-inline"><input id="add_technology" type="text" name="Status" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '</tr>' +
+									 '<tr>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">技术职级</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_level" type="text" name="level" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">擅长专业领域</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_field" type="text" name="username" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">手机号码</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_phone" type="text" name="add_phone" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '</tr>' +
+									 '<tr>' +
+									 '<td>' +
+									 '<div class="layui-inline" style="position:static">\n' +
+									 '<label class="layui-form-label" style="width:150px">地域</label>\n' +
+									 '<div class="layui-input-inline">\n' +
+									 '<input id="add_address" type="text" name="add_address"\n' +
+									 '  class="layui-input"/>\n' +
+									 '</div>\n' +
+									 '</div>' +
+									 '</td>' +
+									 '<td><div class="layui-inline" style="position:static">\n' +
+									 '<label class="layui-form-label" style="width:150px">单位</label>\n' +
+									 '<div class="layui-input-inline">\n' +
+									 '<input id="add_workUnit" type="text" name="add_workUnit"\n' +
+									 'class="layui-input"/>\n' +
+									 '</div>\n' +
+									 '</div>' +
+									 '</td>' +
+									 '<td>' +
+									 '<div class="layui-inline">' +
+									 '<label class="layui-form-label" style="width:150px">出生日期</label>' +
+									 '<div class="layui-input-inline">' +
+									 '<input id="add_birthday" type="date" name="ID" autocomplete="off" class="layui-input"/>' +
+									 '</div>' +
+									 '</div>' +
+									 '</td>' +
+									 '</tr>' +
+									 '</table>'
 						  ,btn: ['保存','取消']
 						  ,btnAlign: 'c'
 						  ,shade: 0 //不显示遮罩
@@ -531,6 +632,8 @@
 								 add.fieldName =$('#add_field').val();
 								 add.phone =$('#add_phone').val();
 								 add.birthday =$('#add_birthday').val();
+								 add.address=$('#add_address').val();
+								 add.workUnit=$('#add_workUnit').val();
 
 								  $.ajax({
 									  method : "post", //提交方式

@@ -11,7 +11,7 @@
 	th:href="@{/css/allocate.css}" />
 <style type="text/css">
 #tableInfo{
-	width: 90%;
+	width: 40%;
 }
 </style>
 </head>
@@ -84,20 +84,13 @@
 			</span>
 			<blockquote class="layui-elem-quote">可修改所需配置信息</blockquote>
 			<form class="layui-form" method="POST">
-<!--				<div id="tableInfo" >-->
-<!--					<table class="layui-hide" id="setting" lay-data="{id:'setting'}" lay-filter="setting" style="overflow-y:auto;overflow-x:auto">-->
-<!--					</table>-->
-<!--					<script type="text/html" id="barDemo">-->
-<!--						<a class="layui-btn layui-btn-normal layui-btn-radius layui-btn-xs" lay-event="save" id="save">修改配置</a>-->
-<!--					</script>-->
-<!--				</div>-->
 				<table>
 					<tr>
 						<td>
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">自动拒绝时间</label>
 								<div class="layui-input-inline">
-									<input id="hour" type="text" name="fieldName" placeholder="输入专家多久未回复视为拒绝" autocomplete="off" class="layui-input" style="width: 220px"/>
+									<input id="hour" type="text" name="hour"  class="layui-input" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_hour" style="height: 35px">确认修改</button>
 							</div>
@@ -108,7 +101,7 @@
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">拒绝封禁次数</label>
 								<div class="layui-input-inline">
-									<input type="text" class="layui-input" id="refuse_count" placeholder="输入拒绝多少次后专家会被封禁" style="width: 220px"/>
+									<input type="text" class="layui-input" id="refuse_count"  style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_refuse" style="height: 35px">确认修改</button>
 							</div>
@@ -119,14 +112,13 @@
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
 								<div class="layui-input-inline">
-									<input type="text" class="layui-input" id="un_meeting" placeholder="输入未参会多少次后专家会被封禁" style="width: 220px"/>
+									<input type="text" class="layui-input" id="un_meeting" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
 							</div>
 						</td>
 					</tr>
 				</table>
-
 			</form>
 		</div>
 		<div class="layui-footer">
@@ -147,93 +139,25 @@
 			laydate = layui.laydate,
 			element = layui.element;
 
+			var data={};
 			$.ajax({
 				url: '/config',
 				method: 'get',
 				contentType:'application/json;charset=utf-8',
 				success: function(res) {
-					renderTable(res);
+					$('#refuse_count').attr('placeholder',res[0].configValue);
+					$('#un_meeting').attr('placeholder',res[1].configValue);
+					$('#hour').attr('placeholder',res[2].configValue);
 				}
 			})
-			var colsnew=[ //表头
-				{field: 'configName', title: '配置参数名', width:150}
-				,{field: 'configValue', title: '原参数', width:120}
-				,{field: 'right', title:'操作', width: 100, align:'center', toolbar: '#barDemo'}
-			]
-			var renderTable = function(data) {
-				var tableIns = table.render({
-					elem: '#setting'
-					, id: '#setting'
-					, width: '100%'
-					, data: data
-					, cols: [colsnew]
-					, done: function (res, curr, count) {
-						this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-					}
-				});
-				//重载
-				table.render().reload('setting', {cols: [colsnew]});
-			}
-			var message = [[${message}]];
-			if (message != null){
-				layer.msg(message)
-			}
-			//日期时间范围
-			  laydate.render({
-			    elem: '#createTime'
-			    ,type: 'datetime'
-			    ,range: '~'
-			    ,format: 'yyyy-MM-dd HH:mm:ss'
-			  });
-			// //监听工具条
-			//   table.on('tool(setting)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-			//     var data = obj.data //获得当前行数据
-			//     ,layEvent = obj.event; //获得 lay-event 对应的值
-			//     if(layEvent === 'save'){
-			// 		$.ajax({
-			// 			url: '/config',
-			// 			method: 'get',
-			// 			contentType:'application/json;charset=utf-8',
-			// 			data:JSON.stringify(data.configValue),
-			// 			success: function(res) {
-			// 				renderTable(res);
-			// 			}
-			// 		})
-			//     }
-			//   });
-			//监听单元格编辑
-			//   table.on('edit(fieldinfo)', function(obj){
-			//     var value = obj.value //得到修改后的值
-			//     ,data = obj.data //得到所在行所有键值
-			//     ,field = obj.field; //得到字段
-			//     /* layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value); */
-			//     if (value == null || value == ''){
-			//     	layer.msg("字段[" + field + "]值不能为空！！！");
-			//     	flag = false;
-			//     } else {
-			//     	$.ajax({
-			//              type: "POST",
-			//              url: "/field/update",
-			//              data: {
-			//             	 id:data.id,
-			//             	 fieldName : data.fieldName
-			//              },
-			//              dataType: "json",
-			//              success: function(data){
-			//                      layer.msg(data.data);
-			//              }
-			//          });
-			//     }
-			//   });
 			  $('#save_hour').click(function(){
 
-				   var hour=$('#hour').value();
+				   var hour=$('#hour').val();
 
 				  $.ajax({
-					  method: "post",
+					  method: "put",
 					  url: "/config",
-					  data: JSON.stringify(hour),
-					  contentType: "application/json",
+					  data: {configName:'hour',configValue:hour},
 					  success: function(res){
 						  if(res)
 						  {
@@ -248,13 +172,12 @@
 				});
 			$('#save_refuse').click(function(){
 
-				var refuseCount=$('#refuse_count').value();
+				var refuseCount=$('#refuse_count').val();
 
 				$.ajax({
-					method: "post",
+					method: "put",
 					url: "/config",
-					data: JSON.stringify(hour),
-					contentType: "application/json",
+					data: {configName: 'refuseCount',configValue: refuseCount},
 					success: function(res){
 						if(res)
 						{
@@ -269,13 +192,12 @@
 			});
 			$('#save_unMeeting').click(function(){
 
-				var unMeetinng=$('#un_meeting').value();
+				var unMeeting=$('#un_meeting').val();
 
 				$.ajax({
-					method: "post",
+					method: "put",
 					url: "/config",
-					data: JSON.stringify(hour),
-					contentType: "application/json",
+					data: {configName:'unMeeting',configValue:unMeeting},
 					success: function(res){
 						if(res)
 						{

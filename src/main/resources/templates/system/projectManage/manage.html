@@ -101,27 +101,19 @@
             <div class="layui-form-item">
 
                             <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label">评审任务名</label>
+                                <label class="layui-form-label" style="width: 150px">评审任务名</label>
                                 <div class="layui-input-inline">
-                                    <input align="center" id="review_name" type="text" name="review_name"
-                                           placeholder="根据评审任务名模糊搜索" autocomplete="off"
-                                           class="layui-input"/>
+                                    <input id="review_name" type="text" name="review_name"
+                                           placeholder="根据任务名模糊搜索" autocomplete="off"
+                                           class="layui-input" style="width: 150px"/>
                                 </div>
                             </div>
 
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label">评审发起人</label>
-                                <div class="layui-input-inline">
-                                    <input id="review_user" type="text" name="review_user"
-                                           placeholder="" autocomplete="off"
-                                           class="layui-input"/>
-                                </div>
-                            </div>
 
                             <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
                                 <div class="layui-input-inline">
-                                    <select id="review_field" name="review_field">
+                                    <select id="review_field" name="review_field" style="width: 150px">
                                         <option value=""></option>
                                         <option value="工程">工程</option>
                                         <option value="财务">财务</option>
@@ -131,9 +123,18 @@
                             </div>
 
                             <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label">评审状态</label>
+                                <label class="layui-form-label" style="width:150px">会议地点</label>
                                 <div class="layui-input-inline">
-                                    <select id="review_status" name="review_status">
+                                    <input id="address" type="text" name="address"
+                                           placeholder="根据会议地点模糊搜索" autocomplete="off"
+                                           class="layui-input" style="width:150px"/>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline" style="position:static">
+                                <label class="layui-form-label" style="width: 150px">评审状态</label>
+                                <div class="layui-input-inline">
+                                    <select id="review_status" name="review_status" style="width: 150px">
                                         <option value=""></option>
                                         <option value="待评审">待评审</option>
                                         <option value="通知中">通知中</option>
@@ -143,8 +144,9 @@
                                     </select>
                                 </div>
                             </div>
+
             </div>
-            <div class="layui-inline" style="margin-left:38%">
+            <div class="layui-inline" style="margin-left:35%">
                 <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
                                                                                       class="layui-icon">&#xe615;</i>查询</a>
             </div>
@@ -154,6 +156,7 @@
             <button type="button" class="layui-btn layui-btn-normal" id="import"><i class="layui-icon"></i>批量导入</button>
             <button type="button" id="delete" class="layui-btn layui-btn-normal" lay-submit lay-filter="delete">删除</button>
             <button type="button" class="layui-btn layui-btn-warm" id="export"><i class="layui-icon"></i>批量导出</button>
+            <a class="layui-btn layui-btn-primary" style = "text-decoration: underline ; color :blue;border-style: none;" href="http://127.0.0.1:8080/source/评审任务管理表.xlsx" download="评审任务管理表.xlsx"><big>下载模板</big></a>
         </div>
         <div id="tableInfo">
             <label class="layui-form-label" style="width:20px"></label>
@@ -203,7 +206,6 @@
     </div>
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        <span class="layui-breadcrumb" lay-separator="/"><a style = "text-decoration: underline ; color :blue" href="http://127.0.0.1:8080/source/评审任务管理表.xlsx" download="评审任务管理表.xlsx"><big>下载模板</big></a></span>
         <p style="text-align: center;">© All Rights Reserve By ChinaSoft</p>
     </div>
 </div>
@@ -225,9 +227,9 @@
 			  params.pageNum = 1;
 			  params.pageSize = 10;
 			  params.reviewName =$('#review_name').val();
-			  params.reviewUser =$('#review_user').val();
 			  params.reviewField =$('#review_field').val();
 			  params.reviewStatus =$('#review_status').val();
+              params.address=$('#address').val();
 
 			  //接口接入
 			  $.ajax({
@@ -299,13 +301,13 @@
                              data: JSON.stringify(reviewStart),
                              contentType: "application/json",
                              success: function(data){
-                                if(data.msg)
+                                if(data.code==200)
                                  {
                                     layer.msg(data.msg);
                                  }
                                  else
                                  {
-                                     layer.msg('会议已经开始，不再可发送短信！',{time: 2000 //5秒关闭（如果不配置，默认是3秒）
+                                     layer.msg('无对应领域专家！',{time: 2000 //5秒关闭（如果不配置，默认是3秒）
                                      }, function(){
                                     var Title="专家实际数量小于评审所需数量需添加";
                                     var message="领域专家,";
@@ -484,20 +486,35 @@
 
                     }
                     console.log(deleteEp);
-                    $.ajax({
-                        url:'/review/delReview',
-                        method:'post',
-                        data:JSON.stringify(deleteEp),
-                        contentType:'application/json;charset=utf-8',
-                        success:function(data){
-                            if(data.code==200){
-                                layer.msg("删除成功",function() {time:1000});
-                                parent.location.reload();
-                            }else{
-                                layer.msg("删除失败",function() {time:1000})
-                            }
+                    layer.open({
+                        type: 1
+                        ,title: '删除评审任务'
+                        ,area:['20%','15%']
+                        ,content:'是否删除所选评审任务？' //这里content是一个普通的String
+                        ,btn: ['确认','关闭']
+                        ,btnAlign: 'c'
+                        ,shade: 0 //不显示遮罩
+                        ,yes: function() {
+                            $.ajax({
+                                url:'/review/delReview',
+                                method:'post',
+                                data:JSON.stringify(deleteEp),
+                                contentType:'application/json;charset=utf-8',
+                                success:function(data){
+                                    if(data.code==200){
+                                        layer.msg("删除成功",function() {time:1000});
+                                        parent.location.reload();
+                                    }else{
+                                        layer.msg("删除失败",function() {time:1000})
+                                    }
+                                }
+                            })
                         }
-                    })
+                        ,btn2: function(){
+                            layer.closeAll();
+                        }
+                    });
+
                 })
 			//导出
                 $('#export').on('click', function(){
@@ -561,9 +578,9 @@
 			      pageNum:1,
                   pageSize:10};
                   s.reviewName =$('#review_name').val();
-                  s.reviewUser =$('#review_user').val();
                   s.reviewField =$('#review_field').val();
                   s.reviewStatus =$('#review_status').val();
+                  s.address=$('#address').val();
 			    $.ajax({
                                 url:"/review/queryReviewInfo",
 							method:"post",
@@ -575,7 +592,7 @@
 									 }
 									 else
 									 {
-									    alert("无符合任务");
+									    layer.msg("无符合条件任务！");
 									 }
                             }
               })
