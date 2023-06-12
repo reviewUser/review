@@ -198,13 +198,13 @@
         WHERE id = #{id}
     </update>
 
-    <update id="unBan" parameterType="java.util.List">
+    <update id="unBan">
         UPDATE expert_info
-        SET refuse_count = 0 and un_meeting = 0 and expert_status = '正常'
-        WHERE id in
+        SET refuse_count = 0, un_meeting = 0, expert_status = '正常'
+        WHERE
         <if test="ids!=null and ids.size()>0">
-            <foreach collection="ids" item="item" separator="," open="(" close=")">
-                #{item}
+            <foreach collection="ids" item="key" index="index" separator="or">
+               id = #{key}
             </foreach>
         </if>
     </update>

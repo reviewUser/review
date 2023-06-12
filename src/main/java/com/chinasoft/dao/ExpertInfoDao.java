@@ -31,7 +31,7 @@ public interface ExpertInfoDao {
     @Select("UPDATE expert_info SET expert_status = '封禁'  where id = #{id}")
     void updateExpertStatus(@Param("id") long id);
 
-    int unBan(List<Long> ids);
+    int unBan(@Param("ids") List<Long> ids);
 
     List<ExpertInfo> queryExpertByIds(@Param("ids") List<Long> ids);
 
