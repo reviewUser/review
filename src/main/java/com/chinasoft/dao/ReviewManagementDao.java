@@ -24,7 +24,7 @@ public interface ReviewManagementDao {
     @Select("SELECT * from expert_info where expert_status = '正常' and field_name = #{reviewFiled} and address = #{sourceAddress}")
     List<ExpertInfo> queryExpertByFiled(@Param("reviewFiled") String reviewFiled, @Param("sourceAddress") String sourceAddress);
 
-    @Select("SELECT phone FROM expert_info ORDER BY meeting_times ASC , id ASC limit #{nums} WHERE expert_status = '正常' and field_name = #{reviewFiled} and address = #{sourceAddress}")
+    @Select("SELECT phone FROM expert_info WHERE expert_status = '正常' and field_name = #{reviewFiled} and address = #{sourceAddress} ORDER BY meeting_times ASC , id ASC limit #{nums}")
     List<String> queryExperts(@Param("reviewFiled") String reviewFiled, @Param("sourceAddress") String sourceAddress, @Param("nums") int nums);
 
     @Select("SELECT meeting_times FROM expert_info WHERE phone = #{phone}")
