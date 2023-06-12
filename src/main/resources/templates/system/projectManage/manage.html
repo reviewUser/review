@@ -385,7 +385,16 @@
 
                                           });
                                           // 执行重载
-                                          table.render().reload('detailinfo', { cols: [Dcols] })
+                                          table.render().reload('detailinfo', { cols: [Dcols] });
+                                         $.ajax({
+                                             url: '/review/queryReviewInfo',
+                                             method: 'post',
+                                             contentType:'application/json;charset=utf-8',
+                                             data:JSON.stringify(params),
+                                             success: function(res) {
+                                                 renderTable(res.data);
+                                             }
+                                         });
                                       }
                                       ,yes:function(){
                                         var Dcols = [ //表头
