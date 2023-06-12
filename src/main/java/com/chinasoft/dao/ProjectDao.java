@@ -43,12 +43,6 @@ public interface ProjectDao {
 	 * @return
 	 */
 	Project getProjectById(Long id);
-
-	/**
-	 * 通过id删除评审任务申请记录
-	 * @param id
-	 */
-	void deleteById(Long id);
 	
 	/**
 	 * 查找分组下的所有评审任务
