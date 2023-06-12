@@ -99,9 +99,7 @@
         <blockquote class="layui-elem-quote"><BIG>系统所有评审任务</BIG></blockquote>
         <form class="layui-form" method="POST" style="margin-left:50px">
             <div class="layui-form-item">
-                <table>
-                    <tr>
-                        <th>
+
                             <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width: 150px">评审任务名</label>
                                 <div class="layui-input-inline">
@@ -110,19 +108,8 @@
                                            class="layui-input" style="width: 150px"/>
                                 </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width: 150px">评审发起人</label>
-                                <div class="layui-input-inline">
-                                    <input id="review_user" type="text" name="review_user"
-                                           placeholder="根据发起人模糊搜索" autocomplete="off"
-                                           class="layui-input" style="width: 150px"/>
-                                </div>
-                            </div>
-                        </th>
 
-                        <th>
+
                             <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width:150px">评审所属专业领域</label>
                                 <div class="layui-input-inline">
@@ -134,10 +121,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
+
                             <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width:150px">会议地点</label>
                                 <div class="layui-input-inline">
@@ -146,18 +130,7 @@
                                            class="layui-input" style="width:150px"/>
                                 </div>
                             </div>
-                        </th>
-                        <th>
-                            <div class="layui-inline" style="position:static">
-                                <label class="layui-form-label" style="width:150px">所属地域</label>
-                                <div class="layui-input-inline">
-                                    <input id="source_address" type="text" name="source_address"
-                                           placeholder="根据地域模糊搜索" autocomplete="off"
-                                           class="layui-input" style="width:150px"/>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
+
                             <div class="layui-inline" style="position:static">
                                 <label class="layui-form-label" style="width: 150px">评审状态</label>
                                 <div class="layui-input-inline">
@@ -171,9 +144,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                </table>
+
             </div>
             <div class="layui-inline" style="margin-left:35%">
                 <a id="select" class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="room_search"><i style="padding-right: 4px"
@@ -256,10 +227,8 @@
 			  params.pageNum = 1;
 			  params.pageSize = 10;
 			  params.reviewName =$('#review_name').val();
-			  params.reviewUser =$('#review_user').val();
 			  params.reviewField =$('#review_field').val();
 			  params.reviewStatus =$('#review_status').val();
-              params.sourceAddress=$('#source_address').val();
               params.address=$('#address').val();
 
 			  //接口接入
@@ -609,10 +578,8 @@
 			      pageNum:1,
                   pageSize:10};
                   s.reviewName =$('#review_name').val();
-                  s.reviewUser =$('#review_user').val();
                   s.reviewField =$('#review_field').val();
                   s.reviewStatus =$('#review_status').val();
-                  s.sourceAddress=$('#source_address').val();
                   s.address=$('#address').val();
 			    $.ajax({
                                 url:"/review/queryReviewInfo",
@@ -625,7 +592,7 @@
 									 }
 									 else
 									 {
-									    alert("无符合任务");
+									    layer.msg("无符合条件任务！");
 									 }
                             }
               })

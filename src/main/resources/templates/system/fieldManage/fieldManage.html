@@ -90,7 +90,7 @@
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">自动拒绝时间</label>
 								<div class="layui-input-inline">
-									<input id="hour" type="text" name="hour" placeholder="输入专家多久未回复视为拒绝" autocomplete="off" class="layui-input" style="width: 220px"/>
+									<input id="hour" type="text" name="hour"  class="layui-input" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_hour" style="height: 35px">确认修改</button>
 							</div>
@@ -101,7 +101,7 @@
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">拒绝封禁次数</label>
 								<div class="layui-input-inline">
-									<input type="text" class="layui-input" id="refuse_count" placeholder="输入拒绝多少次后专家会被封禁" style="width: 220px"/>
+									<input type="text" class="layui-input" id="refuse_count"  style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_refuse" style="height: 35px">确认修改</button>
 							</div>
@@ -112,7 +112,7 @@
 							<div class="layui-inline" style="position:static">
 								<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
 								<div class="layui-input-inline">
-									<input type="text" class="layui-input" id="un_meeting" placeholder="输入未参会多少次后专家会被封禁" style="width: 220px"/>
+									<input type="text" class="layui-input" id="un_meeting" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
 							</div>
@@ -145,7 +145,9 @@
 				method: 'get',
 				contentType:'application/json;charset=utf-8',
 				success: function(res) {
-
+					$('#refuse_count').attr('placeholder',res[0].configValue);
+					$('#un_meeting').attr('placeholder',res[1].configValue);
+					$('#hour').attr('placeholder',res[2].configValue);
 				}
 			})
 			  $('#save_hour').click(function(){
