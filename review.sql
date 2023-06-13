@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 08/06/2023 17:02:38
+ Date: 13/06/2023 09:52:10
 */
 
 SET NAMES utf8mb4;
@@ -48,18 +48,38 @@ CREATE TABLE `check_review_status`  (
   `status` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否通过',
   `repeats` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of check_review_status
 -- ----------------------------
-INSERT INTO `check_review_status` VALUES (101, 111, '15991252344', '0', '暂未回复');
-INSERT INTO `check_review_status` VALUES (102, 111, '13659196637', '0', '暂未回复');
-INSERT INTO `check_review_status` VALUES (103, 111, '18591981653', '1', '拒绝');
-INSERT INTO `check_review_status` VALUES (104, 129, '13659196637', '1', '拒绝');
-INSERT INTO `check_review_status` VALUES (105, 129, '15991252344', '1', '同意');
-INSERT INTO `check_review_status` VALUES (106, 165, '15991252344', '1', '同意');
-INSERT INTO `check_review_status` VALUES (107, 165, '13659196637', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (82, 85, '15991252344', '1', '同意');
+INSERT INTO `check_review_status` VALUES (83, 85, '18891791102', '1', '同意');
+INSERT INTO `check_review_status` VALUES (84, 86, '15991252344', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (85, 86, '18891791102', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (86, 91, '15991252344', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (87, 91, '18891791102', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (88, 90, '15991252344', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (89, 90, '18891791102', '1', '同意');
+INSERT INTO `check_review_status` VALUES (90, 92, '13659196637', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (91, 92, '18591981653', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (92, 102, '13659196637', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (93, 102, '15991252344', '1', '同意');
+INSERT INTO `check_review_status` VALUES (94, 100, '15319783096', '1', '同意');
+INSERT INTO `check_review_status` VALUES (95, 100, '13572081862', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (96, 101, '15319783096', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (97, 101, '13572081862', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (98, 152, '13659196637', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (99, 152, '15991252344', '1', '同意');
+INSERT INTO `check_review_status` VALUES (100, 150, '13659196637', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (101, 150, '15991252344', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (102, 164, '15991252344', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (103, 164, '13659196637', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (104, 162, '18591981653', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (105, 162, '15991252344', '1', '拒绝');
+INSERT INTO `check_review_status` VALUES (106, 170, '18591981653', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (107, 170, '13659196637', '0', '暂未回复');
+INSERT INTO `check_review_status` VALUES (108, 170, '15991252344', '0', '暂未回复');
 
 -- ----------------------------
 -- Table structure for entity_field
@@ -98,8 +118,8 @@ CREATE TABLE `expert_info`  (
   `expert_level` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职级',
   `technology_level` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '技术等级',
   `field_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '擅长领域',
+  `work_unit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在单位',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在区域',
-  `work_unit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工作单位',
   `phone` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '手机号',
   `birthday` date NULL DEFAULT NULL COMMENT '出生日期',
   `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
@@ -107,19 +127,20 @@ CREATE TABLE `expert_info`  (
   `refuse_count` int(11) NULL DEFAULT NULL COMMENT '拒绝评审次数',
   `expert_status` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专家状态:正常,封禁',
   `un_meeting` int(11) NULL DEFAULT NULL COMMENT '未参会次数',
+  `meeting_times` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `work_number_index`(`work_number`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 154 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 227 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of expert_info
 -- ----------------------------
-INSERT INTO `expert_info` VALUES (148, '000315', '张旺', '科员', '初级工程师', '工程', '华西', '华西', '15991252344', '1965-06-06', 58, 1, 0, '正常', 0);
-INSERT INTO `expert_info` VALUES (149, '000318', '张恒', '科员', '初级工程师', '工程', '华西', '华西', '13659196637', '1968-11-02', 54, 0, 0, '正常', 0);
-INSERT INTO `expert_info` VALUES (150, '000329', '李珏', '正处', '高级工程师', '工程', '研究所', '华中', '18591981653', '1983-11-03', 39, 0, 0, '正常', 0);
-INSERT INTO `expert_info` VALUES (151, '000378', '赵胜', '副处', '中级工程师', '财务', '研究所', '华北', '15319783096', '1973-11-04', 49, 0, 0, '正常', 0);
-INSERT INTO `expert_info` VALUES (152, '000415', '刘飞', '正科', '中级工程师', '地质', '研究所', '华东', '17391986497', '1978-12-04', 44, 0, 0, '正常', 0);
-INSERT INTO `expert_info` VALUES (153, '000484', '胡静', '正科', '高级工程师', '财务', '研究所', '华南', '13572081862', '1988-07-02', 34, 0, 0, '正常', 0);
+INSERT INTO `expert_info` VALUES (221, '000315', '张旺', '科员', '初级工程师', '工程', '研究所', '华西', '15991252344', '1965-06-06', 58, 0, 0, '正常', 0, 1);
+INSERT INTO `expert_info` VALUES (222, '000318', '张恒', '正科', '初级工程师', '工程', '研究所', '华西', '13659196637', '1968-11-02', 54, 0, 0, '正常', 0, 0);
+INSERT INTO `expert_info` VALUES (223, '000329', '李珏', '正处', '高级工程师', '工程', '研究所', '华西', '18591981653', '1983-11-03', 39, 0, 0, '正常', 0, 0);
+INSERT INTO `expert_info` VALUES (224, '000378', '赵胜', '科员', '初级工程师', '财务', '研究所', '华东', '15319783096', '1973-11-04', 49, 0, 0, '正常', 0, 0);
+INSERT INTO `expert_info` VALUES (225, '000415', '刘飞', '副处', '中级工程师', '地质', '研究所', '华中', '17391986497', '1978-12-04', 44, 0, 0, '正常', 0, 0);
+INSERT INTO `expert_info` VALUES (226, '000484', '胡静', '正科', '初级工程师', '财务', '研究所', '华东', '13572081862', '1988-07-02', 34, 0, 0, '正常', 0, 0);
 
 -- ----------------------------
 -- Table structure for field
@@ -222,12 +243,14 @@ CREATE TABLE `repeat_message`  (
   `review` int(11) NULL DEFAULT NULL COMMENT '评审任务id',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `phone_index`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of repeat_message
 -- ----------------------------
-INSERT INTO `repeat_message` VALUES (37, '13659196637', '2023-06-08 14:35:49', NULL, 165);
+INSERT INTO `repeat_message` VALUES (9, '18591981653', '2023-06-12 18:38:17', NULL, 170);
+INSERT INTO `repeat_message` VALUES (10, '13659196637', '2023-06-12 18:38:17', NULL, 170);
+INSERT INTO `repeat_message` VALUES (11, '15991252344', '2023-06-13 09:49:40', NULL, 170);
 
 -- ----------------------------
 -- Table structure for review
@@ -271,17 +294,17 @@ CREATE TABLE `review_management`  (
   `source_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `review_name_index`(`review_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 166 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 172 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of review_management
 -- ----------------------------
-INSERT INTO `review_management` VALUES (160, '长庆油田评估', '长庆油田评估1', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华西');
-INSERT INTO `review_management` VALUES (161, '大庆油田评估', '长庆油田评估2', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华东');
-INSERT INTO `review_management` VALUES (162, '西藏油田勘测', '长庆油田评估3', '刘明', '2023-04-15 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '待评审', '研究所', '西安', '华西');
-INSERT INTO `review_management` VALUES (163, '长庆油田勘测', '长庆油田评估4', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '地质', 1, '待评审', '研究所', '西安', '华西');
-INSERT INTO `review_management` VALUES (164, '长庆油田开发', '长庆油田评估5', '刘明', '2023-04-17 00:00:00', '2023-04-17 09:00:00', '2023-04-17 11:00:00', '工程', 2, '待评审', '研究所', '西安', '华西');
-INSERT INTO `review_management` VALUES (165, '长庆油田检测', '长庆油田评估6', '刘明', '2023-06-09 00:00:00', '2023-06-09 19:00:00', '2023-06-09 21:00:00', '工程', 2, '部分通知完成', '研究所', '西安', '华西');
+INSERT INTO `review_management` VALUES (166, '长庆油田评估', '长庆油田评估1', '刘明', '2023-07-17 00:00:00', '2023-06-17 09:00:00', '2023-06-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华西');
+INSERT INTO `review_management` VALUES (167, '大庆油田评估', '长庆油田评估2', '刘明', '2023-06-17 00:00:00', '2023-06-17 09:00:00', '2023-06-17 11:00:00', '财务', 2, '待评审', '研究所', '西安', '华东');
+INSERT INTO `review_management` VALUES (168, '西藏油田勘测', '长庆油田评估3', '刘明', '2023-08-15 00:00:00', '2023-08-15 09:00:00', '2023-08-15 11:00:00', '工程', 2, '待评审', '研究所', '西安', '华西');
+INSERT INTO `review_management` VALUES (169, '长庆油田勘测', '长庆油田评估4', '刘明', '2023-07-27 00:00:00', '2023-07-27 09:00:00', '2023-07-27 11:00:00', '地质', 1, '待评审', '研究所', '西安', '华西');
+INSERT INTO `review_management` VALUES (170, '长庆油田开发', '长庆油田评估5', '刘明', '2023-07-12 00:00:00', '2023-07-12 09:00:00', '2023-07-12 11:00:00', '工程', 2, '部分通知完成', '研究所', '西安', '华西');
+INSERT INTO `review_management` VALUES (171, '长庆油田检测', '长庆油田评估6', '刘明', '2023-06-08 00:00:00', '2023-06-08 19:00:00', '2023-06-08 21:00:00', '工程', 2, '待评审', '研究所', '西安', '华西');
 
 -- ----------------------------
 -- Table structure for standard_information
@@ -318,6 +341,7 @@ CREATE TABLE `sys_config`  (
 INSERT INTO `sys_config` VALUES ('refuseCount', '5');
 INSERT INTO `sys_config` VALUES ('unMeeting', '3');
 INSERT INTO `sys_config` VALUES ('hour', '24');
+INSERT INTO `sys_config` VALUES ('numOfEmptyTurns', '1');
 
 -- ----------------------------
 -- Table structure for sys_user
