@@ -11,6 +11,7 @@ import com.chinasoft.service.ExpertInfoService;
 import com.chinasoft.utils.ImportExcelUtils;
 import com.chinasoft.utils.Md5Utils;
 import com.chinasoft.utils.Result;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -269,12 +270,17 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
             return result;
         }
         SysUser sysUser = expertInfoDao.queryUser(pwdInfo.getUsername());
+        if (sysUser == null || StringUtils.isEmpty((CharSequence) sysUser)){
+            result.setCode("200");
+            result.setMsg("用户名不正确");
+            return result;
+        }
         if (sysUser.getPassword().equals(Md5Utils.md5(pwdInfo.getOldPwd()))) {
             expertInfoDao.updatePwd(Md5Utils.md5(pwdInfo.getNewPwd()), pwdInfo.getUsername());
             result.setCode("200");
             result.setMsg("密码修改成功");
         } else {
-            result.setCode("500");
+            result.setCode("200");
             result.setMsg("旧密码错误");
         }
         return result;
