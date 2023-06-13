@@ -1,8 +1,6 @@
 package com.chinasoft.controller;
 
-import com.chinasoft.dao.AllocateDao;
 import com.chinasoft.exception.CustomException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,9 +10,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/group")
 public class GroupController {
 
-	@Autowired
-	private AllocateDao allocateDao;
-	
 	/**
 	 * 分组管理页面
 	 * 

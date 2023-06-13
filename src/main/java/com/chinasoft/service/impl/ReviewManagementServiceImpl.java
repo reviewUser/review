@@ -5,6 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.chinasoft.dao.*;
+import com.chinasoft.entity.CheckReviewStatus;
+import com.chinasoft.entity.ExpertInfo;
+import com.chinasoft.entity.RepeatMessageInfo;
+import com.chinasoft.entity.ReviewManagement;
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.*;
 import com.chinasoft.service.ReviewManagementService;
@@ -62,9 +66,9 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         List<ReviewManagement> infos = null;
         infos = reviewManagementDao.queryReviewInfo(param);
         infos.forEach(p -> {
-            List<CheckReview> checkReviews = checkReviewDao.queryStatusByReviewId(p.getId());
+            List<CheckReviewStatus> checkReviews = checkReviewDao.queryStatusByReviewId(p.getId());
             if (checkReviews.size() > 0) {
-                List<String> collect = checkReviews.stream().map(CheckReview::getRepeats).collect(Collectors.toList());
+                List<String> collect = checkReviews.stream().map(CheckReviewStatus::getRepeats).collect(Collectors.toList());
                 if (collect.stream().allMatch("同意"::equals)) {
                     reviewManagementDao.updateStatus("全部通知完成", p.getId());
                 } else if (collect.stream().allMatch("拒绝"::equals)) {
@@ -228,9 +232,9 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         }
 
         List<String> phone = null;
-        List<CheckReview> checkReviews = checkReviewDao.queryStatusByReviewId(reviewManagement.getId());
+        List<CheckReviewStatus> checkReviews = checkReviewDao.queryStatusByReviewId(reviewManagement.getId());
         if (checkReviews.size() > 0) {
-            phone = checkReviews.stream().map(CheckReview::getPhone).collect(Collectors.toList());
+            phone = checkReviews.stream().map(CheckReviewStatus::getPhone).collect(Collectors.toList());
         }
 
         List<ExpertInfo> expertInfos = reviewManagementDao.queryExpertByFiled(reviewManagement.getReviewField(), reviewManagement.getSourceAddress());
@@ -291,8 +295,8 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
     public List<QueryDescVo> queryRepeatMsg(Long id) {
         List<QueryDescVo> queryDescVos = new ArrayList<>();
         if (id != null) {
-            List<CheckReview> repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
-            for (CheckReview checkReview : repeatMessageInfos) {
+            List<CheckReviewStatus> repeatMessageInfos = repeatMessageDao.queryRepeatByReviewId(id);
+            for (CheckReviewStatus checkReview : repeatMessageInfos) {
                 QueryDescVo queryDescVo = new QueryDescVo();
                 queryDescVo.setStatus(checkReview.getRepeats());
                 queryDescVo.setPhone(checkReview.getPhone());
@@ -321,12 +325,12 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
         repeatMessageInfo.setPhone(phone);
         repeatMessageInfo.setReview(reviewId);
 
-        CheckReview checkReview = new CheckReview();
+        CheckReviewStatus checkReview = new CheckReviewStatus();
         checkReview.setReview(reviewId);
         checkReview.setPhone(phone);
         checkReview.setStatus("0");
         checkReview.setRepeats("暂未回复");
-        CheckReview review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
+        CheckReviewStatus review = checkReviewDao.queryByReviewIdAndPhone(reviewId, phone);
 
         if ("ok".equalsIgnoreCase(response.getBody().getMessage())) {
             repeatMessageDao.insert(repeatMessageInfo);

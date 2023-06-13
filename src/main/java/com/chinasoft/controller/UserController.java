@@ -2,7 +2,7 @@ package com.chinasoft.controller;
 
 import com.chinasoft.exception.CustomException;
 import com.chinasoft.param.UserListParam;
-import com.chinasoft.po.SysUser;
+import com.chinasoft.entity.SysUser;
 import com.chinasoft.service.UserService;
 import com.chinasoft.utils.Md5Utils;
 import com.chinasoft.utils.Result;

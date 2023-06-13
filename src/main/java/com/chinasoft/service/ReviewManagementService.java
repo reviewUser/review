@@ -1,9 +1,8 @@
 package com.chinasoft.service;
 
 import com.chinasoft.param.ReviewParam;
-import com.chinasoft.po.CheckReview;
 import com.chinasoft.po.QueryDescVo;
-import com.chinasoft.po.ReviewManagement;
+import com.chinasoft.entity.ReviewManagement;
 import com.chinasoft.utils.Result;
 import org.springframework.web.multipart.MultipartFile;
 

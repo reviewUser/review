@@ -1,9 +1,9 @@
-package com.chinasoft.po;
+package com.chinasoft.entity;
 
 import lombok.Data;
 
 @Data
-public class CheckReview {
+public class CheckReviewStatus {
     private long id;
     private long review;
     private String phone;

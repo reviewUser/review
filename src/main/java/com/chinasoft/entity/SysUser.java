@@ -1,4 +1,4 @@
-package com.chinasoft.po;
+package com.chinasoft.entity;
 
 import lombok.Data;
 

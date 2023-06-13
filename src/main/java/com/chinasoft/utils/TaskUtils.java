@@ -4,12 +4,11 @@ import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.dao.ExpertInfoDao;
 import com.chinasoft.dao.RepeatMessageDao;
 import com.chinasoft.dao.SysConfigDao;
-import com.chinasoft.po.CheckReview;
-import com.chinasoft.po.ExpertInfo;
-import com.chinasoft.po.RepeatMessageInfo;
+import com.chinasoft.entity.CheckReviewStatus;
+import com.chinasoft.entity.ExpertInfo;
+import com.chinasoft.entity.RepeatMessageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -56,7 +55,7 @@ public class TaskUtils {
         long from = format.parse(fromDate).getTime();
         long to = format.parse(nowTime).getTime();
         long hours = (to - from) / (1000 * 60 * 60);
-        CheckReview checkReview = new CheckReview();
+        CheckReviewStatus checkReview = new CheckReviewStatus();
         checkReview.setPhone(phone);
         if (StringUtils.isNotBlank(msgInfo.getRepeats()) && msgInfo.getRepeats().contains("1")) {
             info.setIntegral(info.getIntegral() + 1);

@@ -1,9 +1,8 @@
 package com.chinasoft.controller;
 
-import com.chinasoft.dao.CheckReviewDao;
 import com.chinasoft.param.ReviewParam;
 import com.chinasoft.po.QueryDescVo;
-import com.chinasoft.po.ReviewManagement;
+import com.chinasoft.entity.ReviewManagement;
 import com.chinasoft.service.ReviewManagementService;
 import com.chinasoft.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ public class ReviewManagementController {
 
     @Autowired
     private ReviewManagementService reviewManagementService;
-
-    @Autowired
-    private CheckReviewDao checkReviewDao;
 
     /**
      * 查询评审任务信息以json的形式返回

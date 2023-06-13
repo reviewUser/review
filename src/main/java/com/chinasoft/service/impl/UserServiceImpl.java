@@ -2,11 +2,10 @@ package com.chinasoft.service.impl;
 
 import com.chinasoft.dao.UserDao;
 import com.chinasoft.param.UserListParam;
-import com.chinasoft.po.SysUser;
+import com.chinasoft.entity.SysUser;
 import com.chinasoft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;

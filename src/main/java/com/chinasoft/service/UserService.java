@@ -1,7 +1,7 @@
 package com.chinasoft.service;
 
 import com.chinasoft.param.UserListParam;
-import com.chinasoft.po.SysUser;
+import com.chinasoft.entity.SysUser;
 
 import java.util.List;
 

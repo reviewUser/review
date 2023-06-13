@@ -7,7 +7,7 @@ import com.alicom.mns.tools.MessageListener;
 import com.aliyun.mns.model.Message;
 import com.aliyuncs.exceptions.ClientException;
 import com.chinasoft.dao.RepeatMessageDao;
-import com.chinasoft.po.RepeatMessageInfo;
+import com.chinasoft.entity.RepeatMessageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

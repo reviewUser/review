@@ -18,26 +18,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for allocate
--- ----------------------------
-DROP TABLE IF EXISTS `allocate`;
-CREATE TABLE `allocate`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `allocate_user_id` int(11) NULL DEFAULT NULL,
-  `group_id` int(11) NULL DEFAULT NULL,
-  `allocate_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `expert_id` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of allocate
--- ----------------------------
-INSERT INTO `allocate` VALUES (1, 1, 2, '2023-04-02 11:14:33.429', 4);
-INSERT INTO `allocate` VALUES (2, 1, 3, '2023-04-02 14:07:04.846', 4);
-INSERT INTO `allocate` VALUES (3, 1, 2, '2023-04-02 11:14:33.429', 4);
-
--- ----------------------------
 -- Table structure for check_review_status
 -- ----------------------------
 DROP TABLE IF EXISTS `check_review_status`;
@@ -270,25 +250,5 @@ CREATE TABLE `sys_user`  (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (1, 'admin', 'JdVa0oOqQAr0ZMdtcTwHrQ==', '男', NULL, NULL, NULL, NULL);
-
--- ----------------------------
--- Table structure for t_user
--- ----------------------------
-DROP TABLE IF EXISTS `t_user`;
-CREATE TABLE `t_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `number_index`(`number`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of t_user
--- ----------------------------
-INSERT INTO `t_user` VALUES (25, '张三', '女', '55');
-INSERT INTO `t_user` VALUES (26, '李四', '男', '66');
-INSERT INTO `t_user` VALUES (27, '赵柳', '男', '77');
 
 SET FOREIGN_KEY_CHECKS = 1;

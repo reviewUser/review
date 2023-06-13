@@ -1,7 +1,7 @@
 package com.chinasoft.service;
 
 import com.chinasoft.param.ExpertParam;
-import com.chinasoft.po.ExpertInfo;
+import com.chinasoft.entity.ExpertInfo;
 import com.chinasoft.po.PwdInfo;
 import com.chinasoft.utils.Result;
 import org.springframework.web.multipart.MultipartFile;

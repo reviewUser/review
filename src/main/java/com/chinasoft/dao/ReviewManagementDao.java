@@ -1,8 +1,8 @@
 package com.chinasoft.dao;
 
 import com.chinasoft.param.ReviewParam;
-import com.chinasoft.po.ExpertInfo;
-import com.chinasoft.po.ReviewManagement;
+import com.chinasoft.entity.ExpertInfo;
+import com.chinasoft.entity.ReviewManagement;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

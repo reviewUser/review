@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasoft.dao.ExpertInfoDao">
 
-    <resultMap type="com.chinasoft.po.ExpertInfo" id="expertInfoMap">
+    <resultMap type="com.chinasoft.entity.ExpertInfo" id="expertInfoMap">
         <id column="id" property="id"/>
         <result column="work_number" property="workNumber"/>
         <result column="name" property="name"/>
@@ -20,7 +20,7 @@
         <result column="address" property="address"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.chinasoft.po.ExpertInfo">
+    <insert id="insert" parameterType="com.chinasoft.entity.ExpertInfo">
         <selectKey resultType="java.lang.Long" keyProperty="id"
                    order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -136,7 +136,7 @@
         </foreach>
     </delete>
 
-    <update id="updateExpertByPhone" parameterType="com.chinasoft.po.ExpertInfo">
+    <update id="updateExpertByPhone" parameterType="com.chinasoft.entity.ExpertInfo">
         UPDATE expert_info
         <set>
             <if test="workNumber != null">

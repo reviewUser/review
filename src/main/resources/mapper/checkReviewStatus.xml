@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasoft.dao.CheckReviewDao">
 
-    <resultMap type="com.chinasoft.po.CheckReview" id="CheckReviewMap">
+    <resultMap type="com.chinasoft.entity.CheckReviewStatus" id="CheckReviewMap">
         <id column="id" property="id"/>
         <result column="review" property="review"/>
         <result column="phone" property="phone"/>
@@ -10,7 +10,7 @@
         <result column="repeats" property="repeats"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.chinasoft.po.CheckReview">
+    <insert id="insert" parameterType="com.chinasoft.entity.CheckReviewStatus">
         <selectKey resultType="java.lang.Long" keyProperty="id"
                    order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -19,7 +19,7 @@
         VALUES (#{id}, #{review}, #{phone}, #{status},#{repeats})
     </insert>
 
-    <update id="updateStatus" parameterType="com.chinasoft.po.CheckReview">
+    <update id="updateStatus" parameterType="com.chinasoft.entity.CheckReviewStatus">
         UPDATE check_review_status
         <set>
             <if test="phone != null">
