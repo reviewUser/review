@@ -98,28 +98,6 @@ INSERT INTO `expert_info` VALUES (225, '000415', '刘飞', '副处', '中级工�
 INSERT INTO `expert_info` VALUES (226, '000484', '胡静', '正科', '初级工程师', '财务', '研究所', '华东', '13572081862', '1988-07-02', 34, 0, 0, '正常', 0, 0);
 
 -- ----------------------------
--- Table structure for instrument_information
--- ----------------------------
-DROP TABLE IF EXISTS `instrument_information`;
-CREATE TABLE `instrument_information`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `commission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '委托单位',
-  `equipment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '设备名称',
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '型号规格',
-  `number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号',
-  `creator` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '制造商',
-  `accuracy_level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '准确度等级',
-  `range_measure` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '测量范围',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `number_index`(`number`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of instrument_information
--- ----------------------------
-INSERT INTO `instrument_information` VALUES (8, '1A', '数字表', 'SR91', '123', 'YUDIAN', '0.5', '(0～400)');
-
--- ----------------------------
 -- Table structure for project_group
 -- ----------------------------
 DROP TABLE IF EXISTS `project_group`;
@@ -192,26 +170,6 @@ INSERT INTO `review_management` VALUES (168, '西藏油田勘测', '长庆油田
 INSERT INTO `review_management` VALUES (169, '长庆油田勘测', '长庆油田评估4', '刘明', '2023-07-27 00:00:00', '2023-07-27 09:00:00', '2023-07-27 11:00:00', '地质', 1, '待评审', '研究所', '西安', '华西');
 INSERT INTO `review_management` VALUES (170, '长庆油田开发', '长庆油田评估5', '刘明', '2023-07-12 00:00:00', '2023-07-12 09:00:00', '2023-07-12 11:00:00', '工程', 2, '部分通知完成', '研究所', '西安', '华西');
 INSERT INTO `review_management` VALUES (171, '长庆油田检测', '长庆油田评估6', '刘明', '2023-06-08 00:00:00', '2023-06-08 19:00:00', '2023-06-08 21:00:00', '工程', 2, '待评审', '研究所', '西安', '华西');
-
--- ----------------------------
--- Table structure for standard_information
--- ----------------------------
-DROP TABLE IF EXISTS `standard_information`;
-CREATE TABLE `standard_information`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `use_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '型号规格',
-  `use_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号',
-  `use_level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '不确定度',
-  `end_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '有效期至',
-  `cert` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '证书号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of standard_information
--- ----------------------------
-INSERT INTO `standard_information` VALUES (3, '校准器', 'jy941', '567', '0.2', '2023.05.15', 'YJKL123');
 
 -- ----------------------------
 -- Table structure for sys_config
