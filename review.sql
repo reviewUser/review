@@ -118,27 +118,6 @@ INSERT INTO `expert_info` VALUES (225, '000415', '刘飞', '副处', '中级工�
 INSERT INTO `expert_info` VALUES (226, '000484', '胡静', '正科', '初级工程师', '财务', '研究所', '华东', '13572081862', '1988-07-02', 34, 0, 0, '正常', 0, 0);
 
 -- ----------------------------
--- Table structure for field
--- ----------------------------
-DROP TABLE IF EXISTS `field`;
-CREATE TABLE `field`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `field_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_user_id` int(11) NULL DEFAULT NULL,
-  `createUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `last_update_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of field
--- ----------------------------
-INSERT INTO `field` VALUES (1, '软件', 1, NULL, '2023-04-02 08:58:17.575', NULL);
-INSERT INTO `field` VALUES (2, '工业', 3, NULL, '2023-04-02 10:37:05.401', NULL);
-INSERT INTO `field` VALUES (3, '农业', 1, NULL, '2023-04-02 11:11:37.742', '2023-04-02 11:11:37.742');
-
--- ----------------------------
 -- Table structure for instrument_information
 -- ----------------------------
 DROP TABLE IF EXISTS `instrument_information`;
@@ -159,31 +138,6 @@ CREATE TABLE `instrument_information`  (
 -- Records of instrument_information
 -- ----------------------------
 INSERT INTO `instrument_information` VALUES (8, '1A', '数字表', 'SR91', '123', 'YUDIAN', '0.5', '(0～400)');
-
--- ----------------------------
--- Table structure for project
--- ----------------------------
-DROP TABLE IF EXISTS `project`;
-CREATE TABLE `project`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `file_save_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `last_update_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `group_id` int(11) NULL DEFAULT NULL,
-  `review_count` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_user_id` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of project
--- ----------------------------
-INSERT INTO `project` VALUES (5, 'project', '测试用', 'REVIEW_DONE', 'D:\\prsUploadFiles\\新建 Microsoft Word 文档.docx', '2023-04-02 08:58:17.574', '2023-04-02 10:17:43.726', 0, NULL, 1);
-INSERT INTO `project` VALUES (6, 'projec2', '测试12', 'REVIEW_DONE', 'D:\\prsUploadFiles\\新建 Microsoft Word 文档.docx', '2023-04-02 10:37:05.388', '2023-04-02 13:50:28.116', 2, NULL, 3);
-INSERT INTO `project` VALUES (7, 'project', '项目摘要', 'WAIT_REVIEW', 'D:\\prsUploadFiles\\新建 Microsoft Word 文档.docx', '2023-04-02 13:17:37.227', '2023-04-02 22:07:04', 3, NULL, 3);
 
 -- ----------------------------
 -- Table structure for project_group
@@ -226,28 +180,6 @@ CREATE TABLE `repeat_message`  (
 INSERT INTO `repeat_message` VALUES (9, '18591981653', '2023-06-12 18:38:17', NULL, 170);
 INSERT INTO `repeat_message` VALUES (10, '13659196637', '2023-06-12 18:38:17', NULL, 170);
 INSERT INTO `repeat_message` VALUES (11, '15991252344', '2023-06-13 09:49:40', NULL, 170);
-
--- ----------------------------
--- Table structure for review
--- ----------------------------
-DROP TABLE IF EXISTS `review`;
-CREATE TABLE `review`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `applicant_id` int(11) NULL DEFAULT NULL,
-  `project_id` int(11) NULL DEFAULT NULL,
-  `expert_id` int(11) NULL DEFAULT NULL,
-  `opinion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `review_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of review
--- ----------------------------
-INSERT INTO `review` VALUES (1, 1, 5, 2, '不错', '50', '2023-04-02 10:17:43.712');
-INSERT INTO `review` VALUES (2, 3, 6, 2, '测试', '60', '2023-04-02 13:48:45.099');
-INSERT INTO `review` VALUES (3, 3, 6, 4, 'ceshi ', '70', '2023-04-02 13:50:28.108');
 
 -- ----------------------------
 -- Table structure for review_management

@@ -62,7 +62,11 @@ public class UserController {
      */
     @RequestMapping("/login")
     public String login(SysUser sysUser, HttpSession session, Model model) throws Exception {
-        sysUser.setPassword(Md5Utils.md5(sysUser.getPassword()));
+        if (sysUser != null){
+            if (sysUser.getPassword() != null){
+                sysUser.setPassword(Md5Utils.md5(sysUser.getPassword()));
+            }
+        }
         SysUser user = userService.login(sysUser);
         if (user == null) {
             model.addAttribute("message", "请正确填写角色、用户名与密码");

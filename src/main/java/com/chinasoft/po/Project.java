@@ -12,7 +12,6 @@ import java.util.Date;
 public class Project {
 
 	//评审任务评审状态 ：(待分组,待分配，待评审，评审中，评审完成)
-	//public static final String PROJECT_REVIEW_STATUS_WAIT_GROUP = "WAIT_GROUP";
 	public static final String PROJECT_REVIEW_STATUS_WAIT_ALLOCATE = "WAIT_ALLOCATE";
     public static final String PROJECT_REVIEW_STATUS_WAIT_REVIEW = "WAIT_REVIEW";
     public static final String PROJECT_REVIEW_STATUS_IN_REVIEW = "IN_REVIEW";
