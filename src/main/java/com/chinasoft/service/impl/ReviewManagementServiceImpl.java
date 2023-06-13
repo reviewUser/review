@@ -69,7 +69,7 @@ public class ReviewManagementServiceImpl implements ReviewManagementService {
                     reviewManagementDao.updateStatus("全部通知完成", p.getId());
                 } else if (collect.stream().allMatch("拒绝"::equals)) {
                     reviewManagementDao.updateStatus("通知失败", p.getId());
-                } else {
+                } else if (collect.stream().anyMatch("同意"::equals) || collect.stream().anyMatch("拒绝"::equals)){
                     reviewManagementDao.updateStatus("部分通知完成", p.getId());
                 }
             }
