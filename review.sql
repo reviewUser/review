@@ -81,31 +81,6 @@ INSERT INTO `check_review_status` VALUES (106, 170, '18591981653', '0', '暂未�
 INSERT INTO `check_review_status` VALUES (107, 170, '13659196637', '0', '暂未回复');
 INSERT INTO `check_review_status` VALUES (108, 170, '15991252344', '0', '暂未回复');
 
--- ----------------------------
--- Table structure for entity_field
--- ----------------------------
-DROP TABLE IF EXISTS `entity_field`;
-CREATE TABLE `entity_field`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `field_id` int(11) NOT NULL,
-  `entity_id` int(11) NULL DEFAULT NULL,
-  `entity_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of entity_field
--- ----------------------------
-INSERT INTO `entity_field` VALUES (1, 1, 5, 'PROJECT');
-INSERT INTO `entity_field` VALUES (2, 1, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (3, 2, 6, 'PROJECT');
-INSERT INTO `entity_field` VALUES (4, 1, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (5, 2, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (6, 1, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (7, 2, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (8, 2, 4, 'EXPERT');
-INSERT INTO `entity_field` VALUES (9, 1, 2, 'EXPERT');
-INSERT INTO `entity_field` VALUES (10, 3, 7, 'PROJECT');
 
 -- ----------------------------
 -- Table structure for expert_info

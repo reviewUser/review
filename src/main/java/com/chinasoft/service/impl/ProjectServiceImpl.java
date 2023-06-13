@@ -1,13 +1,10 @@
 package com.chinasoft.service.impl;
 
-import com.chinasoft.dao.FieldDao;
 import com.chinasoft.dao.GroupDao;
 import com.chinasoft.dao.ProjectDao;
 import com.chinasoft.param.GenerateApplyParam;
-import com.chinasoft.param.ProjectListParam;
 import com.chinasoft.po.Group;
 import com.chinasoft.po.Project;
-import com.chinasoft.service.FieldService;
 import com.chinasoft.service.ProjectService;
 import com.chinasoft.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
