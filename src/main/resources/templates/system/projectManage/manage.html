@@ -382,7 +382,7 @@
                         , area: ['40%', '20%']
                         , content: '<div style="width:90%">' +
                             '<form>' +
-                            '<label class="layui-form-label">输入所需专家数量</label>\n' +
+                            '<label class="layui-form-label" style="width: 150">输入所需专家数量</label>\n' +
                             '                                <div class="layui-input-inline">\n' +
                             '                                    <input id="addition" type="text" name="addition"\n' +
                             '                                           placeholder="" autocomplete="off"\n' +
@@ -506,7 +506,7 @@
                                 const aLink = document.createElement('a');
                                 aLink.style.display = 'none';
                                 aLink.href = window.URL.createObjectURL(blob);
-                                aLink.download = '评审任务表';
+                                aLink.download = '评审任务表.xlsx';
                                 document.body.appendChild(aLink);
                                 aLink.click();
                                 document.body.removeChild(aLink);

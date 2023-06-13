@@ -295,11 +295,12 @@
 									data:JSON.stringify(release),
 									contentType:'application/json;charset=utf-8',
 									success:function(data){
-										if(data.code==200){
-											layer.msg("删除成功",function() {time:1000});
-											parent.location.reload();
+										if(data){
+											layer.msg("解除封禁成功!",{time:1000},function() {
+												parent.location.reload();
+											});
 										}else{
-											layer.msg("删除失败",function() {time:1000})
+											layer.msg("解封失败！");
 										}
 									}
 								})
@@ -401,7 +402,7 @@
 						  const aLink = document.createElement('a');
 						  aLink.style.display = 'none';
 						  aLink.href = window.URL.createObjectURL(blob);
-						  aLink.download = '专家信息表';
+						  aLink.download = '专家信息表.xlsx';
 						  document.body.appendChild(aLink);
 						  aLink.click();
 						  document.body.removeChild(aLink);
@@ -423,11 +424,21 @@
 
 						$.post("/expert/unMeeting", { id : data.id, unMeeting : data.unMeeting}, res=>{//“”内填url
 							if(res){  // 未参会次数更新成功
-								layer.msg("管理员信息修改成功");
-								window.reloadView = function () {
-									window.location.reload();
-								}
-								setInterval('reloadView()',1500);
+								layer.msg("管理员信息修改成功！!",{time:1000},function() {
+									parent.location.reload();
+								});
+
+								// parent.reloadView = function () {
+									$.ajax({
+										url: '/expert/queryExpertInfo',
+										method: 'post',
+										contentType:'application/json;charset=utf-8',
+										data:JSON.stringify(params),
+										success: function(res) {
+											renderTable(res.data);
+										}
+									})
+								// setInterval('reloadView()',1000);
 							}
 							else
 							{
