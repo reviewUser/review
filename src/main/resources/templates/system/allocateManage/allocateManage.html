@@ -42,7 +42,7 @@
 					<a class="" href="javascript:;" ><strong>密码修改</strong></a>
 				</li>
 				<li class="layui-nav-item">
-					<a class="" href="javascript:;"th:href="@{/field/fieldPage}"><strong>系统配置</strong></a>
+					<a class="" href="javascript:;"th:href="@{/pageJump/sysConfig}"><strong>系统配置</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -53,36 +53,31 @@
          </span>
 		<blockquote class="layui-elem-quote"><BIG>密码更改</BIG></blockquote>
 		<form style="height:300px">
-			<table border="0" cellspacing="0" style="margin-right:30px" id="change_table">
-				<tr>
-					<th>
-						<div class="layui-inline"><label class="layui-form-label">用户名</label>
-							<div class="layui-input-inline">
-								<input align="center" id="change_name" type="text" name="review_name" placeholder="输入用户名" autocomplete="off" class="layui-input"/>
-							</div>
-						</div>
-					</th>
-				</tr>
-				<tr>
-					<th>
-						<div class="layui-inline"><label class="layui-form-label">旧密码</label>
-							<div class="layui-input-inline">
-								<input id="change_old" type="text" name="change_old" placeholder="输入旧密码" autocomplete="off" class="layui-input"/>
-							</div>
-						</div>
-					</th>
-				</tr>
-				<tr>
-					<th>
-						<div class="layui-inline"><label class="layui-form-label">新密码</label>
-							<div class="layui-input-inline">
-								<input id="change_new" type="text" name="review_user" placeholder="不可与旧密码一致" autocomplete="off" class="layui-input"/>
-							</div>
-						</div>
-					</th>
-				</tr>
-			</table>
-			<div class="layui-inline" style="top:20px;left:120px">
+			<div style="position:static;height:30px;">
+				<div class="layui-inline"><label class="layui-form-label">用户名</label>
+					<div class="layui-input-inline">
+						<input align="center" id="change_name" type="text" name="review_name" placeholder="输入用户名" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div style="position:static;height:30px;">
+				<div class="layui-inline"><label class="layui-form-label">旧密码</label>
+					<div class="layui-input-inline">
+						<input id="change_old" type="text" name="change_old" placeholder="输入旧密码" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div style="position:static;height:30px;">
+				<div class="layui-inline"><label class="layui-form-label">新密码</label>
+					<div class="layui-input-inline">
+						<input id="change_new" type="text" name="review_user" placeholder="不可与旧密码一致" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="layui-inline" style="top:10px;left:120px">
 				<button type="button" id="save" class="layui-btn layui-btn-normal" style="align='center'" lay-submit lay-filter="save">保存</button>
 			</div>
 		</form>

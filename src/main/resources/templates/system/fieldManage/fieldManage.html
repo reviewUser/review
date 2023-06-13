@@ -55,52 +55,43 @@
 			</span>
 			<blockquote class="layui-elem-quote">可修改所需配置信息</blockquote>
 			<form class="layui-form" method="POST">
-				<table>
-					<tr>
-						<td>
-							<div class="layui-inline" style="position:static">
+
+							<div class="layui-inline" style="position:static;height:60px;">
 								<label class="layui-form-label" style="width: 100px">自动拒绝时间</label>
 								<div class="layui-input-inline">
 									<input id="hour" type="text" name="hour"  class="layui-input" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_hour" style="height: 35px">确认修改</button>
+								<span style="color: #cb2028;font-size: xx-small;margin-left: 20px">备注:专家多久未回复,视为拒绝</span>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="layui-inline" style="position:static">
+				<br>
+							<div class="layui-inline" style="position:static;height:60px;">
 								<label class="layui-form-label" style="width: 100px">拒绝封禁次数</label>
 								<div class="layui-input-inline">
 									<input type="text" class="layui-input" id="refuse_count"  style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_refuse" style="height: 35px">确认修改</button>
+								<span style="color: #cb2028 ;font-size: xx-small;margin-left: 20px">备注:专家回复几次拒绝后,将其状态改为封禁</span>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="layui-inline" style="position:static">
+				<br>
+							<div class="layui-inline" style="position:static;height:60px">
 								<label class="layui-form-label" style="width: 100px">未参会封禁次数</label>
 								<div class="layui-input-inline">
 									<input type="text" class="layui-input" id="un_meeting" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_unMeeting" style="height: 35px">确认修改</button>
+								<span style="color: #cb2028;font-size: xx-small;margin-left: 20px">备注:专家几次回复同意，实际未参会后,将其状态改为封禁</span>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="layui-inline" style="position:static">
+				<br>
+							<div class="layui-inline" style="position:static;height:60px">
 								<label class="layui-form-label" style="width: 100px">轮空次数</label>
 								<div class="layui-input-inline">
 									<input type="text" class="layui-input" id="numOfEmptyTurns" style="width: 220px"/>
 								</div>
 								<button type="button" class="layui-btn layui-btn-normal" id="save_numOfEmptyTurns" style="height: 35px">确认修改</button>
+								<span style="color: #cb2028;font-size: xx-small;margin-left: 20px">备注:专家未参会后,将其轮空几轮（几轮不会再收到短信）</span>
 							</div>
-						</td>
-					</tr>
-				</table>
+
 			</form>
 		</div>
 		<div class="layui-footer">

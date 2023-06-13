@@ -1,10 +1,12 @@
 package com.chinasoft.controller;
 
 import com.chinasoft.exception.CustomException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+@Controller
 @RequestMapping("/pageJump")
 public class PageController {
     /**
