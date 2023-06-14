@@ -200,11 +200,7 @@
         //日期时间范围
         var params = {};
         params.pageNum = 1;
-        params.pageSize = 10;
-        params.reviewName = $('#review_name').val();
-        params.reviewField = $('#review_field').val();
-        params.reviewStatus = $('#review_status').val();
-        params.address = $('#address').val();
+        params.pageSize = 10000;
 
         //接口接入
         $.ajax({
@@ -247,12 +243,34 @@
                     pageName: 'pageNum', //页码的参数名称
                     limitName: 'pageSize' //每页数据量的参数名
                 }
-                , done: function (res, curr, count) {
-                    this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
+                ,done:function (res,curr,count) {
+                        //显示服务器响应的数据，方便观看
+                        laypage.render({
+                            elem: '#groupinfo',//被渲染的分页栏id，此处不需要加#号
+                            count: count,//数据总条数
+                            curr:  curr,//当前页码
+                            limit: 10,//当前页展示的最大行数
+                            limits: [5,10,15,20],//分页大小选项
+                            //分页栏的样式，具体情况可以去layui镜像网站查看
+                            layout:['count','prev','page','next','limit','skip'],
+                            //jump函数在操作分页栏后执行
+                            //obj：当前分页栏的所有属性值
+                            //first:是否是第一次加载
+                            jump:function (obj,first) {
+                                //当操作分页栏后，获得当前页码的数据，赋值给隐藏的用来存放页码的输入框
+                                $("#pageNum").val(obj.curr)
+                                //同理它是赋值给pageSize的
+                                $("#pageSize").val(obj.limit)
+                                //如果是首次加载页面，那就不执行
+                                if (!first){
+                                    //不是首次加载页面的话，就触发按钮的提交事件
+                                    $("#getUser").click()
+                                }
+                            }
+                        });
                 }
-
                 , page: {
-                    limit: params.pageSize,//指定每页显示的条数
+                    limit: 10,//指定每页显示的条数
                     limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
                 }
             });
@@ -523,7 +541,7 @@
         $('#select').click(function () {
             var s = {
                 pageNum: 1,
-                pageSize: 10
+                pageSize: 10000
             };
             s.reviewName = $('#review_name').val();
             s.reviewField = $('#review_field').val();

@@ -207,16 +207,8 @@
 
 			var params = {};
 			params.pageNum = 1;
-			params.pageSize = 10;
-			params.id=$('#id').val();
-			params.workNumber =$('#work_number').val();
-			params.level =$('#expert_level').val();
-			params.technologyLevel =$('#technology_level').val();
-			params.fieldName =$('#field_name').val();
-			params.address =$('#address').val();
-			params.workUnit =$('#work_unit').val();
-			params.unMeeting =$('#un_meeting').val();
-			params.expertStatus =$('#expert_status').val();
+			params.pageSize = 1000;
+
 
 			$.ajax({
       			  url: '/expert/queryExpertInfo',
@@ -224,10 +216,10 @@
 				  contentType:'application/json;charset=utf-8',
 				  data:JSON.stringify(params),
 				  success: function(res) {
-						var sumCount=res.count;
-						renderTable(res,sumCount);
+					  renderTable(res);
 				  }
 				})
+
 			var colsnew=[ //表头
 					  {type:'checkbox'}
 					  ,{field: 'id', title: '序号', width:100, sort: true}
@@ -246,23 +238,29 @@
 					  ,{field: 'unMeeting', title:'未参会次数', width: 130,edit: "text"}
 					  ,{field: 'expertStatus', title: '专家状态', width:100}
 					]
-				var renderTable = function(res,sumCount) {
-					var tableIns = table.render({
+				var renderTable = function(res) {
+					 table.render({
 						elem: '#groupinfo'
+						// ,method:'post'
+						//  ,url:'/expert/queryExpertInfo'
+						 ,data:res.data
 						, width: '100%'
-						, data: res.data
+						,dataType:'json'
 						, cols: [colsnew]
 						, request: {
-							pageName: 'pageNum', //页码的参数名称
-							limitName: 'pageSize' //每页数据量的参数名
+							pageName: 'pageNum', //页码的参数名称，默认：page
+							limitName: 'pageSize',
 						}
-
-						,done:function (res, curr, count) {
+						, page: {
+							 limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+							 limit: 10,
+						 }
+						,done:function (res,curr,count) {
 							//显示服务器响应的数据，方便观看
 							laypage.render({
-								elem: 'groupinfo',//被渲染的分页栏id，此处不需要加#号
-								count: sumCount,//数据总条数
-								curr:  params.pageNum,//当前页码
+								elem: '#groupinfo',//被渲染的分页栏id，此处不需要加#号
+								count: count,//数据总条数
+								curr:  curr,//当前页码
 								limit: params.pageSize,//当前页展示的最大行数
 								limits: [5,10,15,20],//分页大小选项
 								//分页栏的样式，具体情况可以去layui镜像网站查看
@@ -283,10 +281,7 @@
 								}
 							});
 						}
-						, page: {
-							limit: params.pageSize,//指定每页显示的条数
-							limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-						}
+
 					});
 					//重载
 					table.render().reload('groupinfo', {cols: [colsnew]});
@@ -475,7 +470,7 @@
 			$("#select").click(function Search() {
             		 	var search={};
             		 	search.pageNum = 1;
-						search.pageSize = 10;
+						search.pageSize = 1000;
 						search.workNumber=$("#work_number").val();
 						search.level =$('#expert_level').val();
 						search.technologyLevel =$('#technology_level').val();
