@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/pageJump")
-public class PageController {
+@RequestMapping("/review")
+public class PageJumpController {
     /**
      * 跳转首页
      *
