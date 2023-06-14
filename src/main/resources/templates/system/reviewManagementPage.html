@@ -42,9 +42,6 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree site-demo-nav">
-                <!--					<li class="layui-nav-item layui-nav-itemed">-->
-                <!--						<a class="" href="javascript:;" th:href="@{/review/expertInfo}">评审任务分组管理</a>-->
-                <!--					</li>-->
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;" th:href="@{/review/expertInfo}"><STRONG>评审专家管理</STRONG></a>
                 </li>
@@ -216,7 +213,7 @@
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(params),
             success: function (res) {
-                renderTable(res.data);
+                renderTable(res);
             }
         });
         var colsnew = [ //表头
@@ -239,11 +236,11 @@
             , {field: 'add', title: '追加参会人', width: 100, align: 'center', toolbar: '#addExpert'}
         ];
         //执行一个 table 实例
-        var renderTable = function (data) {
+        var renderTable = function (res) {
             var tableIns = table.render({
                 elem: '#applyinfo'
                 , width: '100%'
-                , data: data
+                , data: res.data
                 , cols: [colsnew]
                 , where: {action: "List"}
                 , request: {
@@ -261,6 +258,7 @@
             });
             // 执行重载
             table.render().reload('applyinfo', {cols: [colsnew]})
+        }
             //监听工具条
             table.on('tool(applyinfo)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
                 var data = obj.data //获得当前行数据
@@ -308,7 +306,7 @@
                         contentType: 'application/json;charset=utf-8',
                         data: JSON.stringify(params),
                         success: function (res) {
-                            renderTable(res.data);
+                            renderTable(res);
                         }
                     });
 
@@ -521,8 +519,6 @@
                 });
 
             });
-
-        }
         //查询
         $('#select').click(function () {
             var s = {
@@ -540,7 +536,7 @@
                 data: JSON.stringify(s),
                 success: function (res) {
                     if (res.data) {
-                        renderTable(res.data);
+                        renderTable(res);
                     } else {
                         layer.msg("无符合条件任务！");
                     }
@@ -561,7 +557,7 @@
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(params),
                     success: function (res) {
-                        renderTable(res.data);
+                        renderTable(res);
                     }
                 });
             }

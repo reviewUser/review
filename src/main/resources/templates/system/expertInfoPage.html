@@ -53,9 +53,6 @@
 		<div class="layui-side-scroll">
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 			<ul class="layui-nav layui-nav-tree site-demo-nav" >
-				<!--					<li class="layui-nav-item layui-nav-itemed">-->
-				<!--						<a class="" href="javascript:;" th:href="@{/review/expertInfo}">评审任务分组管理</a>-->
-				<!--					</li>-->
 				<li class="layui-nav-item">
 					<a class="" href="javascript:;" ><STRONG>评审专家管理</STRONG></a>
 				</li>
@@ -192,20 +189,20 @@
 	</div>
 </div>
 <script src="../../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
-
 <script>
 	/*<![CDATA[*/
 		//JavaScript代码区域
 
 	// 更新单元格内容
-		layui.use(['jquery','layer','form','table','laydate','element','upload'], function() {
+		layui.use(['jquery','layer','form','table','laydate','element','upload','laypage'], function() {
 			var $ = layui.jquery,
 			layer = layui.layer,
 			form = layui.form,
 			table = layui.table,
 			laydate = layui.laydate,
 			element = layui.element,
-			upload = layui.upload
+			upload = layui.upload,
+			laypage = layui.laypage;
 
 
 			var params = {};
@@ -227,7 +224,8 @@
 				  contentType:'application/json;charset=utf-8',
 				  data:JSON.stringify(params),
 				  success: function(res) {
-				  	renderTable(res.data);
+						var sumCount=res.count;
+						renderTable(res,sumCount);
 				  }
 				})
 			var colsnew=[ //表头
@@ -248,26 +246,51 @@
 					  ,{field: 'unMeeting', title:'未参会次数', width: 130,edit: "text"}
 					  ,{field: 'expertStatus', title: '专家状态', width:100}
 					]
-				var renderTable = function(data) {
-				    var tableIns = table.render({
+				var renderTable = function(res,sumCount) {
+					var tableIns = table.render({
 						elem: '#groupinfo'
-						,width: '100%'
-						,data:data
-						,cols: [colsnew]
-						,request: {
+						, width: '100%'
+						, data: res.data
+						, cols: [colsnew]
+						, request: {
 							pageName: 'pageNum', //页码的参数名称
 							limitName: 'pageSize' //每页数据量的参数名
-            		 }
-            		,done: function (res, curr, count) {
-                		this.cols = []; //（关键代码）将cols初始化，否则表格重载时无法正确重新渲染表头
-            		}
-				   ,page:{
-               		 	limit: params.pageSize ,//指定每页显示的条数
-                        limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
-            		 }
-				  });
-				  //重载
-					table.render().reload('groupinfo', { cols: [colsnew] });
+						}
+
+						,done:function (res, curr, count) {
+							//显示服务器响应的数据，方便观看
+							laypage.render({
+								elem: 'groupinfo',//被渲染的分页栏id，此处不需要加#号
+								count: sumCount,//数据总条数
+								curr:  params.pageNum,//当前页码
+								limit: params.pageSize,//当前页展示的最大行数
+								limits: [5,10,15,20],//分页大小选项
+								//分页栏的样式，具体情况可以去layui镜像网站查看
+								layout:['count','prev','page','next','limit','skip'],
+								//jump函数在操作分页栏后执行
+								//obj：当前分页栏的所有属性值
+								//first:是否是第一次加载
+								jump:function (obj,first) {
+									//当操作分页栏后，获得当前页码的数据，赋值给隐藏的用来存放页码的输入框
+									$("#pageNum").val(obj.curr)
+									//同理它是赋值给pageSize的
+									$("#pageSize").val(obj.limit)
+									//如果是首次加载页面，那就不执行
+									if (!first){
+										//不是首次加载页面的话，就触发按钮的提交事件
+										$("#getUser").click()
+									}
+								}
+							});
+						}
+						, page: {
+							limit: params.pageSize,//指定每页显示的条数
+							limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50], //每页数据量的参数名
+						}
+					});
+					//重载
+					table.render().reload('groupinfo', {cols: [colsnew]});
+				}
 					//解封
 					form.on('submit(release)',function(data) {
 						var checkStatus = table.checkStatus('groupinfo'); //idTest 即为基础参数 id 对应的值
@@ -435,7 +458,7 @@
 										contentType:'application/json;charset=utf-8',
 										data:JSON.stringify(params),
 										success: function(res) {
-											renderTable(res.data);
+											renderTable(res);
 										}
 									})
 								// setInterval('reloadView()',1000);
@@ -447,7 +470,7 @@
 
 						})
 					});
-				}
+
 
 			$("#select").click(function Search() {
             		 	var search={};
@@ -469,7 +492,7 @@
 							contentType:'application/json;charset=utf-8',
 							success:function (res) {
 									if(res.data){
-										renderTable(res.data);
+										renderTable(res);
 									}else{
 											alert("暂无此人");
 									}
@@ -490,7 +513,7 @@
 					contentType:'application/json;charset=utf-8',
 					data:JSON.stringify(params),
 					success: function(res) {
-						renderTable(res.data);
+						renderTable(res);
 					}
 				})
     			}
@@ -627,7 +650,7 @@
 													  contentType:'application/json;charset=utf-8',
 													  data:JSON.stringify(params),
 													  success: function(res) {
-														  renderTable(res.data);
+														  renderTable(res);
 													  }
 												  })
 												  layer.closeAll();
