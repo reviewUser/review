@@ -49,11 +49,13 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                 expertInfo.setIntegral(info.getIntegral());
                 expertInfo.setRefuseCount(info.getRefuseCount());
                 expertInfo.setUnMeeting(info.getUnMeeting());
+                expertInfo.setMeetingTimes(info.getMeetingTimes());
                 expertInfo.setExpertStatus(info.getExpertStatus());
             } else {
                 expertInfo.setIntegral(0);
                 expertInfo.setRefuseCount(0);
                 expertInfo.setUnMeeting(0);
+                expertInfo.setMeetingTimes(0);
                 expertInfo.setExpertStatus("正常");
             }
             result = expertInfoDao.insert(expertInfo);
@@ -141,14 +143,15 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                     expertInfo.setIntegral(info.getIntegral());
                     expertInfo.setRefuseCount(info.getRefuseCount());
                     expertInfo.setUnMeeting(info.getUnMeeting());
+                    expertInfo.setMeetingTimes(info.getMeetingTimes());
                     expertInfo.setExpertStatus(info.getExpertStatus());
                 } else {
                     expertInfo.setIntegral(0);
                     expertInfo.setRefuseCount(0);
                     expertInfo.setUnMeeting(0);
+                    expertInfo.setMeetingTimes(0);
                     expertInfo.setExpertStatus("正常");
                 }
-                expertInfo.setUnMeeting(0);
                 expertInfos.add(expertInfo);
             }
             int i = expertInfoDao.batchInsertExperts(expertInfos);

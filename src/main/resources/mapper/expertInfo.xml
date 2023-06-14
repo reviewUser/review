@@ -26,9 +26,9 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         replace into expert_info(id, work_number, name, expert_level, technology_level,field_name, phone,
-        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address)
+        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address,meeting_times)
         VALUES (#{id}, #{workNumber}, #{name}, #{level}, #{technologyLevel},#{fieldName}, #{phone}, #{birthday},#{age},
-        #{integral}, #{refuseCount}, #{expertStatus},#{unMeeting},#{workUnit},#{address})
+        #{integral}, #{refuseCount}, #{expertStatus},#{unMeeting},#{workUnit},#{address},#{meetingTimes})
     </insert>
 
     <select id="queryExpertInfo" resultMap="expertInfoMap">
@@ -121,11 +121,11 @@
 
     <insert id="batchInsertExperts" parameterType="java.util.List">
         replace into expert_info(id, work_number, name, expert_level, technology_level,field_name, phone,
-        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address) VALUES
+        birthday,age,integral,refuse_count,expert_status,un_meeting,work_unit,address,meeting_times) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id}, #{item.workNumber}, #{item.name}, #{item.level}, #{item.technologyLevel},#{item.fieldName},
             #{item.phone}, #{item.birthday},#{item.age},
-            #{item.integral}, #{item.refuseCount}, #{item.expertStatus},#{item.unMeeting},#{item.workUnit},#{item.address})
+            #{item.integral}, #{item.refuseCount}, #{item.expertStatus},#{item.unMeeting},#{item.workUnit},#{item.address},#{item.meetingTimes})
         </foreach>
     </insert>
 
