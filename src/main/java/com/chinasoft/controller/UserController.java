@@ -107,13 +107,13 @@ public class UserController {
         String path = null;
         switch (role) {
             case "1":
-                path = "system/groupManage/groupManage";
+                path = "system/expertInfoPage";
                 break;
             case "2":
-                path = "system/groupManage/groupManage";
+                path = "system/expertInfoPage";
                 break;
             case "3":
-                path = "system/groupManage/groupManage";
+                path = "system/expertInfoPage";
                 break;
             default:
                 break;

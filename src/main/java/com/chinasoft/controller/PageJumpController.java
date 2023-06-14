@@ -4,7 +4,6 @@ import com.chinasoft.exception.CustomException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -27,11 +26,11 @@ public class PageJumpController {
      * @throws Exception
      */
     @RequestMapping("/expertInfo")
-    public String groupManagePage(HttpSession session) throws Exception {
+    public String expertInfoPage(HttpSession session) {
         if (session.getAttribute("user") == null) {
             throw new CustomException("未登录，请先登录", "/");
         }
-        return "system/groupManage/groupManage";
+        return "system/expertInfoPage";
     }
 
     /**
@@ -41,11 +40,11 @@ public class PageJumpController {
      * @throws Exception
      */
     @RequestMapping("/reviewManagement")
-    public String managePage(HttpSession session, HttpServletRequest request) throws Exception {
+    public String reviewManagementPage(HttpSession session) {
         if (session.getAttribute("user") == null) {
             throw new CustomException("未登录，请先登录", "/");
         }
-        return "system/projectManage/manage";
+        return "system/reviewManagementPage";
     }
 
     /**
@@ -54,13 +53,13 @@ public class PageJumpController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/passwordManagement")
-    public String allocateManagePage(HttpSession session) throws Exception {
+    @RequestMapping("/pswManagement")
+    public String pswManagementPage(HttpSession session) {
         if (session.getAttribute("user") == null) {
             throw new CustomException("未登录，请先登录", "/");
         }
 
-        return "system/allocateManage/allocateManage";
+        return "system/pswManagementPage";
     }
 
     /**
@@ -71,10 +70,10 @@ public class PageJumpController {
      * @throws Exception
      */
     @RequestMapping("/sysConfig")
-    public String fieldPage(HttpSession session) {
+    public String sysConfigPage(HttpSession session) {
         if (session.getAttribute("user") == null) {
             throw new CustomException("未登录，请先登录", "/");
         }
-        return "system/fieldManage/fieldManage";
+        return "system/sysConfigPage";
     }
 }
