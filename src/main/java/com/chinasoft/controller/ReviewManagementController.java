@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 评审任务管理页面
+ */
 @RestController
 @RequestMapping("/review")
 public class ReviewManagementController {
@@ -23,7 +26,7 @@ public class ReviewManagementController {
     private ReviewManagementService reviewManagementService;
 
     /**
-     * 查询评审任务信息以json的形式返回
+     * 查询
      * @param param
      * @return
      */
@@ -46,7 +49,7 @@ public class ReviewManagementController {
     }
 
     /**
-     * 导入评审任务
+     * 导入
      *
      * @param file
      * @return
@@ -58,7 +61,7 @@ public class ReviewManagementController {
     }
 
     /**
-     * 批量删除任务
+     * 批量删除
      * @param ids
      * @return
      * @throws IOException
@@ -91,7 +94,7 @@ public class ReviewManagementController {
     }
 
     /**
-     * 导出评审任务信息
+     * 导出
      *
      * @param ids
      * @return

@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 专家信息页面
+ */
 @RestController
 @RequestMapping("/expert")
 public class ExpertInfoController {
@@ -25,7 +28,7 @@ public class ExpertInfoController {
     private ExpertInfoService expertInfoService;
 
     /**
-     * 新增评审专家
+     * 新增
      * @param expertInfo
      * @return
      * @throws Exception
@@ -36,7 +39,7 @@ public class ExpertInfoController {
     }
 
     /**
-     * 查询专家基本信息以json的形式返回
+     * 查询
      * @param param
      * @return
      * @throws Exception
@@ -58,8 +61,7 @@ public class ExpertInfoController {
     }
 
     /**
-     * 导入专家信息
-     *
+     * 导入
      * @param file
      * @return
      */
@@ -70,7 +72,7 @@ public class ExpertInfoController {
     }
 
     /**
-     * 导出专家信息
+     * 导出
      * @param ids
      * @param response
      * @throws IOException
@@ -114,8 +116,7 @@ public class ExpertInfoController {
     }
 
     /**
-     * 修好密码信息
-     *
+     * 修好密码
      * @param pwdInfo
      * @return
      */

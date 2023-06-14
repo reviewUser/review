@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * 页面跳转
+ */
 @Controller
 @RequestMapping("/review")
 public class PageJumpController {
     /**
-     * 跳转首页
+     * 首页
      *
      * @return
      */
@@ -20,7 +23,7 @@ public class PageJumpController {
     }
 
     /**
-     * 跳转专家信息页面
+     * 专家信息
      *
      * @return
      * @throws Exception
@@ -34,7 +37,7 @@ public class PageJumpController {
     }
 
     /**
-     * 跳转评审任务管理页面
+     * 评审任务管理
      *
      * @return
      * @throws Exception
@@ -48,7 +51,7 @@ public class PageJumpController {
     }
 
     /**
-     * 跳转密码修改页面
+     * 密码修改
      *
      * @return
      * @throws Exception
@@ -63,7 +66,7 @@ public class PageJumpController {
     }
 
     /**
-     * 跳转系统配置
+     * 系统配置
      *
      * @param session
      * @return

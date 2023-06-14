@@ -23,13 +23,4 @@ public class GlobalExceptionHandler {
 		mv.addObject("href", exception.getHref());
 		return mv;
 	}
-
-	/*@ResponseBody
-	@ExceptionHandler(IOException.class)
-	public ModelAndView exceptionHandleIOException(IOException exception) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("applicant/upload");
-		mv.addObject("message", exception.getMessage());
-		return mv;
-	}*/
 }
