@@ -31,19 +31,9 @@ public interface ExpertInfoService {
 
     Result delExperts(List<Long> ids);
 
-    /**
-     * 未参会次数
-     *
-     * @param unMeeting
-     */
     int updateUnMeetingNum(int unMeeting, long id);
 
     int unBan(List<Long> ids);
 
-    /**
-     * 修改密码
-     *
-     * @param pwdInfo
-     */
     Result updatePwd(PwdInfo pwdInfo) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 }

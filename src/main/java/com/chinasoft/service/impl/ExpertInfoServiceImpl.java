@@ -11,7 +11,6 @@ import com.chinasoft.service.ExpertInfoService;
 import com.chinasoft.utils.ImportExcelUtils;
 import com.chinasoft.utils.Md5Utils;
 import com.chinasoft.utils.Result;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,12 +46,14 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
             expertInfo.setAge(age);
             ExpertInfo info = expertInfoDao.selectByWorkNum(expertInfo.getWorkNumber());
             if (info != null) {
-                expertInfo.setRefuseCount(info.getRefuseCount());
                 expertInfo.setIntegral(info.getIntegral());
+                expertInfo.setRefuseCount(info.getRefuseCount());
+                expertInfo.setUnMeeting(info.getUnMeeting());
                 expertInfo.setExpertStatus(info.getExpertStatus());
             } else {
                 expertInfo.setIntegral(0);
                 expertInfo.setRefuseCount(0);
+                expertInfo.setUnMeeting(0);
                 expertInfo.setExpertStatus("正常");
             }
             result = expertInfoDao.insert(expertInfo);
@@ -139,10 +140,12 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
                 if (info != null) {
                     expertInfo.setIntegral(info.getIntegral());
                     expertInfo.setRefuseCount(info.getRefuseCount());
+                    expertInfo.setUnMeeting(info.getUnMeeting());
                     expertInfo.setExpertStatus(info.getExpertStatus());
                 } else {
                     expertInfo.setIntegral(0);
                     expertInfo.setRefuseCount(0);
+                    expertInfo.setUnMeeting(0);
                     expertInfo.setExpertStatus("正常");
                 }
                 expertInfo.setUnMeeting(0);
@@ -269,12 +272,12 @@ public class ExpertInfoServiceImpl implements ExpertInfoService {
             result.setMsg("参数异常");
             return result;
         }
-        SysUser sysUser = expertInfoDao.queryUser(pwdInfo.getUsername());
-        if (sysUser == null || StringUtils.isEmpty((CharSequence) sysUser)){
+        if (!"admin".equals(pwdInfo.getUsername())) {
             result.setCode("200");
             result.setMsg("用户名不正确");
             return result;
         }
+        SysUser sysUser = expertInfoDao.queryUser(pwdInfo.getUsername());
         if (sysUser.getPassword().equals(Md5Utils.md5(pwdInfo.getOldPwd()))) {
             expertInfoDao.updatePwd(Md5Utils.md5(pwdInfo.getNewPwd()), pwdInfo.getUsername());
             result.setCode("200");
