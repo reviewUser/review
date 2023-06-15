@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
  * 页面跳转
  */
 @Controller
-@RequestMapping("/review")
 public class PageJumpController {
     /**
      * 首页
