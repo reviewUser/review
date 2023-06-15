@@ -40,7 +40,7 @@
 						<a class="" href="javascript:;" th:href="@{/review/pswManagement}"><strong>密码修改</strong></a>
 					</li>
 					<li class="layui-nav-item">
-						<a class="" href="javascript:;"><strong>系统配置</strong></a>
+						<a class="" href="javascript:;"th:href="@{/review/sysConfig}"><strong>系统配置</strong></a>
 					</li>
 				</ul>
 			</div>
@@ -109,6 +109,27 @@
 			laydate = layui.laydate,
 			element = layui.element;
 
+			$(document).ready(function() {
+				// 获取当前页面的 URL
+				var currentUrl = window.location.href;
+
+				// 遍历导航栏菜单的子菜单项
+				$('.layui-nav-item a').each(function() {
+					var $this = $(this);
+					var linkUrl = $this.attr('href');
+
+					// 如果子菜单项的链接与当前页面的 URL 匹配，则为该子菜单项添加 'layui-this' 类
+					if (currentUrl.indexOf(linkUrl) !== -1) {
+						// 移除其他菜单项的 'layui-this' 类
+
+						// 为匹配的子菜单项添加 'layui-this' 类
+						$this.addClass('layui-this');
+
+						// 结束遍历
+						return false;
+					}
+				});
+			});
 			var data={};
 			$.ajax({
 				url: '/config',

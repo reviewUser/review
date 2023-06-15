@@ -54,7 +54,7 @@
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 			<ul class="layui-nav layui-nav-tree site-demo-nav" >
 				<li class="layui-nav-item">
-					<a class="" href="javascript:;" ><STRONG>评审专家管理</STRONG></a>
+					<a class="" href="javascript:;" th:href="@{/review/expertInfo}"><STRONG>评审专家管理</STRONG></a>
 				</li>
 				<li class="layui-nav-item">
 					<a class="" href="javascript:;" th:href="@{/review/reviewManagement}"><STRONG>评审任务管理</STRONG></a>
@@ -193,6 +193,7 @@
 	/*<![CDATA[*/
 		//JavaScript代码区域
 
+
 	// 更新单元格内容
 		layui.use(['jquery','layer','form','table','laydate','element','upload','laypage'], function() {
 			var $ = layui.jquery,
@@ -204,11 +205,32 @@
 			upload = layui.upload,
 			laypage = layui.laypage;
 
+			$(document).ready(function() {
+				// 获取当前页面的 URL
+				var currentUrl = window.location.href;
 
+				// 遍历导航栏菜单的子菜单项
+				$('.layui-nav-item a').each(function() {
+					var $this = $(this);
+					var linkUrl = $this.attr('href');
+
+					// 如果子菜单项的链接与当前页面的 URL 匹配，则为该子菜单项添加 'layui-this' 类
+					if (currentUrl.indexOf(linkUrl) !== -1) {
+						// 移除其他菜单项的 'layui-this' 类
+
+						// 为匹配的子菜单项添加 'layui-this' 类
+						$this.addClass('layui-this');
+
+						// 结束遍历
+						return false;
+					}
+				});
+			});
 			var params = {};
 			params.pageNum = 1;
 			params.pageSize = 1000;
 
+			var init;
 
 			$.ajax({
       			  url: '/expert/queryExpertInfo',
@@ -252,7 +274,7 @@
 							limitName: 'pageSize',
 						}
 						, page: {
-							 limits: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+							 limits: [10, 20, 50, 100],
 							 limit: 10,
 						 }
 						,done:function (res,curr,count) {
