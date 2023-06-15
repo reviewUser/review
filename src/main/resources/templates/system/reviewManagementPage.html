@@ -189,7 +189,7 @@
 <script th:inline="javascript">
     //JavaScript代码区域
 
-    layui.use(['jquery', 'layer', 'form', 'table', 'laydate', 'element', 'upload'], function () {
+    layui.use(['jquery', 'layer', 'form', 'table', 'laydate', 'element', 'upload','laypage'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
             form = layui.element,
@@ -197,7 +197,7 @@
             laydate = layui.laydate,
             element = layui.element,
             upload = layui.upload;
-
+            laypage = layui.laypage;
 
         $(document).ready(function() {
             // 获取当前页面的 URL
